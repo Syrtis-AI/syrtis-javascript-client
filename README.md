@@ -1,6 +1,6 @@
 # syrtis_javascript_client
 
-Version: 0.0.9
+Version: 0.0.10
 
 Syrtis JavaScript/TypeScript client
 
