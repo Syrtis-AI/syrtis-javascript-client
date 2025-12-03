@@ -4,6 +4,9 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .pdm-python
+# Virtual environments
 .env
 .venv
-/tmp/*
+venv/
+.pdm-build
+/tmp
