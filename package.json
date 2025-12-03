@@ -1,5 +1,5 @@
 {
-  "name": "@syrtis/client",
+  "name": "@syrtis/syrtis-javascript-client",
   "version": "0.0.1",
   "description": "Syrtis JavaScript/TypeScript client",
   "main": "dist/index.js",
@@ -20,5 +20,6 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "type": "module"
 }
