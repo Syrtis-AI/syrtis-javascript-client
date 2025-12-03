@@ -1,5 +1,5 @@
 {
-  "name": "@syrtis_ai/syrtis-javascript-client",
+  "name": "@syrtis-ai/syrtis-javascript-client",
   "version": "0.0.7",
   "description": "Syrtis JavaScript/TypeScript client",
   "main": "dist/index.js",
