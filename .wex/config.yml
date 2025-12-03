@@ -1,3 +1,5 @@
+git:
+  main_deployment_remote_name: github
 global:
   authors:
     email: contact@syrtis.ai
