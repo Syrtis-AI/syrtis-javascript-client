@@ -6,4 +6,4 @@ global:
     name: weeger
   name: syrtis_javascript_client
   vendor: syrtis_ai
-  version: 0.0.6
+  version: 0.0.7
