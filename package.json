@@ -24,5 +24,8 @@
   "type": "module",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@wexample/js-app": "^0.0.8"
   }
 }
