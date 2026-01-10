@@ -1,6 +1,8 @@
-import AbstractApiClient, { type ApiClientOptions } from "@wexample/js-api/Common/AbstractApiClient";
+import AbstractApiEntitiesClient from "@wexample/js-api/Common/AbstractApiEntitiesClient";
+import { type ApiClientOptions } from "@wexample/js-api/Common/AbstractApiClient";
+import { type RepositoryClass } from "@wexample/js-api/Common/ApiEntityManager";
 
-export default class SyrtisClient extends AbstractApiClient {
+export default class SyrtisClient extends AbstractApiEntitiesClient {
   static readonly DEFAULT_BASE_URL = 'https://api.syrtis.ai/api/';
 
   constructor(options: ApiClientOptions = {}) {
@@ -8,5 +10,9 @@ export default class SyrtisClient extends AbstractApiClient {
       ...options,
       baseUrl: options.baseUrl ?? SyrtisClient.DEFAULT_BASE_URL,
     });
+  }
+
+  protected getRepositoryClasses(): RepositoryClass[] {
+    return [];
   }
 }
