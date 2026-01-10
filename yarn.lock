@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@wexample/js-app@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@wexample/js-app/-/js-app-0.0.8.tgz#3f915c4443d48e287d8082c1e4877430f9121734"
-  integrity sha512-NXhAC5em22qgM1lr0wB+Ge3EO36xN664J6zp9rkm1q35zTLGE8BPeCUl1aqHtBMasRRdBV4Yz08OII6MONwX0Q==
+"@wexample/js-app@0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@wexample/js-app/-/js-app-0.0.20.tgz#a89db3acab4031a365a66b3f2c58e15a97789340"
+  integrity sha512-hg8jAZCR9g9VYUEK3sOk2kEPswjC6KZrz1t4QpckL23QWrHaWI5Jeu24kf9EfsKhHlUUjJsmynlQvpRIMLfYWQ==
 
 typescript@^5.0.0:
   version "5.9.3"
