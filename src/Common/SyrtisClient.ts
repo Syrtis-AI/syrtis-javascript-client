@@ -5,6 +5,7 @@ export default class SyrtisClient extends AbstractApiClient {
 
   constructor(options: ApiClientOptions = {}) {
     super({
+      ...options,
       baseUrl: options.baseUrl ?? SyrtisClient.DEFAULT_BASE_URL,
     });
   }
