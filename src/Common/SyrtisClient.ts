@@ -1,6 +1,7 @@
 import AbstractApiEntitiesClient from "@wexample/js-api/Common/AbstractApiEntitiesClient";
 import { type ApiClientOptions } from "@wexample/js-api/Common/AbstractApiClient";
 import { type RepositoryClass } from "@wexample/js-api/Common/ApiEntityManager";
+import ScenarioRepository from "../Repository/ScenarioRepository";
 import SessionRepository from "../Repository/SessionRepository";
 
 export default class SyrtisClient extends AbstractApiEntitiesClient {
@@ -14,6 +15,6 @@ export default class SyrtisClient extends AbstractApiEntitiesClient {
   }
 
   protected getRepositoryClasses(): RepositoryClass[] {
-    return [SessionRepository];
+    return [ScenarioRepository, SessionRepository];
   }
 }
