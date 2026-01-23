@@ -26,7 +26,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@wexample/js-app": "0.0.21",
     "@wexample/js-api": "0.0.5"
   },
   "repository": "https://github.com/Syrtis-AI/syrtis-javascript-client"
