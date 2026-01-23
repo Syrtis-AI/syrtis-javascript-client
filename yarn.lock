@@ -2,12 +2,29 @@
 # yarn lockfile v1
 
 
-"@wexample/js-app@0.0.20":
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/@wexample/js-app/-/js-app-0.0.20.tgz#a89db3acab4031a365a66b3f2c58e15a97789340"
-  integrity sha512-hg8jAZCR9g9VYUEK3sOk2kEPswjC6KZrz1t4QpckL23QWrHaWI5Jeu24kf9EfsKhHlUUjJsmynlQvpRIMLfYWQ==
+"@wexample/js-api@0.0.5":
+  "integrity" "sha512-Xo9hWCVOfyzNNmZSok+3Ju2rh2BXHEdkLXAh7w4LqW8XpFp00YZm1JsAdqoL21Qz+/0usZ1IEzG8msP1MfnBaw=="
+  "resolved" "https://registry.npmjs.org/@wexample/js-api/-/js-api-0.0.5.tgz"
+  "version" "0.0.5"
+  dependencies:
+    "ky" "^1.4.0"
 
-typescript@^5.0.0:
-  version "5.9.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.9.3.tgz#5b4f59e15310ab17a216f5d6cf53ee476ede670f"
-  integrity sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==
+"@wexample/js-app@0.0.21":
+  "integrity" "sha512-3R4NVKczHgUnVOiZolopm0E1V61RXapkSQpuRnIDrwYxEm9S39RsF19kAlrtdz9U1ox6K2H34j/Vgc3g8yXxnQ=="
+  "resolved" "https://registry.npmjs.org/@wexample/js-app/-/js-app-0.0.21.tgz"
+  "version" "0.0.21"
+
+"@wexample/js-helpers@*":
+  "integrity" "sha512-kPmmGiSDQHEYwkJwwOdflp52O9fZ8tMZm1PWnrhD0Qluh1z9JM+24rFlcfFjY1LZ+8off2hYUaR53M+Bohb9Pw=="
+  "resolved" "https://registry.npmjs.org/@wexample/js-helpers/-/js-helpers-0.0.12.tgz"
+  "version" "0.0.12"
+
+"ky@^1.4.0":
+  "integrity" "sha512-q3RBbsO5A5zrPhB6CaCS8ZUv+NWCXv6JJT4Em0i264G9W0fdPB8YRfnnEi7Dm7X7omAkBIPojzYJ2D1oHTHqug=="
+  "resolved" "https://registry.npmjs.org/ky/-/ky-1.14.2.tgz"
+  "version" "1.14.2"
+
+"typescript@^5.0.0":
+  "integrity" "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="
+  "resolved" "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz"
+  "version" "5.9.3"
