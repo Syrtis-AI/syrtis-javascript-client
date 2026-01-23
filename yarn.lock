@@ -2,29 +2,24 @@
 # yarn lockfile v1
 
 
-"@wexample/js-api@0.0.5":
-  "integrity" "sha512-Xo9hWCVOfyzNNmZSok+3Ju2rh2BXHEdkLXAh7w4LqW8XpFp00YZm1JsAdqoL21Qz+/0usZ1IEzG8msP1MfnBaw=="
-  "resolved" "https://registry.npmjs.org/@wexample/js-api/-/js-api-0.0.5.tgz"
-  "version" "0.0.5"
+"@wexample/js-api@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.npmjs.org/@wexample/js-api/-/js-api-0.0.7.tgz"
+  integrity sha512-6QH5wSYMI9fq3eCyQB3MT3J1BJaepJmND/Uos1d2hhaWA0PkgucVLEQPeDzVK39999UXMQfw1uO3WWvUTXT5tQ==
   dependencies:
-    "ky" "^1.4.0"
-
-"@wexample/js-app@0.0.21":
-  "integrity" "sha512-3R4NVKczHgUnVOiZolopm0E1V61RXapkSQpuRnIDrwYxEm9S39RsF19kAlrtdz9U1ox6K2H34j/Vgc3g8yXxnQ=="
-  "resolved" "https://registry.npmjs.org/@wexample/js-app/-/js-app-0.0.21.tgz"
-  "version" "0.0.21"
+    ky "^1.4.0"
 
 "@wexample/js-helpers@*":
-  "integrity" "sha512-kPmmGiSDQHEYwkJwwOdflp52O9fZ8tMZm1PWnrhD0Qluh1z9JM+24rFlcfFjY1LZ+8off2hYUaR53M+Bohb9Pw=="
-  "resolved" "https://registry.npmjs.org/@wexample/js-helpers/-/js-helpers-0.0.12.tgz"
-  "version" "0.0.12"
+  version "0.0.12"
+  resolved "https://registry.npmjs.org/@wexample/js-helpers/-/js-helpers-0.0.12.tgz"
+  integrity sha512-kPmmGiSDQHEYwkJwwOdflp52O9fZ8tMZm1PWnrhD0Qluh1z9JM+24rFlcfFjY1LZ+8off2hYUaR53M+Bohb9Pw==
 
-"ky@^1.4.0":
-  "integrity" "sha512-q3RBbsO5A5zrPhB6CaCS8ZUv+NWCXv6JJT4Em0i264G9W0fdPB8YRfnnEi7Dm7X7omAkBIPojzYJ2D1oHTHqug=="
-  "resolved" "https://registry.npmjs.org/ky/-/ky-1.14.2.tgz"
-  "version" "1.14.2"
+ky@^1.4.0:
+  version "1.14.2"
+  resolved "https://registry.npmjs.org/ky/-/ky-1.14.2.tgz"
+  integrity sha512-q3RBbsO5A5zrPhB6CaCS8ZUv+NWCXv6JJT4Em0i264G9W0fdPB8YRfnnEi7Dm7X7omAkBIPojzYJ2D1oHTHqug==
 
-"typescript@^5.0.0":
-  "integrity" "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="
-  "resolved" "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz"
-  "version" "5.9.3"
+typescript@^5.0.0:
+  version "5.9.3"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz"
+  integrity sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==
