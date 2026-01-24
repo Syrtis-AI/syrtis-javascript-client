@@ -1,6 +1,6 @@
 # @syrtis-ai/syrtis-javascript-client
 
-Version: 0.0.35
+Version: 0.0.36
 
 Syrtis JavaScript/TypeScript client
 
