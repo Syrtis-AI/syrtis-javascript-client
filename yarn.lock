@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@wexample/js-api@0.0.14":
-  version "0.0.14"
-  resolved "https://registry.npmjs.org/@wexample/js-api/-/js-api-0.0.14.tgz"
-  integrity sha512-v3NcJ1fmwryKtFHrR8VqrcWjIWtzP850LhtDV70YAAq/9OkddQmik31W2ngT3AZHZZG3SStlbBEI6gVhOk2NQw==
+"@wexample/js-api@0.0.17":
+  version "0.0.17"
+  resolved "https://registry.npmjs.org/@wexample/js-api/-/js-api-0.0.17.tgz"
+  integrity sha512-b+RS0jw5GOeURs9OLWSnaz8LoSt0s+lzAkon34kd1ZC/itjXn2Ciycgo6BWSrCDEj+YdAGzyagAWsZIrz1UAGQ==
   dependencies:
     ky "^1.4.0"
 
@@ -19,7 +19,7 @@ ky@^1.4.0:
   resolved "https://registry.npmjs.org/ky/-/ky-1.14.2.tgz"
   integrity sha512-q3RBbsO5A5zrPhB6CaCS8ZUv+NWCXv6JJT4Em0i264G9W0fdPB8YRfnnEi7Dm7X7omAkBIPojzYJ2D1oHTHqug==
 
-typescript@^5.0.0:
+typescript@^5.9.3:
   version "5.9.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz"
   integrity sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==

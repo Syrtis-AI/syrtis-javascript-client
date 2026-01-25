@@ -1,4 +1,4 @@
-import Scenario from '../../../Entity/Scenario.js';
+import Scenario from '../../../Entity/Scenario';
 
 export default {
   methods: {
