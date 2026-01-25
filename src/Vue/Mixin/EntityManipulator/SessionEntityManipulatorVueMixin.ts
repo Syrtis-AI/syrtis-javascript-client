@@ -1,4 +1,4 @@
-import Session from '../../../Entity/Session';
+import Session from '../../../Entity/Session.js';
 
 export default {
   methods: {
