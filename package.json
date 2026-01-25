@@ -1,29 +1,30 @@
 {
-  "name": "@syrtis-ai/syrtis-javascript-client",
-  "version": "0.0.40",
-  "description": "Syrtis JavaScript/TypeScript client",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "syrtis",
-    "client"
-  ],
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "typescript": "^5.0.0"
-  },
+  "version": "0.0.44",
   "type": "module",
+  "name": "@syrtis-ai/syrtis-javascript-client",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@wexample/js-api": "0.0.12"
+    "@wexample/js-api": "0.0.17"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "exports": {
+    "./*": {
+      "types": "./dist/*",
+      "default": "./dist/*"
+    }
   },
   "repository": "https://github.com/Syrtis-AI/syrtis-javascript-client"
 }
