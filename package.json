@@ -1,5 +1,5 @@
 {
-  "version": "0.0.44",
+  "version": "0.0.45",
   "type": "module",
   "name": "@syrtis-ai/syrtis-javascript-client",
   "scripts": {
@@ -14,7 +14,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@wexample/js-api": "0.0.17"
+    "@wexample/js-api": "0.0.18"
   },
   "files": [
     "dist"
@@ -22,8 +22,8 @@
   "sideEffects": false,
   "exports": {
     "./*": {
-      "types": "./dist/*",
-      "default": "./dist/*"
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
     }
   },
   "repository": "https://github.com/Syrtis-AI/syrtis-javascript-client"
