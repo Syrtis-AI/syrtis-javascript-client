@@ -1,5 +1,5 @@
 {
-  "version": "0.0.46",
+  "version": "0.0.47",
   "type": "module",
   "name": "@syrtis-ai/syrtis-javascript-client",
   "scripts": {
@@ -14,7 +14,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@wexample/js-api": "0.0.18"
+    "@wexample/js-api": "0.0.19"
   },
   "files": [
     "dist"
