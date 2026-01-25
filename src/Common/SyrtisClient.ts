@@ -1,9 +1,9 @@
 import type { ApiClientOptions } from '@wexample/js-api/Common/AbstractApiClient';
 import AbstractApiEntitiesClient from '@wexample/js-api/Common/AbstractApiEntitiesClient';
 import type { RepositoryClass } from '@wexample/js-api/Common/ApiEntityManager';
-import ScenarioRepository from '../Repository/ScenarioRepository';
-import SessionRepository from '../Repository/SessionRepository';
-import UserRepository from '../Repository/UserRepository';
+import ScenarioRepository from '../Repository/ScenarioRepository.js';
+import SessionRepository from '../Repository/SessionRepository.js';
+import UserRepository from '../Repository/UserRepository.js';
 
 export default class SyrtisClient extends AbstractApiEntitiesClient {
   static readonly DEFAULT_BASE_URL = 'https://api.syrtis.ai/api/';
