@@ -1,4 +1,4 @@
-import User from '../../../Entity/User.js';
+import User from '../../../Entity/User';
 
 export default {
   methods: {

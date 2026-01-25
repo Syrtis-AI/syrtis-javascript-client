@@ -1,6 +1,6 @@
 {
   "name": "@syrtis-ai/syrtis-javascript-client",
-  "version": "0.0.42",
+  "version": "0.0.40",
   "description": "Syrtis JavaScript/TypeScript client",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@wexample/js-api": "0.0.14"
+    "@wexample/js-api": "0.0.12"
   },
   "repository": "https://github.com/Syrtis-AI/syrtis-javascript-client"
 }
