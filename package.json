@@ -4,16 +4,8 @@
   "description": "Syrtis JavaScript/TypeScript client",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": {
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
-    }
-  },
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc -w --preserveWatchOutput",
-    "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,9 +18,6 @@
   "devDependencies": {
     "typescript": "^5.0.0"
   },
-  "files": [
-    "dist"
-  ],
   "type": "module",
   "publishConfig": {
     "access": "public"
