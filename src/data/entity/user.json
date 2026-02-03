@@ -1,0 +1,11 @@
+{
+  "name": "user",
+  "properties": [
+    { "name": "username", "type": "string", "nullable": true },
+    { "name": "dateCreated", "type": "datetime", "nullable": true },
+    { "name": "dateLastLogin", "type": "datetime", "nullable": true },
+    { "name": "email", "type": "string", "nullable": true },
+    { "name": "firstName", "type": "string", "nullable": true },
+    { "name": "lastName", "type": "string", "nullable": true }
+  ]
+}

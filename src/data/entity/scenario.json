@@ -1,0 +1,12 @@
+{
+  "name": "scenario",
+  "properties": [
+    { "name": "title", "type": "string" },
+    {
+      "name": "project",
+      "type": "relation",
+      "target": "project",
+      "apiField": "project"
+    }
+  ]
+}
