@@ -15,7 +15,8 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "bundler",
     "declarationMap": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "resolveJsonModule": true
   },
   "include": [
     "src/**/*"
