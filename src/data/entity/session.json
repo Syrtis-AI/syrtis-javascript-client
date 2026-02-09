@@ -1,6 +1,7 @@
 {
   "name": "session",
   "properties": [
-    { "name": "title", "type": "string" }
+    { "name": "title", "type": "string" },
+    { "name": "dateCreated", "type": "datetime", "nullable": true }
   ]
 }

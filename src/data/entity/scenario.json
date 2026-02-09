@@ -2,6 +2,7 @@
   "name": "scenario",
   "properties": [
     { "name": "title", "type": "string" },
+    { "name": "dateCreated", "type": "datetime", "nullable": true },
     {
       "name": "project",
       "type": "relation",
