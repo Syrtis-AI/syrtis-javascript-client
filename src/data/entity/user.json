@@ -1,11 +1,54 @@
 {
   "name": "user",
   "properties": [
-    { "name": "username", "type": "string", "nullable": true },
-    { "name": "dateCreated", "type": "datetime", "nullable": true },
-    { "name": "dateLastLogin", "type": "datetime", "nullable": true },
-    { "name": "email", "type": "string", "nullable": true },
-    { "name": "firstName", "type": "string", "nullable": true },
-    { "name": "lastName", "type": "string", "nullable": true }
+    {
+      "name": "username",
+      "type": "mixed",
+      "default": null
+    },
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null
+    },
+    {
+      "name": "secureId",
+      "type": "string"
+    },
+    {
+      "name": "dateCreated",
+      "type": "DateTimeInterface",
+      "default": null
+    },
+    {
+      "name": "dateLastLogin",
+      "type": "DateTimeInterface",
+      "default": null
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "default": null
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "default": null
+    },
+    {
+      "name": "firstName",
+      "type": "string",
+      "default": null
+    },
+    {
+      "name": "lastName",
+      "type": "string",
+      "default": null
+    },
+    {
+      "name": "roles",
+      "type": "array",
+      "default": {}
+    }
   ]
 }
