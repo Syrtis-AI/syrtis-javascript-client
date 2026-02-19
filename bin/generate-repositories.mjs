@@ -9,6 +9,7 @@ const binDir = path.dirname(thisFilePath);
 const rootDir = path.resolve(binDir, '..');
 const dataDir = path.join(rootDir, 'src', 'data', 'entity');
 const repositoryDir = path.join(rootDir, 'src', 'Repository');
+const commonDir = path.join(rootDir, 'src', 'Common');
 const templatePath = path.join(binDir, 'template', 'Repository.ts.tpl');
 
 if (!fs.existsSync(dataDir)) {
@@ -18,6 +19,9 @@ if (!fs.existsSync(dataDir)) {
 
 if (!fs.existsSync(repositoryDir)) {
   fs.mkdirSync(repositoryDir, { recursive: true });
+}
+if (!fs.existsSync(commonDir)) {
+  fs.mkdirSync(commonDir, { recursive: true });
 }
 
 if (!fs.existsSync(templatePath)) {
@@ -55,6 +59,16 @@ for (const fileName of files) {
   console.log(`Created ${targetPath}`);
 }
 
+const repositoryClasses = fs
+  .readdirSync(repositoryDir)
+  .filter((name) => name.endsWith('Repository.ts'))
+  .map((name) => name.replace(/\.ts$/, ''));
+
+const manifestPath = path.join(commonDir, 'generatedRepositories.ts');
+const manifest = buildManifest(repositoryClasses);
+fs.writeFileSync(manifestPath, manifest, 'utf8');
+console.log(`Updated ${manifestPath}`);
+
 console.log(`Done: created=${created}, skipped=${skipped}`);
 
 function toPascalCase(value) {
@@ -66,3 +80,17 @@ function toPascalCase(value) {
     .join('');
 }
 
+function buildManifest(repositoryClasses) {
+  const uniqueSorted = [...new Set(repositoryClasses)].sort();
+  const imports = uniqueSorted
+    .map((className) => `import ${className} from '../Repository/${className}.js';`)
+    .join('\n');
+  const exportsArray = uniqueSorted.join(', ');
+
+  return `${imports}
+
+const generatedRepositories = [${exportsArray}];
+
+export default generatedRepositories;
+`;
+}
