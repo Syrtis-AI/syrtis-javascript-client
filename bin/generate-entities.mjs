@@ -9,6 +9,7 @@ const binDir = path.dirname(thisFilePath);
 const rootDir = path.resolve(binDir, '..');
 const dataDir = path.join(rootDir, 'src', 'data', 'entity');
 const entityDir = path.join(rootDir, 'src', 'Entity');
+const commonDir = path.join(rootDir, 'src', 'Common');
 const templatePath = path.join(binDir, 'template', 'Entity.ts.tpl');
 
 if (!fs.existsSync(dataDir)) {
@@ -18,6 +19,9 @@ if (!fs.existsSync(dataDir)) {
 
 if (!fs.existsSync(entityDir)) {
   fs.mkdirSync(entityDir, { recursive: true });
+}
+if (!fs.existsSync(commonDir)) {
+  fs.mkdirSync(commonDir, { recursive: true });
 }
 
 if (!fs.existsSync(templatePath)) {
@@ -58,6 +62,11 @@ for (const fileName of files) {
   console.log(`Created ${targetPath}`);
 }
 
+const schemaManifestPath = path.join(commonDir, 'generatedEntitySchemas.ts');
+const schemaManifest = buildEntitySchemasManifest(files);
+fs.writeFileSync(schemaManifestPath, schemaManifest, 'utf8');
+console.log(`Updated ${schemaManifestPath}`);
+
 console.log(`Done: created=${created}, skipped=${skipped}`);
 
 function toPascalCase(value) {
@@ -69,3 +78,35 @@ function toPascalCase(value) {
     .join('');
 }
 
+function toCamelCase(value) {
+  const pascal = toPascalCase(value);
+  return pascal ? pascal.charAt(0).toLowerCase() + pascal.slice(1) : '';
+}
+
+function buildEntitySchemasManifest(jsonFiles) {
+  const fileNames = [...jsonFiles].sort();
+  const imports = fileNames
+    .map((fileName) => {
+      const baseName = path.basename(fileName, '.json');
+      return `import ${toCamelCase(baseName)} from '../data/entity/${baseName}.json';`;
+    })
+    .join('\n');
+  const schemaEntries = fileNames
+    .map((fileName) => {
+      const baseName = path.basename(fileName, '.json');
+      const localVar = toCamelCase(baseName);
+      return `    [${localVar}.name]: ${localVar},`;
+    })
+    .join('\n');
+
+  return `${imports}
+
+type EntitySchema = { name: string };
+
+export default function getGeneratedEntitySchemas(): Record<string, EntitySchema> {
+  return {
+${schemaEntries}
+  };
+}
+`;
+}
