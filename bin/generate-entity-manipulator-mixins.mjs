@@ -9,7 +9,9 @@ const binDir = path.dirname(thisFilePath);
 const rootDir = path.resolve(binDir, '..');
 const dataDir = path.join(rootDir, 'src', 'data', 'entity');
 const mixinDir = path.join(rootDir, 'src', 'Vue', 'Mixin', 'EntityManipulator');
+const entityMixinDir = path.join(rootDir, 'src', 'Vue', 'Mixin', 'Entity');
 const templatePath = path.join(binDir, 'template', 'EntityManipulatorVueMixin.ts.tpl');
+const entityTemplatePath = path.join(binDir, 'template', 'EntitySingleMixin.vue.tpl');
 
 if (!fs.existsSync(dataDir)) {
   console.error(`Error: missing data directory: ${dataDir}`);
@@ -19,26 +21,37 @@ if (!fs.existsSync(dataDir)) {
 if (!fs.existsSync(mixinDir)) {
   fs.mkdirSync(mixinDir, { recursive: true });
 }
+if (!fs.existsSync(entityMixinDir)) {
+  fs.mkdirSync(entityMixinDir, { recursive: true });
+}
 
 if (!fs.existsSync(templatePath)) {
   console.error(`Error: missing template file: ${templatePath}`);
   process.exit(1);
 }
+if (!fs.existsSync(entityTemplatePath)) {
+  console.error(`Error: missing template file: ${entityTemplatePath}`);
+  process.exit(1);
+}
 
 const template = fs.readFileSync(templatePath, 'utf8');
+const entityTemplate = fs.readFileSync(entityTemplatePath, 'utf8');
 const files = fs
   .readdirSync(dataDir)
   .filter((name) => name.endsWith('.json'))
   .sort();
 
-let created = 0;
-let skipped = 0;
+let createdManipulator = 0;
+let skippedManipulator = 0;
+let createdEntityMixin = 0;
+let skippedEntityMixin = 0;
 
 for (const fileName of files) {
   const entityName = path.basename(fileName, '.json');
   const className = toPascalCase(entityName);
   if (!className) {
-    skipped += 1;
+    skippedManipulator += 1;
+    skippedEntityMixin += 1;
     continue;
   }
 
@@ -48,17 +61,29 @@ for (const fileName of files) {
   );
 
   if (fs.existsSync(targetPath)) {
-    skipped += 1;
+    skippedManipulator += 1;
+  } else {
+    const content = template.replaceAll('{{CLASS_NAME}}', className);
+    fs.writeFileSync(targetPath, content, 'utf8');
+    createdManipulator += 1;
+    console.log(`Created ${targetPath}`);
+  }
+
+  const entityMixinPath = path.join(entityMixinDir, `${entityName}.vue`);
+  if (fs.existsSync(entityMixinPath)) {
+    skippedEntityMixin += 1;
     continue;
   }
 
-  const content = template.replaceAll('{{CLASS_NAME}}', className);
-  fs.writeFileSync(targetPath, content, 'utf8');
-  created += 1;
-  console.log(`Created ${targetPath}`);
+  const entityMixinContent = entityTemplate.replaceAll('{{CLASS_NAME}}', className);
+  fs.writeFileSync(entityMixinPath, entityMixinContent, 'utf8');
+  createdEntityMixin += 1;
+  console.log(`Created ${entityMixinPath}`);
 }
 
-console.log(`Done: created=${created}, skipped=${skipped}`);
+console.log(
+  `Done: entityManipulatorMixins(created=${createdManipulator}, skipped=${skippedManipulator}) entityMixins(created=${createdEntityMixin}, skipped=${skippedEntityMixin})`
+);
 
 function toPascalCase(value) {
   return value
@@ -68,4 +93,3 @@ function toPascalCase(value) {
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join('');
 }
-
