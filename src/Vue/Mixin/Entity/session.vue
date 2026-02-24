@@ -1,5 +1,5 @@
 <script>
-import AbstractEntitySingleMixin from "@wexample/symfony-design-system/js/Vue/AbstractEntitySingleMixin";
+import AbstractEntitySingleMixin from "@wexample/js-api/Vue/AbstractEntitySingleMixin";
 import SessionEntityManipulatorVueMixin from '../EntityManipulator/SessionEntityManipulatorVueMixin';
 
 export default {
