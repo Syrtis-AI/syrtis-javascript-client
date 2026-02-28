@@ -1,9 +1,0 @@
-{
-  "name": "scenario",
-  "properties": [
-    {
-      "name": "secureId",
-      "type": "string"
-    }
-  ]
-}
