@@ -1,0 +1,117 @@
+{
+  "name": "message",
+  "properties": [
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "contentType",
+      "type": "string",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "dateCreated",
+      "type": "DateTimeInterface",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "origin",
+      "type": "string",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "target",
+      "type": "self",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "secureId",
+      "type": "string"
+    },
+    {
+      "name": "versionMajor",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "name": "versionMinor",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "name": "template",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "template"
+    },
+    {
+      "name": "metadata",
+      "type": "array",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "request",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "request"
+    },
+    {
+      "name": "session",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "session"
+    },
+    {
+      "name": "model",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "model"
+    },
+    {
+      "name": "slot",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "slot"
+    },
+    {
+      "name": "expirationMessage",
+      "type": "self",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "stamps",
+      "type": "Collection"
+    }
+  ]
+}
