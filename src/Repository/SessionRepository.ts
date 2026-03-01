@@ -23,6 +23,8 @@ export type SessionFetchHistoryOptions = {
   page?: number;
   length?: number | null;
   lastRequestSecureId?: string | null;
+  orderBy?: string | null;
+  orderDirection?: 'ASC' | 'DESC' | null;
 };
 
 export default class SessionRepository extends AbstractApiRepository<Session> {
@@ -89,6 +91,8 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
       page = 0,
       length = 50,
       lastRequestSecureId = null,
+      orderBy = null,
+      orderDirection = null,
     } = options;
 
     const trimmedSecureId = String(sessionSecureId || '').trim();
@@ -106,6 +110,14 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
 
     if (lastRequestSecureId) {
       searchParams.lastRequestSecureId = lastRequestSecureId;
+    }
+
+    if (orderBy) {
+      searchParams.orderBy = orderBy;
+    }
+
+    if (orderDirection) {
+      searchParams.orderDirection = orderDirection;
     }
 
     const data = await this.client
