@@ -1,4 +1,5 @@
 import AbstractApiRepository from '@wexample/js-api/Common/AbstractApiRepository';
+import Message from '../Entity/Message.js';
 import Session from '../Entity/Session.js';
 
 export type SessionSendMessageOptions = {
@@ -14,6 +15,13 @@ export type SessionSendMessageOptions = {
   fileStamps?: Record<string, string[]>;
   parentRequestSecureId?: string | null;
   timeZone?: string | null;
+};
+
+export type SessionFetchHistoryOptions = {
+  sessionSecureId: string;
+  page?: number;
+  length?: number | null;
+  lastRequestSecureId?: string | null;
 };
 
 export default class SessionRepository extends AbstractApiRepository<Session> {
@@ -72,5 +80,43 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
         files,
       })
       .json<unknown>();
+  }
+
+  async fetchHistory(options: SessionFetchHistoryOptions): Promise<Message[]> {
+    const {
+      sessionSecureId,
+      page = 0,
+      length = 50,
+      lastRequestSecureId = null,
+    } = options;
+
+    const trimmedSecureId = String(sessionSecureId || '').trim();
+    if (!trimmedSecureId) {
+      throw new Error('Session secureId is required.');
+    }
+
+    const searchParams: Record<string, string | number> = {
+      page,
+    };
+
+    if (length !== null) {
+      searchParams.length = length;
+    }
+
+    if (lastRequestSecureId) {
+      searchParams.lastRequestSecureId = lastRequestSecureId;
+    }
+
+    const data = await this.client
+      .get({
+        path: this.buildPath(`history/${encodeURIComponent(trimmedSecureId)}`),
+        options: { searchParams },
+      })
+      .json<unknown>();
+
+    const payload = this.extractPayload(data);
+    const items = this.extractItems(payload);
+
+    return this.createFromApiCollection(items) as Message[];
   }
 }
