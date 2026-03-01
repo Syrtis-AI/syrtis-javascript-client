@@ -1,5 +1,6 @@
 import AbstractApiRepository from '@wexample/js-api/Common/AbstractApiRepository';
 import Message from '../Entity/Message.js';
+import MessageRepository from './MessageRepository.js';
 import Session from '../Entity/Session.js';
 
 export type SessionSendMessageOptions = {
@@ -117,6 +118,7 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
     const payload = this.extractPayload(data);
     const items = this.extractItems(payload);
 
-    return this.createFromApiCollection(items) as Message[];
+    const messageRepository = this.client.getRepository(Message) as MessageRepository;
+    return messageRepository.hydrateFromApiCollection(items);
   }
 }
