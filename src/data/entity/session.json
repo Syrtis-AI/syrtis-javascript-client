@@ -1,7 +1,63 @@
 {
   "name": "session",
   "properties": [
-    { "name": "title", "type": "string" },
-    { "name": "dateCreated", "type": "datetime", "nullable": true }
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null
+    },
+    {
+      "name": "dateCreated",
+      "type": "DateTimeInterface",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "secureId",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "user",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "user"
+    },
+    {
+      "name": "scenario",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "scenario"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "dateLastAccess",
+      "type": "DateTimeInterface",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "requests",
+      "type": "Collection"
+    },
+    {
+      "name": "messages",
+      "type": "Collection"
+    },
+    {
+      "name": "sessionGroup",
+      "type": "relation",
+      "target": "session_group"
+    }
   ]
 }
