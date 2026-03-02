@@ -1,0 +1,79 @@
+{
+  "name": "request",
+  "properties": [
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null
+    },
+    {
+      "name": "session",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "session"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "dateCreated",
+      "type": "DateTimeInterface",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "card",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "card"
+    },
+    {
+      "name": "children",
+      "type": "Doctrine\\Common\\Collections\\Collection"
+    },
+    {
+      "name": "secureId",
+      "type": "string"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "dateCompleted",
+      "type": "DateTimeInterface",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "timezone",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "timezone"
+    },
+    {
+      "name": "messages",
+      "type": "collection",
+      "description": "Message>",
+      "target": "message"
+    },
+    {
+      "name": "parent",
+      "type": "self",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "lastEvent",
+      "type": "string",
+      "nullable": true,
+      "default": null
+    }
+  ]
+}
