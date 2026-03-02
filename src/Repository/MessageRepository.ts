@@ -1,5 +1,4 @@
 import AbstractApiRepository from '@wexample/js-api/Common/AbstractApiRepository';
-import type { ApiEntityData } from '@wexample/js-api/Common/AbstractApiEntity';
 import Message from '../Entity/Message.js';
 
 export default class MessageRepository extends AbstractApiRepository<Message> {
@@ -7,7 +6,9 @@ export default class MessageRepository extends AbstractApiRepository<Message> {
     return Message;
   }
 
-  hydrateFromApiCollection(items: ApiEntityData[]): Message[] {
+  hydrateFromApiCollection(
+    items: Parameters<AbstractApiRepository<Message>['createFromApiCollection']>[0]
+  ): Message[] {
     return this.createFromApiCollection(items);
   }
 }
