@@ -1,0 +1,27 @@
+{
+  "name": "message_stamp",
+  "properties": [
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "secureId",
+      "type": "string"
+    },
+    {
+      "name": "message",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "message"
+    }
+  ]
+}
