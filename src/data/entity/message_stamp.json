@@ -4,24 +4,137 @@
     {
       "name": "id",
       "type": "mixed",
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      }
     },
     {
       "name": "name",
       "type": "string",
       "nullable": true,
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "name",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
     },
     {
       "name": "secureId",
-      "type": "string"
+      "type": "string",
+      "orm": {
+        "kind": "field",
+        "column": "secure_id",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
     },
     {
       "name": "message",
       "type": "relation",
       "nullable": true,
       "default": null,
-      "target": "message"
+      "target": "message",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Message",
+        "target": "message",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "message_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
     }
-  ]
+  ],
+  "orm": {
+    "class": "App\\Entity\\MessageStamp",
+    "table": "message_stamp",
+    "identifier": [
+      "id"
+    ],
+    "indexes": {},
+    "unique_constraints": {},
+    "fields": {
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      },
+      "name": {
+        "kind": "field",
+        "column": "name",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      },
+      "secureId": {
+        "kind": "field",
+        "column": "secure_id",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
+    },
+    "associations": {
+      "message": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Message",
+        "target": "message",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "message_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
+    }
+  }
 }

@@ -4,114 +4,669 @@
     {
       "name": "id",
       "type": "mixed",
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      }
     },
     {
       "name": "content",
       "type": "string",
       "nullable": true,
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "content",
+        "type": "text",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
     },
     {
       "name": "contentType",
       "type": "string",
       "nullable": true,
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "content_type",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 30
+      }
     },
     {
       "name": "dateCreated",
       "type": "DateTimeInterface",
       "nullable": true,
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "date_created",
+        "type": "datetime",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
     },
     {
       "name": "format",
       "type": "string",
       "nullable": true,
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "format",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 120
+      }
     },
     {
       "name": "origin",
       "type": "string",
       "nullable": true,
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "origin",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 30
+      }
     },
     {
       "name": "target",
       "type": "self",
       "nullable": true,
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Message",
+        "target": "message",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "target_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
     },
     {
       "name": "secureId",
-      "type": "string"
+      "type": "string",
+      "orm": {
+        "kind": "field",
+        "column": "secure_id",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
     },
     {
       "name": "versionMajor",
       "type": "int",
-      "default": 0
+      "default": 0,
+      "orm": {
+        "kind": "field",
+        "column": "version_major",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      }
     },
     {
       "name": "versionMinor",
       "type": "int",
-      "default": 0
+      "default": 0,
+      "orm": {
+        "kind": "field",
+        "column": "version_minor",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      }
     },
     {
       "name": "template",
       "type": "relation",
       "nullable": true,
       "default": null,
-      "target": "template"
+      "target": "template",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Template",
+        "target": "template",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "template_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
     },
     {
       "name": "metadata",
       "type": "array",
       "nullable": true,
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "metadata",
+        "type": "json",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
     },
     {
       "name": "name",
       "type": "string",
       "nullable": true,
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "name",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
     },
     {
       "name": "request",
       "type": "relation",
       "nullable": true,
       "default": null,
-      "target": "request"
+      "target": "request",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Request",
+        "target": "request",
+        "mapped_by": null,
+        "inversed_by": "messages",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "request_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
     },
     {
       "name": "session",
       "type": "relation",
       "nullable": true,
       "default": null,
-      "target": "session"
+      "target": "session",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Session",
+        "target": "session",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "session_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
     },
     {
       "name": "model",
       "type": "relation",
       "nullable": true,
       "default": null,
-      "target": "model"
+      "target": "model",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Model",
+        "target": "model",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "model_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
     },
     {
       "name": "slot",
       "type": "relation",
       "nullable": true,
       "default": null,
-      "target": "slot"
+      "target": "slot",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Slot",
+        "target": "slot",
+        "mapped_by": null,
+        "inversed_by": "messages",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "slot_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      }
     },
     {
       "name": "expirationMessage",
       "type": "self",
       "nullable": true,
-      "default": null
+      "default": null,
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Message",
+        "target": "message",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "expiration_message_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      }
     },
     {
       "name": "stamps",
-      "type": "Collection"
+      "type": "Collection",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\MessageStamp",
+        "target": "message_stamp",
+        "mapped_by": "message",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": false,
+        "cascade": [
+          "persist"
+        ],
+        "fetch": 2
+      }
     }
-  ]
+  ],
+  "orm": {
+    "class": "App\\Entity\\Message",
+    "table": "message",
+    "identifier": [
+      "id"
+    ],
+    "indexes": {},
+    "unique_constraints": {},
+    "fields": {
+      "name": {
+        "kind": "field",
+        "column": "name",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      },
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      },
+      "content": {
+        "kind": "field",
+        "column": "content",
+        "type": "text",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "contentType": {
+        "kind": "field",
+        "column": "content_type",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 30
+      },
+      "dateCreated": {
+        "kind": "field",
+        "column": "date_created",
+        "type": "datetime",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "format": {
+        "kind": "field",
+        "column": "format",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 120
+      },
+      "origin": {
+        "kind": "field",
+        "column": "origin",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 30
+      },
+      "secureId": {
+        "kind": "field",
+        "column": "secure_id",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      },
+      "versionMajor": {
+        "kind": "field",
+        "column": "version_major",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      },
+      "versionMinor": {
+        "kind": "field",
+        "column": "version_minor",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      },
+      "metadata": {
+        "kind": "field",
+        "column": "metadata",
+        "type": "json",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    "associations": {
+      "request": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Request",
+        "target": "request",
+        "mapped_by": null,
+        "inversed_by": "messages",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "request_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      },
+      "session": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Session",
+        "target": "session",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "session_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      },
+      "model": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Model",
+        "target": "model",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "model_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      },
+      "slot": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Slot",
+        "target": "slot",
+        "mapped_by": null,
+        "inversed_by": "messages",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "slot_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      },
+      "expirationMessage": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Message",
+        "target": "message",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "expiration_message_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      },
+      "stamps": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\MessageStamp",
+        "target": "message_stamp",
+        "mapped_by": "message",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": false,
+        "cascade": [
+          "persist"
+        ],
+        "fetch": 2
+      },
+      "target": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Message",
+        "target": "message",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "target_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      },
+      "template": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Template",
+        "target": "template",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "template_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
+    }
+  }
 }
