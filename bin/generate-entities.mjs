@@ -37,7 +37,6 @@ const files = fs
   .sort();
 
 let created = 0;
-let updated = 0;
 let skipped = 0;
 
 for (const fileName of files) {
@@ -49,25 +48,17 @@ for (const fileName of files) {
   }
 
   const targetPath = path.join(entityDir, `${className}.ts`);
-  const content = template
-    .replaceAll('{{CLASS_NAME}}', className)
-    .replaceAll('{{ENTITY_NAME}}', entityName);
   if (!fs.existsSync(targetPath)) {
+    const content = template
+      .replaceAll('{{CLASS_NAME}}', className)
+      .replaceAll('{{ENTITY_NAME}}', entityName);
     fs.writeFileSync(targetPath, content, 'utf8');
     created += 1;
     console.log(`Created ${targetPath}`);
     continue;
   }
 
-  const currentContent = fs.readFileSync(targetPath, 'utf8');
-  if (currentContent === content) {
-    skipped += 1;
-    continue;
-  }
-
-  fs.writeFileSync(targetPath, content, 'utf8');
-  updated += 1;
-  console.log(`Updated ${targetPath}`);
+  skipped += 1;
 }
 
 const schemaManifestPath = path.join(commonDir, 'generatedEntitySchemas.ts');
@@ -75,7 +66,7 @@ const schemaManifest = buildEntitySchemasManifest(files);
 fs.writeFileSync(schemaManifestPath, schemaManifest, 'utf8');
 console.log(`Updated ${schemaManifestPath}`);
 
-console.log(`Done: created=${created}, updated=${updated}, skipped=${skipped}`);
+console.log(`Done: created=${created}, skipped=${skipped}`);
 
 function toPascalCase(value) {
   return value
