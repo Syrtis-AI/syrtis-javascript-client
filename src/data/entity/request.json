@@ -176,7 +176,7 @@
             "referenced_column_name": "id",
             "nullable": true,
             "unique": false,
-            "on_delete": null
+            "on_delete": "CASCADE"
           }
         ]
       }
@@ -390,7 +390,7 @@
             "referenced_column_name": "id",
             "nullable": true,
             "unique": false,
-            "on_delete": null
+            "on_delete": "CASCADE"
           }
         ]
       },
