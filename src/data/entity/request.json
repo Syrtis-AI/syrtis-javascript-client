@@ -16,34 +16,6 @@
       }
     },
     {
-      "name": "session",
-      "type": "relation",
-      "nullable": true,
-      "default": null,
-      "target": "session",
-      "orm": {
-        "kind": "association",
-        "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Session",
-        "target": "session",
-        "mapped_by": null,
-        "inversed_by": null,
-        "is_owning_side": true,
-        "orphan_removal": false,
-        "cascade": {},
-        "fetch": 2,
-        "join_columns": [
-          {
-            "name": "session_id",
-            "referenced_column_name": "id",
-            "nullable": false,
-            "unique": false,
-            "on_delete": null
-          }
-        ]
-      }
-    },
-    {
       "name": "status",
       "type": "string",
       "orm": {
@@ -70,34 +42,6 @@
         "unique": false,
         "id": false,
         "generated": false
-      }
-    },
-    {
-      "name": "card",
-      "type": "relation",
-      "nullable": true,
-      "default": null,
-      "target": "card",
-      "orm": {
-        "kind": "association",
-        "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
-        "mapped_by": null,
-        "inversed_by": null,
-        "is_owning_side": true,
-        "orphan_removal": false,
-        "cascade": {},
-        "fetch": 2,
-        "join_columns": [
-          {
-            "name": "card_id",
-            "referenced_column_name": "id",
-            "nullable": false,
-            "unique": false,
-            "on_delete": null
-          }
-        ]
       }
     },
     {
@@ -207,6 +151,90 @@
           "remove"
         ],
         "fetch": 2
+      }
+    },
+    {
+      "name": "projection",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "projection",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Projection",
+        "target": "projection",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "projection_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "session",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "session",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Session",
+        "target": "session",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "session_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "card",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "card",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Card",
+        "target": "card",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "card_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
       }
     },
     {
@@ -345,24 +373,24 @@
         ],
         "fetch": 2
       },
-      "parent": {
+      "projection": {
         "kind": "association",
         "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Request",
-        "target": "request",
+        "target_entity": "App\\Entity\\Projection",
+        "target": "projection",
         "mapped_by": null,
-        "inversed_by": "children",
+        "inversed_by": null,
         "is_owning_side": true,
         "orphan_removal": false,
         "cascade": {},
         "fetch": 2,
         "join_columns": [
           {
-            "name": "parent_id",
+            "name": "projection_id",
             "referenced_column_name": "id",
             "nullable": true,
             "unique": false,
-            "on_delete": "SET NULL"
+            "on_delete": null
           }
         ]
       },
@@ -381,7 +409,7 @@
           {
             "name": "session_id",
             "referenced_column_name": "id",
-            "nullable": false,
+            "nullable": true,
             "unique": false,
             "on_delete": null
           }
@@ -402,9 +430,30 @@
           {
             "name": "card_id",
             "referenced_column_name": "id",
-            "nullable": false,
+            "nullable": true,
             "unique": false,
             "on_delete": null
+          }
+        ]
+      },
+      "parent": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Request",
+        "target": "request",
+        "mapped_by": null,
+        "inversed_by": "children",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "parent_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
           }
         ]
       },
