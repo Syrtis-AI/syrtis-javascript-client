@@ -51,6 +51,7 @@ for (const fileName of files) {
   if (!fs.existsSync(targetPath)) {
     const content = template
       .replaceAll('{{CLASS_NAME}}', className)
+      .replaceAll('{{CAMEL_NAME}}', toCamelCase(entityName))
       .replaceAll('{{ENTITY_NAME}}', entityName);
     fs.writeFileSync(targetPath, content, 'utf8');
     created += 1;
