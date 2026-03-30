@@ -6,4 +6,3 @@ export default class MessageStampRepository extends AbstractApiRepository<Messag
     return MessageStamp;
   }
 }
-

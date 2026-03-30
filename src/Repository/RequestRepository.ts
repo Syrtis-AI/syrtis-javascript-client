@@ -6,4 +6,3 @@ export default class RequestRepository extends AbstractApiRepository<Request> {
     return Request;
   }
 }
-

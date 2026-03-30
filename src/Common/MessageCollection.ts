@@ -1,4 +1,4 @@
-import Message from '../Entity/Message.js';
+import type Message from '../Entity/Message.js';
 
 type MessageRecord = Record<string, unknown>;
 
@@ -76,7 +76,7 @@ export default class MessageCollection {
 
   getLastMessage(): Message | null {
     const sorted = this.toSortedArray();
-    return sorted.length > 0 ? sorted[sorted.length - 1] ?? null : null;
+    return sorted.length > 0 ? (sorted[sorted.length - 1] ?? null) : null;
   }
 
   getMessagesByRequestSecureId(requestSecureId: string): Message[] {
@@ -119,8 +119,8 @@ export default class MessageCollection {
       }
 
       if (
-        (previousRequestSecureId && existingRequestSecureId === previousRequestSecureId)
-        || (messageRequestSecureId && existingRequestSecureId === messageRequestSecureId)
+        (previousRequestSecureId && existingRequestSecureId === previousRequestSecureId) ||
+        (messageRequestSecureId && existingRequestSecureId === messageRequestSecureId)
       ) {
         return true;
       }
@@ -171,7 +171,7 @@ export default class MessageCollection {
     }
 
     return MessageCollection.getNextRequestSecureIds(parent).findIndex(
-      (candidate) => candidate === requestSecureId,
+      (candidate) => candidate === requestSecureId
     );
   }
 
@@ -192,7 +192,7 @@ export default class MessageCollection {
 
   removeByRequestSecureId(
     requestSecureId: string,
-    options: MessageCollectionRemoveOptions = {},
+    options: MessageCollectionRemoveOptions = {}
   ): Message[] {
     const { unlinkBranchRequests = false } = options;
 
@@ -215,10 +215,7 @@ export default class MessageCollection {
     return this.toSortedArray();
   }
 
-  removeFrom(
-    message: Message,
-    options: MessageCollectionRemoveOptions = {},
-  ): Message[] {
+  removeFrom(message: Message, options: MessageCollectionRemoveOptions = {}): Message[] {
     const startRequestSecureId = MessageCollection.getRequestSecureId(message);
     if (!startRequestSecureId) {
       return this.toSortedArray();
@@ -321,7 +318,7 @@ export default class MessageCollection {
       }
 
       const sanitized = rawValue.filter(
-        (item): item is string => typeof item === 'string' && item.length > 0,
+        (item): item is string => typeof item === 'string' && item.length > 0
       );
 
       if (record) {

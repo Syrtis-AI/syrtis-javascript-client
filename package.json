@@ -13,7 +13,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@wexample/js-api": "0.0.19"
+    "@wexample/js-api": "0.0.30"
   },
   "files": [
     "src"
@@ -26,5 +26,12 @@
       "default": "./src/*.ts"
     }
   },
-  "repository": "https://github.com/Syrtis-AI/syrtis-javascript-client"
+  "repository": "https://github.com/Syrtis-AI/syrtis-javascript-client",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*"
+      ]
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import AbstractApiRepository from '@wexample/js-api/Common/AbstractApiRepository';
 import Message from '../Entity/Message.js';
-import MessageRepository from './MessageRepository.js';
 import Session from '../Entity/Session.js';
+import type MessageRepository from './MessageRepository.js';
 
 export type SessionSendMessageOptions = {
   sessionSecureId: string;
