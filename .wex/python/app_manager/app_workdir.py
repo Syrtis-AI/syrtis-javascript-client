@@ -17,10 +17,12 @@ class AppWorkdir(JavascriptPackageWorkdir):
         raw_value = super().prepare_value(raw_value=raw_value)
 
         def _build_remote_github(target: AppWorkdir) -> str:
-            return f"git@github.com:Syrtis-AI/{string_to_kebab_case(target.get_project_name())}.git"
+            name = string_to_kebab_case(target.get_runtime_config().search("global.name").get_str())
+            return f"git@github.com:Syrtis-AI/{name}.git"
 
         def _build_remote_gitlab(target: AppWorkdir) -> str:
-            return f"ssh://git@gitlab.syrtis.ai:4567/syrtis-suite-javascript/{string_to_kebab_case(target.get_project_name())}.git"
+            name = string_to_kebab_case(target.get_runtime_config().search("global.name").get_str())
+            return f"ssh://git@gitlab.syrtis.ai:4567/syrtis-suite-javascript/{name}.git"
 
         raw_value["git"] = {
             "main_branch": "main",
