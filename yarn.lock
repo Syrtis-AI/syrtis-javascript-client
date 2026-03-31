@@ -2,17 +2,18 @@
 # yarn lockfile v1
 
 
-"@wexample/js-api@0.0.19":
-  version "0.0.19"
-  resolved "https://registry.npmjs.org/@wexample/js-api/-/js-api-0.0.19.tgz"
-  integrity sha512-jRvnumt5l0odfD8AMaIODtzrq37LxvkU0KTxQjC1/yWIL//2R3xhSt0dAvZuYhNgakbyz9x/0B8Hvj0bzmC03w==
+"@wexample/js-api@0.0.38":
+  version "0.0.38"
+  resolved "https://registry.npmjs.org/@wexample/js-api/-/js-api-0.0.38.tgz"
+  integrity sha512-ZSXB1SsV6YwgzLkl64PXTYvDF5XtTNNIQ6LZxdaLq6bzKuA3ztzCwODQDNXnGsGRaUa3tC+2IO9WmJU11TG+kQ==
   dependencies:
+    "@wexample/js-helpers" "0.0.36"
     ky "^1.4.0"
 
-"@wexample/js-helpers@*":
-  version "0.0.12"
-  resolved "https://registry.npmjs.org/@wexample/js-helpers/-/js-helpers-0.0.12.tgz"
-  integrity sha512-kPmmGiSDQHEYwkJwwOdflp52O9fZ8tMZm1PWnrhD0Qluh1z9JM+24rFlcfFjY1LZ+8off2hYUaR53M+Bohb9Pw==
+"@wexample/js-helpers@0.0.36":
+  version "0.0.36"
+  resolved "https://registry.npmjs.org/@wexample/js-helpers/-/js-helpers-0.0.36.tgz"
+  integrity sha512-SmwudEGCE6l3Zvy404/JVBvGOUYGF/zht42rsFMQAd14v9ylK0DhFbchjUbdH6v6wTB2WTwzZFRXG9/bgqLpdQ==
 
 ky@^1.4.0:
   version "1.14.2"
