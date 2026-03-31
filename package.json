@@ -1,10 +1,9 @@
 {
-  "version": "0.0.48",
+  "version": "0.0.52",
   "type": "module",
   "name": "@syrtis-ai/syrtis-javascript-client",
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "npm run clean && tsc",
+    "build": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
@@ -14,17 +13,25 @@
     "access": "public"
   },
   "dependencies": {
-    "@wexample/js-api": "0.0.19"
+    "@wexample/js-api": "0.0.38"
   },
   "files": [
-    "dist"
+    "src"
   ],
   "sideEffects": false,
   "exports": {
+    "./Vue/*": "./src/Vue/*",
     "./*": {
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
+      "types": "./src/*.ts",
+      "default": "./src/*.ts"
     }
   },
-  "repository": "https://github.com/Syrtis-AI/syrtis-javascript-client"
+  "repository": "https://github.com/Syrtis-AI/syrtis-javascript-client",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*"
+      ]
+    }
+  }
 }

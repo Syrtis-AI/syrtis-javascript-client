@@ -1,12 +1,10 @@
-import AbstractApiEntity, { type ApiEntityData } from '@wexample/js-api/Common/AbstractApiEntity';
+import AbstractApiEntity from '@wexample/js-api/Common/AbstractApiEntity';
+import schema from '../data/entity/session.json';
 
 export default class Session extends AbstractApiEntity {
   static readonly entityName = 'session';
 
-  title?: string;
-
-  constructor(data: ApiEntityData = {}) {
-    super(data);
-    this.title = data['title'] as string | undefined;
+  static retrieveEntitySchema() {
+    return schema;
   }
 }
