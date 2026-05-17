@@ -1,11 +1,16 @@
+docker:
+  db: {}
+domains: []
 git:
   main_deployment_remote_name: github
+  publication_strategy: main_push
 global:
   authors:
     email: contact@syrtis.ai
     name: weeger
   name: syrtis_javascript_client
+  type: app
   vendor: syrtis-ai
-  version: 0.0.75
+  version: 6.0.28
 npm:
   api_token: ${NPM_TOKEN}

@@ -1,0 +1,3 @@
+libraries:
+- ${LOCAL_WEXAMPLE_PACKAGES_JAVASCRIPT_SUITE_PATH}
+domains: []
