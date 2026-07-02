@@ -124,6 +124,14 @@ const messages = await sessionRepository.fetchHistory({
 
 Also supports `lastRequestSecureId`, `orderBy` and `orderDirection`.
 
+Conversations are trees (message versions create branches). `lastRequestSecureId` selects which branch the history walks: it anchors the walk on that request and returns messages from its branch (the request and its ancestors). Without it, the walk starts from the latest request of the session. Side effect worth relying on: once anchored, pages are stable — messages sent after the anchor belong to descendant requests and never shift the pagination. For an infinite-scroll chat, capture the `requestSecureId` of the first batch and keep it as `lastRequestSecureId` for the following pages.
+
+To display a chat history, filter conversational messages (both user and scenario):
+
+```typescript
+const visible = messages.filter(Message.isConversation);
+```
+
 ## Error handling
 
 All API responses use the standard envelope `{ type, code, message?, data }`. Unwrapping is centralized in `@wexample/js-api`: when the server answers `type: 'error'`, repository calls throw an `ApiEnvelopeError` carrying the server error key.

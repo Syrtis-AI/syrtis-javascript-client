@@ -68,6 +68,12 @@ export default class Message extends AbstractApiEntity {
     );
   }
 
+  // A conversational message from any origin (user input included) —
+  // what a chat history typically displays.
+  static isConversation(message: Message): boolean {
+    return message.contentType === Message.CONTENT_TYPE_CONVERSATION;
+  }
+
   // For JSON messages, the server already parses the content into
   // metadata.formattedContent; fall back to parsing the raw content.
   // Note: schema fields are read through getDataValue() because the
