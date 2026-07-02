@@ -115,12 +115,14 @@ To bypass the automatic JWT flow, pass `mercureHubUrl`/`mercureJwt` to the clien
 ## Fetching history
 
 ```typescript
-const messages = await sessionRepository.fetchHistory({
+const { messages, hasMore } = await sessionRepository.fetchHistory({
   sessionSecureId: 'session_secure_id',
   page: 0,
   length: 50,
 });
 ```
+
+`hasMore` is computed server side (correct even with filters); it is `null` when the API did not paginate (no `length` requested).
 
 Also supports `lastRequestSecureId`, `orderBy` and `orderDirection`.
 

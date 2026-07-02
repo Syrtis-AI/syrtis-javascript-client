@@ -71,6 +71,12 @@ export type SessionFetchHistoryOptions = {
   orderDirection?: 'ASC' | 'DESC' | null;
 };
 
+export type SessionHistory = {
+  messages: Message[];
+  // Null when the API did not compute it (no length requested).
+  hasMore: boolean | null;
+};
+
 export default class SessionRepository extends AbstractApiRepository<Session> {
   static getEntityType() {
     return Session;
@@ -282,7 +288,7 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
     return messageRepository.hydrateFromApiCollection(items);
   }
 
-  async fetchHistory(options: SessionFetchHistoryOptions): Promise<Message[]> {
+  async fetchHistory(options: SessionFetchHistoryOptions): Promise<SessionHistory> {
     const {
       sessionSecureId,
       page = 0,
@@ -327,7 +333,19 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
     const payload = this.extractPayload(data);
     const items = this.extractItems(payload);
 
+    const pagination = (payload as Record<string, unknown>).pagination;
+    const hasMore =
+      pagination &&
+      typeof pagination === 'object' &&
+      typeof (pagination as Record<string, unknown>).hasMore === 'boolean'
+        ? ((pagination as Record<string, unknown>).hasMore as boolean)
+        : null;
+
     const messageRepository = this.client.getRepository(Message) as MessageRepository;
-    return messageRepository.hydrateFromApiCollection(items);
+
+    return {
+      messages: messageRepository.hydrateFromApiCollection(items),
+      hasMore,
+    };
   }
 }
