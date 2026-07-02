@@ -80,6 +80,47 @@ const extracted = messages.find((m) => m.name === 'EXTRACTED_COMPANY');
 const data = extracted?.getParsedContent();
 ```
 
+## Async conversations (live updates)
+
+To receive session updates in real time (Mercure), pass the hub configuration at construction — without it, `subscribe()` throws `ERR_LIVE_UPDATES_NOT_CONFIGURED` and the rest of the client works normally:
+
+```typescript
+const client = new SyrtisClient({
+  host: 'https://api.syrtis.ai',
+  bearerToken: 'your_token_here',
+  mercureHubUrl: 'https://mercure.example.com',
+  mercureJwt: 'subscriber_jwt',
+});
+```
+
+Subscribe to a session — payloads are hydrated into entities, reconnection with backoff is automatic:
+
+```typescript
+const connection = sessionRepository.subscribe({
+  sessionSecureId: 'session_secure_id',
+  onMessage: (message) => { /* hydrated Message */ },
+  onRequest: (request) => { /* hydrated Request */ },
+  onEvent: (liveEvent) => { /* every raw event: {entityType, event, data} */ },
+  onStatusChange: (status) => { /* connecting | open | error | closed */ },
+});
+
+connection.close(); // when done
+```
+
+Send and wait for the scenario reply without holding the HTTP response:
+
+```typescript
+const reply = await sessionRepository.sendMessageAndWaitForReply({
+  sessionSecureId: 'session_secure_id',
+  content: 'Hello',
+  timeoutMs: 60000, // default 120000; ERR_LIVE_UPDATES_REPLY_TIMEOUT on expiry
+});
+```
+
+By default the promise resolves on the first `Message.isReply` message; pass `isReply: (m) => ...` to customize.
+
+A custom transport can replace Mercure by injecting `liveUpdatesDriver` (any `LiveUpdatesDriverInterface` from `@wexample/js-api/Common/LiveUpdates/LiveUpdatesDriver`).
+
 ## Fetching history
 
 ```typescript
