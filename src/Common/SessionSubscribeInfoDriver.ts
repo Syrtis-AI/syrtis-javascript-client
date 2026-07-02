@@ -26,6 +26,9 @@ export default class SessionSubscribeInfoDriver implements LiveUpdatesDriverInte
     return new MercureLiveUpdatesDriver({
       hubUrl: info.hubUrl,
       jwt: info.jwt,
+      // Authorization is carried by the scoped JWT in the URL, not by
+      // cookies — required for hubs answering Access-Control-Allow-Origin: *.
+      withCredentials: false,
     }).connect(options);
   }
 
