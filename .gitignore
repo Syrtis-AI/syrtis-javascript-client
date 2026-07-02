@@ -35,3 +35,13 @@ coverage*.lcov
 *.pid.lock
 .npm
 .eslintcache
+/logs/
+/log/
+/.cache/
+/cache/
+/tmp/
+/temp/
+/build/
+/dist/
+/out/
+/coverage/
