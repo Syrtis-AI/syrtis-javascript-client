@@ -1,8 +1,1 @@
-# @syrtis-ai/syrtis-javascript-client
-
-Version: 0.0.75
-
-## Table of Contents
-
-
-
+TypeScript client for the Syrtis public API: sessions, conversational messages (sync or async via live updates), history and entity hydration. It targets the versioned API (`2026-1` by default) and carries no server secret — authentication uses a bearer token, and realtime subscriptions rely on scoped, short-lived JWTs fetched from the API.

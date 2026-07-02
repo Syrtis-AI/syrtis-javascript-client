@@ -11,7 +11,7 @@ global:
   name: syrtis_javascript_client
   type: app
   vendor: syrtis-ai
-  version: 2.0.0
+  version: 3.0.0
 npm:
   api_token: ${NPM_TOKEN}
 wex:
