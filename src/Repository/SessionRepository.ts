@@ -10,16 +10,30 @@ import Request from '../Entity/Request.js';
 import Session from '../Entity/Session.js';
 import type MessageRepository from './MessageRepository.js';
 
+export type SessionMessagePayload = {
+  content: string;
+  name?: string | null;
+  contentType?: string;
+  format?: string;
+  templateId?: string | number | null;
+  stamps?: string[];
+  metadata?: Record<string, unknown> | unknown[] | null;
+};
+
 export type SessionSendMessageOptions = {
   sessionSecureId: string;
+  // Single-message shortcut; content/name/contentType/... describe one message.
   content?: string | null;
-  files?: File[];
   contentType?: string;
   format?: string;
   templateId?: string | number | null;
   stamps?: string[];
   name?: string | null;
   metadata?: Record<string, unknown> | unknown[] | null;
+  // Additional messages sent in the same POST (same scenario request).
+  // Cumulative with the content shortcut; same per-message defaults.
+  messages?: SessionMessagePayload[];
+  files?: File[];
   fileStamps?: Record<string, string[]>;
   parentRequestSecureId?: string | null;
   timeZone?: string | null;
@@ -108,48 +122,47 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
       sessionSecureId,
       content = null,
       files = [],
-      contentType = 'conversation',
-      format = 'text',
-      templateId = null,
-      stamps = [],
-      name = null,
-      metadata = null,
+      contentType,
+      format,
+      templateId,
+      stamps,
+      name,
+      metadata,
+      messages = [],
       fileStamps = {},
       parentRequestSecureId = null,
       timeZone = null,
       sync = false,
     } = options;
 
-    const trimmedSecureId = String(sessionSecureId || '').trim();
-    if (!trimmedSecureId) {
-      throw new Error('Session secureId is required.');
-    }
+    const messagePayloads = [];
 
     const trimmedContent = typeof content === 'string' ? content.trim() : '';
-    if (!trimmedContent && files.length === 0) {
-      throw new Error('Message content or at least one file is required.');
+    if (trimmedContent) {
+      messagePayloads.push(
+        this.buildMessagePayload({
+          content: trimmedContent,
+          contentType,
+          format,
+          templateId,
+          stamps,
+          name,
+          metadata,
+        })
+      );
     }
 
-    const messages = [];
-    if (trimmedContent) {
-      messages.push({
-        contentType,
-        format,
-        templateId,
-        stamps,
-        content: trimmedContent,
-        metadata,
-        name,
-      });
+    for (const message of messages) {
+      messagePayloads.push(this.buildMessagePayload(message));
     }
 
     const data = await this.client
       .requestFormDataFromJson({
         path: this.buildPath(
-          `continue/${encodeURIComponent(trimmedSecureId)}${sync ? '/sync' : ''}`
+          `continue/${encodeURIComponent(sessionSecureId)}${sync ? '/sync' : ''}`
         ),
         data: {
-          messages,
+          messages: messagePayloads,
           fileStamps,
           parentRequestSecureId,
           timeZone: timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -159,6 +172,18 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
       .json<unknown>();
 
     return this.hydrateMessages(data);
+  }
+
+  protected buildMessagePayload(message: SessionMessagePayload) {
+    return {
+      content: message.content,
+      contentType: message.contentType ?? Message.CONTENT_TYPE_CONVERSATION,
+      format: message.format ?? Message.FORMAT_TEXT,
+      templateId: message.templateId ?? null,
+      stamps: message.stamps ?? [],
+      metadata: message.metadata ?? null,
+      name: message.name ?? null,
+    };
   }
 
   // Fetches a scoped, short-lived Mercure subscriber JWT for this session.

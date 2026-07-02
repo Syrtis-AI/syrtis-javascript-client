@@ -71,6 +71,20 @@ const messages = await sessionRepository.sendMessage({
 
 Other supported options: `files`, `contentType`, `format`, `templateId`, `stamps`, `name`, `metadata`, `fileStamps`, `parentRequestSecureId`, `timeZone`.
 
+### Sending several messages in one request
+
+All messages of a single `sendMessage` call belong to the same scenario request — the scenario processes them as one conversation turn (unlike two successive `sendMessage` calls, which create two turns). `content` is a shortcut for the first message; `messages` carries the others (or all of them), with the same defaults (`conversation`/`text`):
+
+```typescript
+const reply = await sessionRepository.sendMessageAndWaitForReply({
+  sessionSecureId,
+  content: 'Hello',
+  messages: [
+    { content: 'Your name is Marion', name: 'CONTEXT_INSTRUCTION' },
+  ],
+});
+```
+
 ## Working with messages
 
 `Message` exposes typed fields (`content`, `contentType`, `format`, `name`, `origin`, `dateCreated`, `versionMajor`, `versionMinor`) plus the discriminant constants used by the API (`Message.ORIGIN_*`, `Message.CONTENT_TYPE_*`, `Message.FORMAT_*`).
