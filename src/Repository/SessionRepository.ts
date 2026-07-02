@@ -3,6 +3,7 @@ import LiveUpdatesError from '@wexample/js-api/Common/Errors/LiveUpdatesError';
 import LiveUpdatesConnection, {
   type LiveUpdatesConnectionStatus,
 } from '@wexample/js-api/Common/LiveUpdates/LiveUpdatesConnection';
+import SessionSubscribeInfoDriver from '../Common/SessionSubscribeInfoDriver.js';
 import type SyrtisClient from '../Common/SyrtisClient.js';
 import Message from '../Entity/Message.js';
 import Request from '../Entity/Request.js';
@@ -33,6 +34,14 @@ export type SessionLiveEvent = {
   entityType: string;
   event: string;
   data: Record<string, unknown>;
+};
+
+// Response of GET session/subscribe-info/{secureId}.
+export type SessionSubscribeInfo = {
+  hubUrl: string;
+  jwt: string;
+  topics: string[];
+  expiresAt: string;
 };
 
 export type SessionSubscribeOptions = {
@@ -125,18 +134,50 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
     return this.hydrateMessages(data);
   }
 
+  // Fetches a scoped, short-lived Mercure subscriber JWT for this session.
+  async fetchSubscribeInfo(sessionSecureId: string): Promise<SessionSubscribeInfo> {
+    const trimmedSecureId = String(sessionSecureId || '').trim();
+    if (!trimmedSecureId) {
+      throw new Error('Session secureId is required.');
+    }
+
+    const data = await this.client
+      .get({
+        path: this.buildPath(`subscribe-info/${encodeURIComponent(trimmedSecureId)}`),
+      })
+      .json<unknown>();
+
+    const payload = this.extractPayload(data) as Record<string, unknown>;
+
+    if (typeof payload.hubUrl !== 'string' || typeof payload.jwt !== 'string') {
+      throw new Error('Invalid subscribe-info payload: missing "hubUrl" or "jwt".');
+    }
+
+    return {
+      hubUrl: payload.hubUrl,
+      jwt: payload.jwt,
+      topics: Array.isArray(payload.topics) ? (payload.topics as string[]) : [],
+      expiresAt: typeof payload.expiresAt === 'string' ? payload.expiresAt : '',
+    };
+  }
+
   // Subscribes to the session live topic and dispatches hydrated entities.
-  // Requires the client to be constructed with mercureHubUrl/mercureJwt
-  // (or a custom liveUpdatesDriver). Returns the connection; call close()
-  // when done.
+  // With no specific configuration, a scoped subscriber JWT is fetched from
+  // the API (and renewed on reconnection); mercureHubUrl/mercureJwt or a
+  // custom liveUpdatesDriver on the client take precedence. Returns the
+  // connection; call close() when done.
   subscribe(options: SessionSubscribeOptions): LiveUpdatesConnection {
     const trimmedSecureId = String(options.sessionSecureId || '').trim();
     if (!trimmedSecureId) {
       throw new Error('Session secureId is required.');
     }
 
+    const client = this.client as SyrtisClient;
+
     return new LiveUpdatesConnection({
-      driver: (this.client as SyrtisClient).getLiveUpdatesDriver(),
+      driver: client.hasLiveUpdatesDriver()
+        ? client.getLiveUpdatesDriver()
+        : new SessionSubscribeInfoDriver(this, trimmedSecureId),
       topics: [this.buildLiveTopic(trimmedSecureId)],
       onStatusChange: options.onStatusChange,
       onMessage: (payload) => {

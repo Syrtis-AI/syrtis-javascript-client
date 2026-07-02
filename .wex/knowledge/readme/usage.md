@@ -82,16 +82,7 @@ const data = extracted?.getParsedContent();
 
 ## Async conversations (live updates)
 
-To receive session updates in real time (Mercure), pass the hub configuration at construction — without it, `subscribe()` throws `ERR_LIVE_UPDATES_NOT_CONFIGURED` and the rest of the client works normally:
-
-```typescript
-const client = new SyrtisClient({
-  host: 'https://api.syrtis.ai',
-  bearerToken: 'your_token_here',
-  mercureHubUrl: 'https://mercure.example.com',
-  mercureJwt: 'subscriber_jwt',
-});
-```
+No configuration is required: `subscribe()` fetches a scoped, short-lived Mercure subscriber JWT from the API (`session/subscribe-info/{secureId}`) and renews it automatically on reconnection. The API bearer token is enough.
 
 Subscribe to a session — payloads are hydrated into entities, reconnection with backoff is automatic:
 
@@ -119,7 +110,7 @@ const reply = await sessionRepository.sendMessageAndWaitForReply({
 
 By default the promise resolves on the first `Message.isReply` message; pass `isReply: (m) => ...` to customize.
 
-A custom transport can replace Mercure by injecting `liveUpdatesDriver` (any `LiveUpdatesDriverInterface` from `@wexample/js-api/Common/LiveUpdates/LiveUpdatesDriver`).
+To bypass the automatic JWT flow, pass `mercureHubUrl`/`mercureJwt` to the client constructor (static hub configuration), or inject a `liveUpdatesDriver` (any `LiveUpdatesDriverInterface` from `@wexample/js-api/Common/LiveUpdates/LiveUpdatesDriver`) for a custom transport. Both take precedence over the subscribe-info flow. `fetchSubscribeInfo(sessionSecureId)` is also available directly on the repository.
 
 ## Fetching history
 
