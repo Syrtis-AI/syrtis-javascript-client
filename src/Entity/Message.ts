@@ -4,6 +4,16 @@ import schema from '../data/entity/message.json';
 export default class Message extends AbstractApiEntity {
   static readonly entityName = 'message';
 
+  // Schema-driven fields, resolved at runtime through the entity Proxy.
+  declare readonly content?: string | null;
+  declare readonly contentType?: string | null;
+  declare readonly dateCreated?: Date | null;
+  declare readonly format?: string | null;
+  declare readonly name?: string | null;
+  declare readonly origin?: string | null;
+  declare readonly versionMajor?: number | null;
+  declare readonly versionMinor?: number | null;
+
   static readonly ORIGIN_CARD = 'card';
   static readonly ORIGIN_CORE = 'core';
   static readonly ORIGIN_NODE = 'node';
@@ -47,5 +57,42 @@ export default class Message extends AbstractApiEntity {
 
   static retrieveEntitySchema() {
     return schema;
+  }
+
+  // A "reply" is a conversational message produced by the scenario,
+  // as opposed to user input or technical messages.
+  static isReply(message: Message): boolean {
+    return (
+      message.origin === Message.ORIGIN_NODE &&
+      message.contentType === Message.CONTENT_TYPE_CONVERSATION
+    );
+  }
+
+  // For JSON messages, the server already parses the content into
+  // metadata.formattedContent; fall back to parsing the raw content.
+  // Note: schema fields are read through getDataValue() because the
+  // entity Proxy binds methods to the raw target, where `this.format`
+  // and friends are not resolved.
+  getParsedContent(): unknown {
+    const format = this.getDataValue('format');
+    const content = this.getDataValue('content');
+
+    if (format !== Message.FORMAT_JSON) {
+      return content;
+    }
+
+    const metadata = this.metadata;
+    if (metadata && !Array.isArray(metadata)) {
+      const formatted = (metadata as Record<string, unknown>).formattedContent;
+      if (formatted !== undefined && formatted !== null) {
+        return formatted;
+      }
+    }
+
+    if (typeof content === 'string' && content.trim() !== '') {
+      return JSON.parse(content);
+    }
+
+    return null;
   }
 }
