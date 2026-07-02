@@ -71,6 +71,11 @@ export type SessionFetchHistoryOptions = {
   orderDirection?: 'ASC' | 'DESC' | null;
 };
 
+export type SessionCreateOptions = {
+  scenarioSecureId: string;
+  title?: string | null;
+};
+
 export type SessionHistory = {
   messages: Message[];
   // Null when the API did not compute it (no length requested).
@@ -80,6 +85,22 @@ export type SessionHistory = {
 export default class SessionRepository extends AbstractApiRepository<Session> {
   static getEntityType() {
     return Session;
+  }
+
+  // Creates a new session on the given scenario and returns it hydrated
+  // (its secureId is then used for continue/history/subscribe).
+  // Input validation is the API's job — payload is sent as-is.
+  async createSession(options: SessionCreateOptions): Promise<Session> {
+    const data = await this.post({
+      endpoint: 'create',
+      payload: options,
+    });
+
+    const payload = this.extractPayload(data);
+
+    return this.createFromApiItem(
+      payload as Parameters<AbstractApiRepository<Session>['createFromApiItem']>[0]
+    );
   }
 
   async sendMessage(options: SessionSendMessageOptions): Promise<Message[]> {
@@ -142,14 +163,9 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
 
   // Fetches a scoped, short-lived Mercure subscriber JWT for this session.
   async fetchSubscribeInfo(sessionSecureId: string): Promise<SessionSubscribeInfo> {
-    const trimmedSecureId = String(sessionSecureId || '').trim();
-    if (!trimmedSecureId) {
-      throw new Error('Session secureId is required.');
-    }
-
     const data = await this.client
       .get({
-        path: this.buildPath(`subscribe-info/${encodeURIComponent(trimmedSecureId)}`),
+        path: this.buildPath(`subscribe-info/${encodeURIComponent(sessionSecureId)}`),
       })
       .json<unknown>();
 
@@ -173,18 +189,13 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
   // custom liveUpdatesDriver on the client take precedence. Returns the
   // connection; call close() when done.
   subscribe(options: SessionSubscribeOptions): LiveUpdatesConnection {
-    const trimmedSecureId = String(options.sessionSecureId || '').trim();
-    if (!trimmedSecureId) {
-      throw new Error('Session secureId is required.');
-    }
-
     const client = this.client as SyrtisClient;
 
     return new LiveUpdatesConnection({
       driver: client.hasLiveUpdatesDriver()
         ? client.getLiveUpdatesDriver()
-        : new SessionSubscribeInfoDriver(this, trimmedSecureId),
-      topics: [this.buildLiveTopic(trimmedSecureId)],
+        : new SessionSubscribeInfoDriver(this, options.sessionSecureId),
+      topics: [this.buildLiveTopic(options.sessionSecureId)],
       onStatusChange: options.onStatusChange,
       onMessage: (payload) => {
         const liveEvent = this.parseLiveEvent(payload);

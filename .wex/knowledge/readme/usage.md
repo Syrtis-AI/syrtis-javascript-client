@@ -36,6 +36,16 @@ import type SessionRepository from '@syrtis-ai/syrtis-javascript-client/Reposito
 const sessionRepository = client.getRepository(Session) as SessionRepository;
 ```
 
+## Creating a session
+
+```typescript
+const session = await sessionRepository.createSession({
+  scenarioSecureId: 'sce_…',
+  title: 'Support conversation', // optional
+});
+// session.secureId → use it for sendMessage / fetchHistory / subscribe
+```
+
 ## Sending a message
 
 `sendMessage` posts to `session/continue/{secureId}` and returns hydrated `Message[]` entities (the messages produced by the scenario):
