@@ -16,6 +16,9 @@ export type SessionSendMessageOptions = {
   fileStamps?: Record<string, string[]>;
   parentRequestSecureId?: string | null;
   timeZone?: string | null;
+  // When true, the API waits for the whole response to be processed
+  // before returning the HTTP response.
+  sync?: boolean;
 };
 
 export type SessionFetchHistoryOptions = {
@@ -32,7 +35,7 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
     return Session;
   }
 
-  async sendMessage(options: SessionSendMessageOptions): Promise<unknown> {
+  async sendMessage(options: SessionSendMessageOptions): Promise<Message[]> {
     const {
       sessionSecureId,
       content = null,
@@ -46,6 +49,7 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
       fileStamps = {},
       parentRequestSecureId = null,
       timeZone = null,
+      sync = false,
     } = options;
 
     const trimmedSecureId = String(sessionSecureId || '').trim();
@@ -71,9 +75,11 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
       });
     }
 
-    return this.client
+    const data = await this.client
       .requestFormDataFromJson({
-        path: this.buildPath(`continue/${encodeURIComponent(trimmedSecureId)}`),
+        path: this.buildPath(
+          `continue/${encodeURIComponent(trimmedSecureId)}${sync ? '/sync' : ''}`
+        ),
         data: {
           messages,
           fileStamps,
@@ -83,6 +89,20 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
         files,
       })
       .json<unknown>();
+
+    return this.hydrateMessages(data);
+  }
+
+  protected hydrateMessages(data: unknown): Message[] {
+    const payload = this.extractPayload(data);
+    const items = (payload as Record<string, unknown>).messages;
+
+    if (!Array.isArray(items)) {
+      throw new Error('Invalid API payload: missing "messages" array.');
+    }
+
+    const messageRepository = this.client.getRepository(Message) as MessageRepository;
+    return messageRepository.hydrateFromApiCollection(items);
   }
 
   async fetchHistory(options: SessionFetchHistoryOptions): Promise<Message[]> {
