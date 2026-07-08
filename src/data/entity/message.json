@@ -169,34 +169,6 @@
       }
     },
     {
-      "name": "template",
-      "type": "relation",
-      "nullable": true,
-      "default": null,
-      "target": "template",
-      "orm": {
-        "kind": "association",
-        "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Template",
-        "target": "template",
-        "mapped_by": null,
-        "inversed_by": null,
-        "is_owning_side": true,
-        "orphan_removal": false,
-        "cascade": {},
-        "fetch": 2,
-        "join_columns": [
-          {
-            "name": "template_id",
-            "referenced_column_name": "id",
-            "nullable": true,
-            "unique": false,
-            "on_delete": null
-          }
-        ]
-      }
-    },
-    {
       "name": "metadata",
       "type": "array",
       "nullable": true,
@@ -639,27 +611,6 @@
         "join_columns": [
           {
             "name": "target_id",
-            "referenced_column_name": "id",
-            "nullable": true,
-            "unique": false,
-            "on_delete": null
-          }
-        ]
-      },
-      "template": {
-        "kind": "association",
-        "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Template",
-        "target": "template",
-        "mapped_by": null,
-        "inversed_by": null,
-        "is_owning_side": true,
-        "orphan_removal": false,
-        "cascade": {},
-        "fetch": 2,
-        "join_columns": [
-          {
-            "name": "template_id",
             "referenced_column_name": "id",
             "nullable": true,
             "unique": false,
