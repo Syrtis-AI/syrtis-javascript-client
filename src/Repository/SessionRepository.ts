@@ -15,7 +15,6 @@ export type SessionMessagePayload = {
   name?: string | null;
   contentType?: string;
   format?: string;
-  templateId?: string | number | null;
   stamps?: string[];
   metadata?: Record<string, unknown> | unknown[] | null;
 };
@@ -26,7 +25,6 @@ export type SessionSendMessageOptions = {
   content?: string | null;
   contentType?: string;
   format?: string;
-  templateId?: string | number | null;
   stamps?: string[];
   name?: string | null;
   metadata?: Record<string, unknown> | unknown[] | null;
@@ -124,7 +122,6 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
       files = [],
       contentType,
       format,
-      templateId,
       stamps,
       name,
       metadata,
@@ -144,7 +141,6 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
           content: trimmedContent,
           contentType,
           format,
-          templateId,
           stamps,
           name,
           metadata,
@@ -179,7 +175,6 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
       content: message.content,
       contentType: message.contentType ?? Message.CONTENT_TYPE_CONVERSATION,
       format: message.format ?? Message.FORMAT_TEXT,
-      templateId: message.templateId ?? null,
       stamps: message.stamps ?? [],
       metadata: message.metadata ?? null,
       name: message.name ?? null,
