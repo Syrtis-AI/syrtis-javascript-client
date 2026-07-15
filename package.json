@@ -1,5 +1,5 @@
 {
-  "version": "5.0.2",
+  "version": "5.0.3",
   "type": "module",
   "name": "@syrtis-ai/syrtis-javascript-client",
   "scripts": {
