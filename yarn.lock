@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@wexample/js-api@^1.0.1":
-  "integrity" "sha512-7o1bLbPZ05xBYZobfpapKOYxJgTOl+NJjPoh5xtsVWqnTSS18/nDAsdecg5oLOXHYRdLRIIoBXHO2j4vROIQQQ=="
-  "resolved" "https://registry.npmjs.org/@wexample/js-api/-/js-api-1.0.2.tgz"
-  "version" "1.0.2"
+"@wexample/js-api@^2.0.0":
+  "integrity" "sha512-HT+gbYNTwv0VMlSsLecwTNScNzmhDYfHNU/psfVPJ/6vf/UQaUaG0zUg2T0/RHehfpqQW6JQAsMSN/2kDITO/A=="
+  "resolved" "https://registry.npmjs.org/@wexample/js-api/-/js-api-2.0.1.tgz"
+  "version" "2.0.1"
   dependencies:
     "@wexample/js-helpers" "0.0.37"
     "ky" "^1.4.0"
