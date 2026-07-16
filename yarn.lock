@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@wexample/js-api@^2.0.0":
+"@wexample/js-api@^2.0.1":
   "integrity" "sha512-HT+gbYNTwv0VMlSsLecwTNScNzmhDYfHNU/psfVPJ/6vf/UQaUaG0zUg2T0/RHehfpqQW6JQAsMSN/2kDITO/A=="
   "resolved" "https://registry.npmjs.org/@wexample/js-api/-/js-api-2.0.1.tgz"
   "version" "2.0.1"
