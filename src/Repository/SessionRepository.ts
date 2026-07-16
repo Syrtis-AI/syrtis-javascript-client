@@ -1,4 +1,5 @@
 import AbstractApiRepository from '@wexample/js-api/Common/AbstractApiRepository';
+import ApiEnvelopeError from '@wexample/js-api/Common/Errors/ApiEnvelopeError';
 import LiveUpdatesError from '@wexample/js-api/Common/Errors/LiveUpdatesError';
 import LiveUpdatesConnection, {
   type LiveUpdatesConnectionStatus,
@@ -62,6 +63,10 @@ export type SessionSubscribeOptions = {
   onRequest?: (request: Request, liveEvent: SessionLiveEvent) => void;
   // Called for every event, including entity types without a dedicated handler.
   onEvent?: (liveEvent: SessionLiveEvent) => void;
+  // Called when a live payload does not match the expected event shape.
+  // Without a handler the payload is reported via console.warn — a
+  // malformed event is dropped, never silently.
+  onInvalidEvent?: (payload: unknown) => void;
   onStatusChange?: (
     status: LiveUpdatesConnectionStatus,
     previousStatus: LiveUpdatesConnectionStatus
@@ -110,9 +115,7 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
 
     const payload = this.extractPayload(data);
 
-    return this.createFromApiItem(
-      payload as Parameters<AbstractApiRepository<Session>['createFromApiItem']>[0]
-    );
+    return this.createFromApiItem(this.parseApiItem(payload));
   }
 
   async sendMessage(options: SessionSendMessageOptions): Promise<Message[]> {
@@ -191,15 +194,26 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
 
     const payload = this.extractPayload(data) as Record<string, unknown>;
 
-    if (typeof payload.hubUrl !== 'string' || typeof payload.jwt !== 'string') {
-      throw new Error('Invalid subscribe-info payload: missing "hubUrl" or "jwt".');
+    if (
+      typeof payload.hubUrl !== 'string' ||
+      typeof payload.jwt !== 'string' ||
+      !Array.isArray(payload.topics) ||
+      !payload.topics.every((topic) => typeof topic === 'string') ||
+      typeof payload.expiresAt !== 'string'
+    ) {
+      throw new LiveUpdatesError({
+        message:
+          '[syrtis] invalid subscribe-info payload: expected {hubUrl, jwt, topics[], expiresAt}.',
+        code: 'ERR_LIVE_UPDATES_INVALID_SUBSCRIBE_INFO',
+        context: { payload },
+      });
     }
 
     return {
       hubUrl: payload.hubUrl,
       jwt: payload.jwt,
-      topics: Array.isArray(payload.topics) ? (payload.topics as string[]) : [],
-      expiresAt: typeof payload.expiresAt === 'string' ? payload.expiresAt : '',
+      topics: payload.topics as string[],
+      expiresAt: payload.expiresAt,
     };
   }
 
@@ -220,15 +234,30 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
       onMessage: (payload) => {
         const liveEvent = this.parseLiveEvent(payload);
         if (!liveEvent) {
+          if (options.onInvalidEvent) {
+            options.onInvalidEvent(payload);
+          } else {
+            console.warn('[syrtis] malformed live event dropped:', payload);
+          }
           return;
         }
 
         options.onEvent?.(liveEvent);
 
+        // Mercure payloads come from the API's legacy normalizer, which
+        // emits keys outside the schema (requestId, _formattedContent, ...):
+        // tolerance is imposed here until the API publishes contract-clean
+        // payloads — every other hydration path stays strict.
         if (liveEvent.entityType === 'Message') {
-          options.onMessage?.(Message.fromApi<Message>(liveEvent.data), liveEvent);
+          options.onMessage?.(
+            Message.fromApi<Message>(liveEvent.data, { tolerant: true }),
+            liveEvent
+          );
         } else if (liveEvent.entityType === 'Request') {
-          options.onRequest?.(Request.fromApi<Request>(liveEvent.data), liveEvent);
+          options.onRequest?.(
+            Request.fromApi<Request>(liveEvent.data, { tolerant: true }),
+            liveEvent
+          );
         }
       },
     });
@@ -312,7 +341,10 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
     const items = (payload as Record<string, unknown>).messages;
 
     if (!Array.isArray(items)) {
-      throw new Error('Invalid API payload: missing "messages" array.');
+      throw new ApiEnvelopeError({
+        message: 'Invalid API payload: missing "messages" array.',
+        envelope: payload,
+      });
     }
 
     const messageRepository = this.client.getRepository(Message) as MessageRepository;

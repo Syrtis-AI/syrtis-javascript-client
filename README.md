@@ -1,6 +1,6 @@
 # @syrtis-ai/syrtis-javascript-client
 
-Version: 5.0.4
+Version: 6.0.0
 
 ## Table of Contents
 
@@ -81,7 +81,7 @@ const messages = await sessionRepository.sendMessage({
 });
 ```
 
-Other supported options: `files`, `contentType`, `format`, `templateId`, `stamps`, `name`, `metadata`, `fileStamps`, `parentRequestSecureId`, `timeZone`.
+Other supported options: `files`, `contentType`, `format`, `stamps`, `name`, `metadata`, `fileStamps`, `parentRequestSecureId`, `timeZone`.
 
 ### Sending several messages in one request
 
@@ -128,6 +128,7 @@ const connection = sessionRepository.subscribe({
   onMessage: (message) => { /* hydrated Message */ },
   onRequest: (request) => { /* hydrated Request */ },
   onEvent: (liveEvent) => { /* every raw event: {entityType, event, data} */ },
+  onInvalidEvent: (payload) => { /* malformed payloads (default: console.warn) */ },
   onStatusChange: (status) => { /* connecting | open | error | closed */ },
 });
 
@@ -188,6 +189,8 @@ try {
   throw error;
 }
 ```
+
+Hydration is strict by design: a response key absent from the entity schema, a read-only write, a malformed API item or an unregistered relationship type throws an `ApiSchemaError` (`@wexample/js-api/Common/Errors/ApiSchemaError`, codes `ERR_SCHEMA_*`, carrying `entityName` and `field`). A contract drift is caught at the boundary instead of silently losing data. The only tolerated exception is live-update payloads, produced by the API's legacy normalizer.
 
 To unwrap a raw call yourself:
 

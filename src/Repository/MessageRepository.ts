@@ -6,9 +6,7 @@ export default class MessageRepository extends AbstractApiRepository<Message> {
     return Message;
   }
 
-  hydrateFromApiCollection(
-    items: Parameters<AbstractApiRepository<Message>['createFromApiCollection']>[0]
-  ): Message[] {
-    return this.createFromApiCollection(items);
+  hydrateFromApiCollection(items: unknown[]): Message[] {
+    return this.createFromApiCollection(items.map((item) => this.parseApiItem(item)));
   }
 }
