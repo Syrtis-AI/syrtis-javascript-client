@@ -201,6 +201,8 @@ try {
 
 Hydration is strict by design: a response key absent from the entity schema, a read-only write, a malformed API item or an unregistered relationship type throws an `ApiSchemaError` (`@wexample/js-api/Common/Errors/ApiSchemaError`, codes `ERR_SCHEMA_*`, carrying `entityName` and `field`). A contract drift is caught at the boundary instead of silently losing data. Live updates go through the same gate: an event whose hydration fails is reported through `onInvalidEvent` (never silently) and dropped, keeping the subscription alive.
 
+API item types are camelCase on the wire (`userConfig`, `messageStamp`) — as is the whole 2026 contract — while entity names are snake_case here (`user_config`); the translation is internal, so error messages quote types the way the API spells them.
+
 To unwrap a raw call yourself:
 
 ```typescript
