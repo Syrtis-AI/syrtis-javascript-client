@@ -139,6 +139,25 @@ By default the promise resolves on the first `Message.isReply` message; pass `is
 
 To bypass the automatic JWT flow, pass `mercureHubUrl`/`mercureJwt` to the client constructor (static hub configuration), or inject a `liveUpdatesDriver` (any `LiveUpdatesDriverInterface` from `@wexample/js-api/Common/LiveUpdates/LiveUpdatesDriver`) for a custom transport. Both take precedence over the subscribe-info flow. `fetchSubscribeInfo(sessionSecureId)` is also available directly on the repository.
 
+### Connection status (widgets)
+
+Every connection opened through `subscribe()` is tracked by a client-wide registry, for status widgets and monitoring:
+
+```typescript
+const registry = client.getLiveUpdatesRegistry();
+
+registry.getAggregatedStatus();
+// { total, connecting, reconnecting, open, error, reconnectStopped, hasActiveConnection }
+
+const unsubscribe = registry.onEvent((event) => {
+  // event.type: 'connection-registered' | 'connection-status'
+  //           | 'connection-message' | 'connection-unregistered'
+  // event.aggregated: fresh aggregated status
+});
+```
+
+Connection statuses are `connecting | open | error | reconnecting | reconnect-stopped | closed`; a successful reconnection is observable as `reconnecting` → `open`, and closed connections leave the registry on their own.
+
 ## Fetching history
 
 ```typescript

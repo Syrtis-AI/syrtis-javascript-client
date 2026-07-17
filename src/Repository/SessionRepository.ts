@@ -230,7 +230,7 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
   subscribe(options: SessionSubscribeOptions): LiveUpdatesConnection {
     const client = this.client as SyrtisClient;
 
-    return new LiveUpdatesConnection({
+    const connection = new LiveUpdatesConnection({
       driver: client.hasLiveUpdatesDriver()
         ? client.getLiveUpdatesDriver()
         : new SessionSubscribeInfoDriver(this, options.sessionSecureId),
@@ -280,6 +280,12 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
         }
       },
     });
+
+    // Feeds the client-wide aggregated status (status widgets); the
+    // registry drops the connection by itself once closed.
+    client.getLiveUpdatesRegistry().register(connection);
+
+    return connection;
   }
 
   // Sends a message without holding the HTTP response, then resolves with

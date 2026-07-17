@@ -2,6 +2,7 @@ import type { ApiClientOptions } from '@wexample/js-api/Common/AbstractApiClient
 import AbstractApiEntitiesClient from '@wexample/js-api/Common/AbstractApiEntitiesClient';
 import type { RepositoryClass } from '@wexample/js-api/Common/ApiEntityManager';
 import LiveUpdatesError from '@wexample/js-api/Common/Errors/LiveUpdatesError';
+import LiveUpdatesConnectionRegistry from '@wexample/js-api/Common/LiveUpdates/LiveUpdatesConnectionRegistry';
 import type { LiveUpdatesDriverInterface } from '@wexample/js-api/Common/LiveUpdates/LiveUpdatesDriver';
 import MercureLiveUpdatesDriver from '@wexample/js-api/Common/LiveUpdates/MercureLiveUpdatesDriver';
 import getEntitySchemas from './entitySchemas.js';
@@ -23,6 +24,7 @@ export default class SyrtisClient extends AbstractApiEntitiesClient {
   static readonly API_VERSION_DEFAULT = SyrtisClient.API_VERSION_2026_1;
 
   private liveUpdatesDriver: LiveUpdatesDriverInterface | null;
+  private readonly liveUpdatesRegistry = new LiveUpdatesConnectionRegistry();
   private readonly apiVersion: string;
 
   constructor(options: SyrtisClientOptions) {
@@ -49,6 +51,13 @@ export default class SyrtisClient extends AbstractApiEntitiesClient {
   // (2026-1/entity/session/event/{secureId}).
   getApiVersion(): string {
     return this.apiVersion;
+  }
+
+  // Aggregated status and lifecycle events of every live connection opened
+  // through this client (subscribe() registers them) — meant for status
+  // widgets: getAggregatedStatus() + onEvent(listener).
+  getLiveUpdatesRegistry(): LiveUpdatesConnectionRegistry {
+    return this.liveUpdatesRegistry;
   }
 
   setLiveUpdatesDriver(driver: LiveUpdatesDriverInterface): void {
