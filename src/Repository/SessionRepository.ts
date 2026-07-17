@@ -4,7 +4,6 @@ import LiveUpdatesError from '@wexample/js-api/Common/Errors/LiveUpdatesError';
 import LiveUpdatesConnection, {
   type LiveUpdatesConnectionStatus,
 } from '@wexample/js-api/Common/LiveUpdates/LiveUpdatesConnection';
-import { entityNameFromApiType } from '@wexample/js-api/Helper/EntityNameHelper';
 import SessionSubscribeInfoDriver from '../Common/SessionSubscribeInfoDriver.js';
 import type SyrtisClient from '../Common/SyrtisClient.js';
 import Message from '../Entity/Message.js';
@@ -46,8 +45,8 @@ export type SessionSendMessageOptions = {
 // Payload published by the API on the versioned session Mercure topic
 // ({apiVersion}/entity/session/event/{secureId}): { event, data } where
 // data is the standard 2026 API item {type, entity, metadata, relationships},
-// identical to REST responses. entityType is data.type resolved to its
-// entity name (Message.entityName, Request.entityName, ...).
+// identical to REST responses. entityType is data.type, i.e. the entity name
+// (Message.entityName, Request.entityName, ...).
 export type SessionLiveEvent = {
   entityType: string;
   event: string;
@@ -356,13 +355,13 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
       return null;
     }
 
-    const apiType = (data as Record<string, unknown>).type;
-    if (typeof apiType !== 'string' || !apiType) {
+    const entityType = (data as Record<string, unknown>).type;
+    if (typeof entityType !== 'string' || !entityType) {
       return null;
     }
 
     return {
-      entityType: entityNameFromApiType(apiType),
+      entityType,
       event: typeof record.event === 'string' ? record.event : '',
       data: data as Record<string, unknown>,
     };
