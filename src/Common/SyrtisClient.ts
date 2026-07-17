@@ -23,6 +23,7 @@ export default class SyrtisClient extends AbstractApiEntitiesClient {
   static readonly API_VERSION_DEFAULT = SyrtisClient.API_VERSION_2026_1;
 
   private liveUpdatesDriver: LiveUpdatesDriverInterface | null;
+  private readonly apiVersion: string;
 
   constructor(options: SyrtisClientOptions) {
     const { host, apiVersion, mercureHubUrl, mercureJwt, liveUpdatesDriver, ...rest } = options;
@@ -33,6 +34,7 @@ export default class SyrtisClient extends AbstractApiEntitiesClient {
       baseUrl: `${normalizedHost}api/${version}/`,
     });
 
+    this.apiVersion = version;
     this.liveUpdatesDriver =
       liveUpdatesDriver ??
       (mercureHubUrl
@@ -41,6 +43,12 @@ export default class SyrtisClient extends AbstractApiEntitiesClient {
             jwt: mercureJwt ?? null,
           })
         : null);
+  }
+
+  // Version segment of every API path — also prefixes Mercure topics
+  // (2026-1/entity/session/event/{secureId}).
+  getApiVersion(): string {
+    return this.apiVersion;
   }
 
   setLiveUpdatesDriver(driver: LiveUpdatesDriverInterface): void {

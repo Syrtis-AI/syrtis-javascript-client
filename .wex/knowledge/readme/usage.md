@@ -108,6 +108,8 @@ const data = extracted?.getParsedContent();
 
 No configuration is required: `subscribe()` fetches a scoped, short-lived Mercure subscriber JWT from the API (`session/subscribe-info/{secureId}`) and renews it automatically on reconnection. The API bearer token is enough.
 
+The subscription listens to the versioned topic `{apiVersion}/entity/session/event/{secureId}`; events carry `{event, data}` where `data` is the standard API item `{type, entity, metadata, relationships}` — the exact same format and strict hydration gate as REST responses.
+
 Subscribe to a session — payloads are hydrated into entities, reconnection with backoff is automatic:
 
 ```typescript
@@ -116,7 +118,7 @@ const connection = sessionRepository.subscribe({
   onMessage: (message) => { /* hydrated Message */ },
   onRequest: (request) => { /* hydrated Request */ },
   onEvent: (liveEvent) => { /* every raw event: {entityType, event, data} */ },
-  onInvalidEvent: (payload) => { /* malformed payloads (default: console.warn) */ },
+  onInvalidEvent: (payload, error) => { /* malformed or out-of-contract payloads (default: console.warn) */ },
   onStatusChange: (status) => { /* connecting | open | error | closed */ },
 });
 
@@ -178,7 +180,7 @@ try {
 }
 ```
 
-Hydration is strict by design: a response key absent from the entity schema, a read-only write, a malformed API item or an unregistered relationship type throws an `ApiSchemaError` (`@wexample/js-api/Common/Errors/ApiSchemaError`, codes `ERR_SCHEMA_*`, carrying `entityName` and `field`). A contract drift is caught at the boundary instead of silently losing data. The only tolerated exception is live-update payloads, produced by the API's legacy normalizer.
+Hydration is strict by design: a response key absent from the entity schema, a read-only write, a malformed API item or an unregistered relationship type throws an `ApiSchemaError` (`@wexample/js-api/Common/Errors/ApiSchemaError`, codes `ERR_SCHEMA_*`, carrying `entityName` and `field`). A contract drift is caught at the boundary instead of silently losing data. Live updates go through the same gate: an event whose hydration fails is reported through `onInvalidEvent` (never silently) and dropped, keeping the subscription alive.
 
 To unwrap a raw call yourself:
 

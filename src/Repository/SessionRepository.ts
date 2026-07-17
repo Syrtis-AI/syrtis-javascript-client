@@ -10,6 +10,7 @@ import Message from '../Entity/Message.js';
 import Request from '../Entity/Request.js';
 import Session from '../Entity/Session.js';
 import type MessageRepository from './MessageRepository.js';
+import type RequestRepository from './RequestRepository.js';
 
 export type SessionMessagePayload = {
   content: string;
@@ -41,8 +42,10 @@ export type SessionSendMessageOptions = {
   sync?: boolean;
 };
 
-// Payload published by the API on the session Mercure topic:
-// { entity_type: 'Message'|'Request', event: 'message.save'|..., data: {...} }
+// Payload published by the API on the versioned session Mercure topic
+// ({apiVersion}/entity/session/event/{secureId}): { event, data } where
+// data is the standard 2026 API item {type, entity, metadata, relationships},
+// identical to REST responses. entityType is data.type (e.g. 'message').
 export type SessionLiveEvent = {
   entityType: string;
   event: string;
@@ -63,10 +66,12 @@ export type SessionSubscribeOptions = {
   onRequest?: (request: Request, liveEvent: SessionLiveEvent) => void;
   // Called for every event, including entity types without a dedicated handler.
   onEvent?: (liveEvent: SessionLiveEvent) => void;
-  // Called when a live payload does not match the expected event shape.
-  // Without a handler the payload is reported via console.warn — a
-  // malformed event is dropped, never silently.
-  onInvalidEvent?: (payload: unknown) => void;
+  // Called when a live payload does not match the expected event shape, or
+  // when its strict hydration fails (contract drift — error is then an
+  // ApiSchemaError). Without a handler the payload is reported via
+  // console.warn — a bad event is dropped, never silently, and the
+  // subscription stays alive.
+  onInvalidEvent?: (payload: unknown, error?: unknown) => void;
   onStatusChange?: (
     status: LiveUpdatesConnectionStatus,
     previousStatus: LiveUpdatesConnectionStatus
@@ -232,32 +237,46 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
       topics: [this.buildLiveTopic(options.sessionSecureId)],
       onStatusChange: options.onStatusChange,
       onMessage: (payload) => {
+        const reportInvalid = (error?: unknown) => {
+          if (options.onInvalidEvent) {
+            options.onInvalidEvent(payload, error);
+          } else if (error === undefined) {
+            console.warn('[syrtis] invalid live event dropped:', payload);
+          } else {
+            console.warn('[syrtis] invalid live event dropped:', payload, error);
+          }
+        };
+
         const liveEvent = this.parseLiveEvent(payload);
         if (!liveEvent) {
-          if (options.onInvalidEvent) {
-            options.onInvalidEvent(payload);
-          } else {
-            console.warn('[syrtis] malformed live event dropped:', payload);
-          }
+          reportInvalid();
           return;
         }
 
         options.onEvent?.(liveEvent);
 
-        // Mercure payloads come from the API's legacy normalizer, which
-        // emits keys outside the schema (requestId, _formattedContent, ...):
-        // tolerance is imposed here until the API publishes contract-clean
-        // payloads — every other hydration path stays strict.
-        if (liveEvent.entityType === 'Message') {
-          options.onMessage?.(
-            Message.fromApi<Message>(liveEvent.data, { tolerant: true }),
-            liveEvent
-          );
-        } else if (liveEvent.entityType === 'Request') {
-          options.onRequest?.(
-            Request.fromApi<Request>(liveEvent.data, { tolerant: true }),
-            liveEvent
-          );
+        // data is a standard API item: same strict hydration gate as REST.
+        // Types without a dedicated callback (e.g. artifact) are only
+        // delivered through onEvent. A hydration failure means the live
+        // contract drifted: reported, dropped, subscription kept alive.
+        try {
+          if (liveEvent.entityType === Message.entityName) {
+            options.onMessage?.(
+              (this.client.getRepository(Message) as MessageRepository).hydrateApiItem(
+                liveEvent.data
+              ),
+              liveEvent
+            );
+          } else if (liveEvent.entityType === Request.entityName) {
+            options.onRequest?.(
+              (this.client.getRepository(Request) as RequestRepository).hydrateApiItem(
+                liveEvent.data
+              ),
+              liveEvent
+            );
+          }
+        } catch (error) {
+          reportInvalid(error);
         }
       },
     });
@@ -313,7 +332,8 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
   }
 
   protected buildLiveTopic(sessionSecureId: string): string {
-    return `entity/session/event/${sessionSecureId}`;
+    const client = this.client as SyrtisClient;
+    return `${client.getApiVersion()}/entity/session/event/${sessionSecureId}`;
   }
 
   protected parseLiveEvent(payload: unknown): SessionLiveEvent | null {
@@ -322,10 +342,14 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
     }
 
     const record = payload as Record<string, unknown>;
-    const entityType = record.entity_type;
     const data = record.data;
 
-    if (typeof entityType !== 'string' || !data || typeof data !== 'object') {
+    if (!data || typeof data !== 'object' || Array.isArray(data)) {
+      return null;
+    }
+
+    const entityType = (data as Record<string, unknown>).type;
+    if (typeof entityType !== 'string' || !entityType) {
       return null;
     }
 
