@@ -1,6 +1,6 @@
 # @syrtis-ai/syrtis-javascript-client
 
-Version: 6.0.4
+Version: 7.0.0
 
 ## Table of Contents
 
@@ -120,6 +120,8 @@ const data = extracted?.getParsedContent();
 
 No configuration is required: `subscribe()` fetches a scoped, short-lived Mercure subscriber JWT from the API (`session/subscribe-info/{secureId}`) and renews it automatically on reconnection. The API bearer token is enough.
 
+The subscription listens to the versioned topic `{apiVersion}/entity/session/event/{secureId}`; events carry `{event, data}` where `data` is the standard API item `{type, entity, metadata, relationships}` — the exact same format and strict hydration gate as REST responses.
+
 Subscribe to a session — payloads are hydrated into entities, reconnection with backoff is automatic:
 
 ```typescript
@@ -128,7 +130,7 @@ const connection = sessionRepository.subscribe({
   onMessage: (message) => { /* hydrated Message */ },
   onRequest: (request) => { /* hydrated Request */ },
   onEvent: (liveEvent) => { /* every raw event: {entityType, event, data} */ },
-  onInvalidEvent: (payload) => { /* malformed payloads (default: console.warn) */ },
+  onInvalidEvent: (payload, error) => { /* malformed or out-of-contract payloads (default: console.warn) */ },
   onStatusChange: (status) => { /* connecting | open | error | closed */ },
 });
 
@@ -148,6 +150,25 @@ const reply = await sessionRepository.sendMessageAndWaitForReply({
 By default the promise resolves on the first `Message.isReply` message; pass `isReply: (m) => ...` to customize.
 
 To bypass the automatic JWT flow, pass `mercureHubUrl`/`mercureJwt` to the client constructor (static hub configuration), or inject a `liveUpdatesDriver` (any `LiveUpdatesDriverInterface` from `@wexample/js-api/Common/LiveUpdates/LiveUpdatesDriver`) for a custom transport. Both take precedence over the subscribe-info flow. `fetchSubscribeInfo(sessionSecureId)` is also available directly on the repository.
+
+### Connection status (widgets)
+
+Every connection opened through `subscribe()` is tracked by a client-wide registry, for status widgets and monitoring:
+
+```typescript
+const registry = client.getLiveUpdatesRegistry();
+
+registry.getAggregatedStatus();
+// { total, connecting, reconnecting, open, error, reconnectStopped, hasActiveConnection }
+
+const unsubscribe = registry.onEvent((event) => {
+  // event.type: 'connection-registered' | 'connection-status'
+  //           | 'connection-message' | 'connection-unregistered'
+  // event.aggregated: fresh aggregated status
+});
+```
+
+Connection statuses are `connecting | open | error | reconnecting | reconnect-stopped | closed`; a successful reconnection is observable as `reconnecting` → `open`, and closed connections leave the registry on their own.
 
 ## Fetching history
 
@@ -190,7 +211,9 @@ try {
 }
 ```
 
-Hydration is strict by design: a response key absent from the entity schema, a read-only write, a malformed API item or an unregistered relationship type throws an `ApiSchemaError` (`@wexample/js-api/Common/Errors/ApiSchemaError`, codes `ERR_SCHEMA_*`, carrying `entityName` and `field`). A contract drift is caught at the boundary instead of silently losing data. The only tolerated exception is live-update payloads, produced by the API's legacy normalizer.
+Hydration is strict by design: a response key absent from the entity schema, a read-only write, a malformed API item or an unregistered relationship type throws an `ApiSchemaError` (`@wexample/js-api/Common/Errors/ApiSchemaError`, codes `ERR_SCHEMA_*`, carrying `entityName` and `field`). A contract drift is caught at the boundary instead of silently losing data. Live updates go through the same gate: an event whose hydration fails is reported through `onInvalidEvent` (never silently) and dropped, keeping the subscription alive.
+
+An API item's `type` is the entity name, camelCase like the whole 2026 contract (`message`, `messageStamp`, `userConfig`) — the same identifier keys the repository registry, so there is no translation anywhere. Routes derive from it in kebab-case (`messageStamp` → `message-stamp/...`).
 
 To unwrap a raw call yourself:
 
