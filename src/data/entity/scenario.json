@@ -1,0 +1,461 @@
+{
+  "name": "scenario",
+  "properties": [
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      }
+    },
+    {
+      "name": "dateCreated",
+      "type": "DateTimeInterface",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "date_created",
+        "type": "datetime",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "title",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
+    },
+    {
+      "name": "user",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "user",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\User",
+        "target": "user",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "user_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "project",
+      "type": "relation",
+      "target": "project",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Project",
+        "target": "project",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "project_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "environment",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "environment",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Environment",
+        "target": "environment",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "environment_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "description",
+        "type": "text",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "secureId",
+      "type": "string",
+      "orm": {
+        "kind": "field",
+        "column": "secure_id",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
+    },
+    {
+      "name": "positionX",
+      "type": "int",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "position_x",
+        "type": "integer",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "positionY",
+      "type": "int",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "position_y",
+        "type": "integer",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "zoom",
+      "type": "float",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "zoom",
+        "type": "float",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "cards",
+      "type": "Collection",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\Card",
+        "target": "card",
+        "mapped_by": "scenario",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2
+      }
+    },
+    {
+      "name": "jobs",
+      "type": "Collection",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\Job",
+        "target": "job",
+        "mapped_by": "scenario",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2
+      }
+    },
+    {
+      "name": "defaultEntrypoint",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "card",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Card",
+        "target": "card",
+        "mapped_by": null,
+        "inversed_by": "defaultEntrypointForScenarios",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "default_entrypoint_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      }
+    }
+  ],
+  "orm": {
+    "class": "App\\Entity\\Scenario",
+    "table": "scenario",
+    "identifier": [
+      "id"
+    ],
+    "indexes": {},
+    "unique_constraints": {},
+    "fields": {
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      },
+      "dateCreated": {
+        "kind": "field",
+        "column": "date_created",
+        "type": "datetime",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "title": {
+        "kind": "field",
+        "column": "title",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      },
+      "description": {
+        "kind": "field",
+        "column": "description",
+        "type": "text",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "secureId": {
+        "kind": "field",
+        "column": "secure_id",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      },
+      "positionX": {
+        "kind": "field",
+        "column": "position_x",
+        "type": "integer",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "positionY": {
+        "kind": "field",
+        "column": "position_y",
+        "type": "integer",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "zoom": {
+        "kind": "field",
+        "column": "zoom",
+        "type": "float",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    "associations": {
+      "cards": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\Card",
+        "target": "card",
+        "mapped_by": "scenario",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2
+      },
+      "jobs": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\Job",
+        "target": "job",
+        "mapped_by": "scenario",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2
+      },
+      "defaultEntrypoint": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Card",
+        "target": "card",
+        "mapped_by": null,
+        "inversed_by": "defaultEntrypointForScenarios",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "default_entrypoint_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      },
+      "user": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\User",
+        "target": "user",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "user_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      },
+      "project": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Project",
+        "target": "project",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "project_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      },
+      "environment": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Environment",
+        "target": "environment",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "environment_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
+    }
+  }
+}

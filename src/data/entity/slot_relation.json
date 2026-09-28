@@ -1,0 +1,191 @@
+{
+  "name": "slot_relation",
+  "properties": [
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      }
+    },
+    {
+      "name": "slotSource",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "slot",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Slot",
+        "target": "slot",
+        "mapped_by": null,
+        "inversed_by": "slotRelationsSources",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "slot_source_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
+    },
+    {
+      "name": "slotTarget",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "slot",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Slot",
+        "target": "slot",
+        "mapped_by": null,
+        "inversed_by": "slotRelationsTargets",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "slot_target_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
+    },
+    {
+      "name": "portSource",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "port_source",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 60
+      }
+    },
+    {
+      "name": "portTarget",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "port_target",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 60
+      }
+    }
+  ],
+  "orm": {
+    "class": "App\\Entity\\SlotRelation",
+    "table": "slot_relation",
+    "identifier": [
+      "id"
+    ],
+    "indexes": {},
+    "unique_constraints": {},
+    "fields": {
+      "portSource": {
+        "kind": "field",
+        "column": "port_source",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 60
+      },
+      "portTarget": {
+        "kind": "field",
+        "column": "port_target",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 60
+      },
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      }
+    },
+    "associations": {
+      "slotSource": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Slot",
+        "target": "slot",
+        "mapped_by": null,
+        "inversed_by": "slotRelationsSources",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "slot_source_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      },
+      "slotTarget": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Slot",
+        "target": "slot",
+        "mapped_by": null,
+        "inversed_by": "slotRelationsTargets",
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "slot_target_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
+    }
+  }
+}

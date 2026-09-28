@@ -1,0 +1,90 @@
+{
+  "name": "node",
+  "properties": [
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      }
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "type",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 120
+      }
+    },
+    {
+      "name": "secureId",
+      "type": "string",
+      "orm": {
+        "kind": "field",
+        "column": "secure_id",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
+    }
+  ],
+  "orm": {
+    "class": "App\\Entity\\Node",
+    "table": "node",
+    "identifier": [
+      "id"
+    ],
+    "indexes": {},
+    "unique_constraints": {},
+    "fields": {
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      },
+      "type": {
+        "kind": "field",
+        "column": "type",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 120
+      },
+      "secureId": {
+        "kind": "field",
+        "column": "secure_id",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
+    },
+    "associations": {}
+  }
+}

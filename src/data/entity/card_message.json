@@ -1,0 +1,139 @@
+{
+  "name": "card_message",
+  "properties": [
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      }
+    },
+    {
+      "name": "card",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "card",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Card",
+        "target": "card",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "card_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
+    },
+    {
+      "name": "message",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "message",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Message",
+        "target": "message",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "message_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
+    }
+  ],
+  "orm": {
+    "class": "App\\Entity\\CardMessage",
+    "table": "card_message",
+    "identifier": [
+      "id"
+    ],
+    "indexes": {},
+    "unique_constraints": {},
+    "fields": {
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      }
+    },
+    "associations": {
+      "card": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Card",
+        "target": "card",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "card_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      },
+      "message": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Message",
+        "target": "message",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "message_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
+    }
+  }
+}

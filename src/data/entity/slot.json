@@ -1,0 +1,407 @@
+{
+  "name": "slot",
+  "properties": [
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      }
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "type",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 120
+      }
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "title",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
+    },
+    {
+      "name": "secureId",
+      "type": "string",
+      "orm": {
+        "kind": "field",
+        "column": "secure_id",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
+    },
+    {
+      "name": "job",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "job",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Job",
+        "target": "job",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "job_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
+    },
+    {
+      "name": "node",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "node",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Node",
+        "target": "node",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "node_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
+    },
+    {
+      "name": "positionX",
+      "type": "int",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "position_x",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "positionY",
+      "type": "int",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "position_y",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "slotRelationsSources",
+      "type": "collection",
+      "description": "SlotRelation>",
+      "target": "slot_relation",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotRelation",
+        "target": "slot_relation",
+        "mapped_by": "slotSource",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      }
+    },
+    {
+      "name": "slotRelationsTargets",
+      "type": "collection",
+      "description": "SlotRelation>",
+      "target": "slot_relation",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotRelation",
+        "target": "slot_relation",
+        "mapped_by": "slotTarget",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      }
+    },
+    {
+      "name": "slotConfigs",
+      "type": "collection",
+      "description": "SlotConfig>",
+      "target": "slot_config",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotConfig",
+        "target": "slot_config",
+        "mapped_by": "slot",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      }
+    },
+    {
+      "name": "slotMessages",
+      "type": "collection",
+      "description": "SlotMessage>",
+      "target": "slot_message",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotMessage",
+        "target": "slot_message",
+        "mapped_by": "slot",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      }
+    }
+  ],
+  "orm": {
+    "class": "App\\Entity\\Slot",
+    "table": "slot",
+    "identifier": [
+      "id"
+    ],
+    "indexes": {},
+    "unique_constraints": {},
+    "fields": {
+      "positionX": {
+        "kind": "field",
+        "column": "position_x",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "positionY": {
+        "kind": "field",
+        "column": "position_y",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      },
+      "type": {
+        "kind": "field",
+        "column": "type",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 120
+      },
+      "title": {
+        "kind": "field",
+        "column": "title",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      },
+      "secureId": {
+        "kind": "field",
+        "column": "secure_id",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
+    },
+    "associations": {
+      "job": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Job",
+        "target": "job",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "job_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      },
+      "node": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Node",
+        "target": "node",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "node_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      },
+      "slotRelationsSources": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotRelation",
+        "target": "slot_relation",
+        "mapped_by": "slotSource",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      },
+      "slotRelationsTargets": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotRelation",
+        "target": "slot_relation",
+        "mapped_by": "slotTarget",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      },
+      "slotConfigs": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotConfig",
+        "target": "slot_config",
+        "mapped_by": "slot",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      },
+      "slotMessages": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotMessage",
+        "target": "slot_message",
+        "mapped_by": "slot",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      }
+    }
+  }
+}
