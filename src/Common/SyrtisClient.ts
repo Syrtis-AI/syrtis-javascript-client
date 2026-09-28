@@ -1,10 +1,10 @@
 import type { ApiClientOptions } from '@wexample/js-api/Common/AbstractApiClient';
-import AbstractApiEntitiesClient from '@wexample/js-api/Common/AbstractApiEntitiesClient';
-import type { RepositoryClass } from '@wexample/js-api/Common/ApiEntityManager';
-import LiveUpdatesError from '@wexample/js-api/Common/Errors/LiveUpdatesError';
-import LiveUpdatesConnectionRegistry from '@wexample/js-api/Common/LiveUpdates/LiveUpdatesConnectionRegistry';
-import type { LiveUpdatesDriverInterface } from '@wexample/js-api/Common/LiveUpdates/LiveUpdatesDriver';
-import MercureLiveUpdatesDriver from '@wexample/js-api/Common/LiveUpdates/MercureLiveUpdatesDriver';
+import AbstractApiEntitiesClient from '@wexample/js-api-entity/Common/AbstractApiEntitiesClient';
+import type { RepositoryClass } from '@wexample/js-api-entity/Common/ApiEntityManager';
+import LiveUpdatesError from '@wexample/js-api-entity/Common/Errors/LiveUpdatesError';
+import LiveUpdatesConnectionRegistry from '@wexample/js-api-entity/Common/LiveUpdates/LiveUpdatesConnectionRegistry';
+import type { LiveUpdatesDriverInterface } from '@wexample/js-api-entity/Common/LiveUpdates/LiveUpdatesDriver';
+import MercureLiveUpdatesDriver from '@wexample/js-api-entity/Common/LiveUpdates/MercureLiveUpdatesDriver';
 import getEntitySchemas from './entitySchemas.js';
 import generatedRepositories from './generatedRepositories.js';
 

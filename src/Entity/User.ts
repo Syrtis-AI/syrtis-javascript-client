@@ -1,4 +1,4 @@
-import AbstractApiEntity from '@wexample/js-api/Common/AbstractApiEntity';
+import AbstractApiEntity from '@wexample/js-api-entity/Common/AbstractApiEntity';
 import schema from '../data/entity/user.json';
 
 export default class User extends AbstractApiEntity {

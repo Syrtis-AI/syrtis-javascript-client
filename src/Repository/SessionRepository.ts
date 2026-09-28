@@ -1,9 +1,9 @@
-import AbstractApiRepository from '@wexample/js-api/Common/AbstractApiRepository';
-import ApiEnvelopeError from '@wexample/js-api/Common/Errors/ApiEnvelopeError';
-import LiveUpdatesError from '@wexample/js-api/Common/Errors/LiveUpdatesError';
+import AbstractApiRepository from '@wexample/js-api-entity/Common/AbstractApiRepository';
+import ApiEnvelopeError from '@wexample/js-api-entity/Common/Errors/ApiEnvelopeError';
+import LiveUpdatesError from '@wexample/js-api-entity/Common/Errors/LiveUpdatesError';
 import LiveUpdatesConnection, {
   type LiveUpdatesConnectionStatus,
-} from '@wexample/js-api/Common/LiveUpdates/LiveUpdatesConnection';
+} from '@wexample/js-api-entity/Common/LiveUpdates/LiveUpdatesConnection';
 import SessionSubscribeInfoDriver from '../Common/SessionSubscribeInfoDriver.js';
 import type SyrtisClient from '../Common/SyrtisClient.js';
 import Message from '../Entity/Message.js';

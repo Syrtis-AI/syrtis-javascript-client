@@ -1,8 +1,8 @@
 import type {
   LiveUpdatesDriverConnectOptions,
   LiveUpdatesDriverInterface,
-} from '@wexample/js-api/Common/LiveUpdates/LiveUpdatesDriver';
-import MercureLiveUpdatesDriver from '@wexample/js-api/Common/LiveUpdates/MercureLiveUpdatesDriver';
+} from '@wexample/js-api-entity/Common/LiveUpdates/LiveUpdatesDriver';
+import MercureLiveUpdatesDriver from '@wexample/js-api-entity/Common/LiveUpdates/MercureLiveUpdatesDriver';
 import type SessionRepository from '../Repository/SessionRepository.js';
 import type { SessionSubscribeInfo } from '../Repository/SessionRepository.js';
 

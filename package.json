@@ -13,7 +13,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@wexample/js-api": "^7.0.1"
+    "@wexample/js-api": "^8.0.0",
+    "@wexample/js-api-entity": "^1.0.0"
   },
   "files": [
     "src"

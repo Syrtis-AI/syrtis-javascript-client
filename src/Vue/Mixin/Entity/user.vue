@@ -1,5 +1,5 @@
 <script>
-import AbstractEntitySingleMixin from "@wexample/js-api/Vue/AbstractEntitySingleMixin";
+import AbstractEntitySingleMixin from "@wexample/js-api-entity/Vue/AbstractEntitySingleMixin";
 import UserEntityManipulatorVueMixin from '../EntityManipulator/UserEntityManipulatorVueMixin';
 import Entity from '@wexample/symfony-design-system/vue/bases/entity';
 
