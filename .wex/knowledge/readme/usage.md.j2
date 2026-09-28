@@ -137,7 +137,7 @@ const reply = await sessionRepository.sendMessageAndWaitForReply({
 
 By default the promise resolves on the first `Message.isReply` message; pass `isReply: (m) => ...` to customize.
 
-To bypass the automatic JWT flow, pass `mercureHubUrl`/`mercureJwt` to the client constructor (static hub configuration), or inject a `liveUpdatesDriver` (any `LiveUpdatesDriverInterface` from `@wexample/js-api/Common/LiveUpdates/LiveUpdatesDriver`) for a custom transport. Both take precedence over the subscribe-info flow. `fetchSubscribeInfo(sessionSecureId)` is also available directly on the repository.
+To bypass the automatic JWT flow, pass `mercureHubUrl`/`mercureJwt` to the client constructor (static hub configuration), or inject a `liveUpdatesDriver` (any `LiveUpdatesDriverInterface` from `@wexample/js-api-entity/Common/LiveUpdates/LiveUpdatesDriver`) for a custom transport. Both take precedence over the subscribe-info flow. `fetchSubscribeInfo(sessionSecureId)` is also available directly on the repository.
 
 ### Connection status (widgets)
 
@@ -182,10 +182,10 @@ const visible = messages.filter(Message.isConversation);
 
 ## Error handling
 
-All API responses use the standard envelope `{ type, code, message?, data }`. Unwrapping is centralized in `@wexample/js-api`: when the server answers `type: 'error'`, repository calls throw an `ApiEnvelopeError` carrying the server error key.
+All API responses use the standard envelope `{ type, code, message?, data }`. Unwrapping is centralized in `@wexample/js-api-entity`: when the server answers `type: 'error'`, repository calls throw an `ApiEnvelopeError` carrying the server error key.
 
 ```typescript
-import ApiEnvelopeError from '@wexample/js-api/Common/Errors/ApiEnvelopeError';
+import ApiEnvelopeError from '@wexample/js-api-entity/Common/Errors/ApiEnvelopeError';
 
 try {
   await sessionRepository.sendMessage({ sessionSecureId, content, sync: true });
@@ -199,14 +199,14 @@ try {
 }
 ```
 
-Hydration is strict by design: a response key absent from the entity schema, a read-only write, a malformed API item or an unregistered relationship type throws an `ApiSchemaError` (`@wexample/js-api/Common/Errors/ApiSchemaError`, codes `ERR_SCHEMA_*`, carrying `entityName` and `field`). A contract drift is caught at the boundary instead of silently losing data. Live updates go through the same gate: an event whose hydration fails is reported through `onInvalidEvent` (never silently) and dropped, keeping the subscription alive.
+Hydration is strict by design: a response key absent from the entity schema, a read-only write, a malformed API item or an unregistered relationship type throws an `ApiSchemaError` (`@wexample/js-api-entity/Common/Errors/ApiSchemaError`, codes `ERR_SCHEMA_*`, carrying `entityName` and `field`). A contract drift is caught at the boundary instead of silently losing data. Live updates go through the same gate: an event whose hydration fails is reported through `onInvalidEvent` (never silently) and dropped, keeping the subscription alive.
 
 An API item's `type` is the entity name, camelCase like the whole 2026 contract (`message`, `messageStamp`, `userConfig`) — the same identifier keys the repository registry, so there is no translation anywhere. Routes derive from it in kebab-case (`messageStamp` → `message-stamp/...`).
 
 To unwrap a raw call yourself:
 
 ```typescript
-import { unwrapApiEnvelope } from '@wexample/js-api/Common/ApiEnvelope';
+import { unwrapApiEnvelope } from '@wexample/js-api-entity/Common/ApiEnvelope';
 
 const data = unwrapApiEnvelope<{ messages: unknown[] }>(await response.json());
 ```
