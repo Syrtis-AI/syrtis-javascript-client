@@ -1,0 +1,219 @@
+{
+  "name": "chunk",
+  "properties": [
+    {
+      "name": "id",
+      "type": "mixed",
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      }
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "content",
+        "type": "text",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "user",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "user",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\User",
+        "target": "user",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "user_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "dateCreated",
+      "type": "DateTimeInterface",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "date_created",
+        "type": "datetime",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "document",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "document",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Document",
+        "target": "document",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "document_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      }
+    },
+    {
+      "name": "embeddings",
+      "type": "Collection",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\Embedding",
+        "target": "embedding",
+        "mapped_by": "chunk",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove"
+        ],
+        "fetch": 2
+      }
+    }
+  ],
+  "orm": {
+    "class": "App\\Entity\\Chunk",
+    "table": "chunk",
+    "identifier": [
+      "id"
+    ],
+    "indexes": {},
+    "unique_constraints": {},
+    "fields": {
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": true,
+        "generated": false
+      },
+      "content": {
+        "kind": "field",
+        "column": "content",
+        "type": "text",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "dateCreated": {
+        "kind": "field",
+        "column": "date_created",
+        "type": "datetime",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    "associations": {
+      "document": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Document",
+        "target": "document",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "document_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": "CASCADE"
+          }
+        ]
+      },
+      "embeddings": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\Embedding",
+        "target": "embedding",
+        "mapped_by": "chunk",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove"
+        ],
+        "fetch": 2
+      },
+      "user": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\User",
+        "target": "user",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "user_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      }
+    }
+  }
+}
