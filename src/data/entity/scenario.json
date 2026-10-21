@@ -2,20 +2,6 @@
   "name": "scenario",
   "properties": [
     {
-      "name": "id",
-      "type": "mixed",
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      }
-    },
-    {
       "name": "dateCreated",
       "type": "DateTimeInterface",
       "nullable": true,
@@ -48,10 +34,9 @@
     },
     {
       "name": "user",
-      "type": "relation",
+      "type": "Wexample\\SymfonyHelpers\\Entity\\Interfaces\\UserEntityInterface",
       "nullable": true,
       "default": null,
-      "target": "user",
       "orm": {
         "kind": "association",
         "association_type": "many_to_one",
@@ -72,7 +57,8 @@
             "on_delete": null
           }
         ]
-      }
+      },
+      "target": "user"
     },
     {
       "name": "project",
@@ -203,6 +189,20 @@
       }
     },
     {
+      "name": "id",
+      "type": "Symfony\\Component\\Uid\\Uuid",
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
+      "default": null
+    },
+    {
       "name": "cards",
       "type": "Collection",
       "orm": {
@@ -272,15 +272,6 @@
     "indexes": {},
     "unique_constraints": {},
     "fields": {
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      },
       "dateCreated": {
         "kind": "field",
         "column": "date_created",
@@ -345,6 +336,15 @@
         "unique": false,
         "id": false,
         "generated": false
+      },
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
       }
     },
     "associations": {
@@ -393,27 +393,6 @@
           }
         ]
       },
-      "user": {
-        "kind": "association",
-        "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\User",
-        "target": "user",
-        "mapped_by": null,
-        "inversed_by": null,
-        "is_owning_side": true,
-        "orphan_removal": false,
-        "cascade": {},
-        "fetch": 2,
-        "join_columns": [
-          {
-            "name": "user_id",
-            "referenced_column_name": "id",
-            "nullable": false,
-            "unique": false,
-            "on_delete": null
-          }
-        ]
-      },
       "project": {
         "kind": "association",
         "association_type": "many_to_one",
@@ -449,6 +428,27 @@
         "join_columns": [
           {
             "name": "environment_id",
+            "referenced_column_name": "id",
+            "nullable": false,
+            "unique": false,
+            "on_delete": null
+          }
+        ]
+      },
+      "user": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\User",
+        "target": "user",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "user_id",
             "referenced_column_name": "id",
             "nullable": false,
             "unique": false,

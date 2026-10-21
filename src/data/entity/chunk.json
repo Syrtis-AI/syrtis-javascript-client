@@ -2,20 +2,6 @@
   "name": "chunk",
   "properties": [
     {
-      "name": "id",
-      "type": "mixed",
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      }
-    },
-    {
       "name": "content",
       "type": "string",
       "nullable": true,
@@ -32,10 +18,9 @@
     },
     {
       "name": "user",
-      "type": "relation",
+      "type": "Wexample\\SymfonyHelpers\\Entity\\Interfaces\\UserEntityInterface",
       "nullable": true,
       "default": null,
-      "target": "user",
       "orm": {
         "kind": "association",
         "association_type": "many_to_one",
@@ -56,7 +41,8 @@
             "on_delete": null
           }
         ]
-      }
+      },
+      "target": "user"
     },
     {
       "name": "dateCreated",
@@ -72,6 +58,20 @@
         "id": false,
         "generated": false
       }
+    },
+    {
+      "name": "id",
+      "type": "Symfony\\Component\\Uid\\Uuid",
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
+      "default": null
     },
     {
       "name": "document",
@@ -129,15 +129,6 @@
     "indexes": {},
     "unique_constraints": {},
     "fields": {
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      },
       "content": {
         "kind": "field",
         "column": "content",
@@ -154,6 +145,15 @@
         "nullable": false,
         "unique": false,
         "id": false,
+        "generated": false
+      },
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
         "generated": false
       }
     },

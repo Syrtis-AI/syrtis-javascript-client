@@ -2,20 +2,6 @@
   "name": "job",
   "properties": [
     {
-      "name": "id",
-      "type": "mixed",
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      }
-    },
-    {
       "name": "dateCreated",
       "type": "DateTimeInterface",
       "nullable": true,
@@ -31,11 +17,26 @@
       }
     },
     {
-      "name": "user",
-      "type": "relation",
+      "name": "title",
+      "type": "string",
       "nullable": true,
       "default": null,
-      "target": "user",
+      "orm": {
+        "kind": "field",
+        "column": "title",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
+      }
+    },
+    {
+      "name": "user",
+      "type": "Wexample\\SymfonyHelpers\\Entity\\Interfaces\\UserEntityInterface",
+      "nullable": true,
+      "default": null,
       "orm": {
         "kind": "association",
         "association_type": "many_to_one",
@@ -56,7 +57,8 @@
             "on_delete": null
           }
         ]
-      }
+      },
+      "target": "user"
     },
     {
       "name": "secureId",
@@ -118,6 +120,20 @@
       }
     },
     {
+      "name": "id",
+      "type": "Symfony\\Component\\Uid\\Uuid",
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
+      "default": null
+    },
+    {
       "name": "scenario",
       "type": "relation",
       "nullable": true,
@@ -143,22 +159,6 @@
             "on_delete": null
           }
         ]
-      }
-    },
-    {
-      "name": "title",
-      "type": "string",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "title",
-        "type": "string",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
       }
     },
     {
@@ -189,25 +189,6 @@
     "indexes": {},
     "unique_constraints": {},
     "fields": {
-      "title": {
-        "kind": "field",
-        "column": "title",
-        "type": "string",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      },
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      },
       "dateCreated": {
         "kind": "field",
         "column": "date_created",
@@ -253,6 +234,25 @@
         "unique": false,
         "id": false,
         "generated": false
+      },
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
+      "title": {
+        "kind": "field",
+        "column": "title",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
       }
     },
     "associations": {

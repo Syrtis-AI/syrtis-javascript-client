@@ -32,20 +32,6 @@
       }
     },
     {
-      "name": "id",
-      "type": "mixed",
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      }
-    },
-    {
       "name": "name",
       "type": "string",
       "nullable": true,
@@ -60,6 +46,20 @@
         "generated": false,
         "length": 255
       }
+    },
+    {
+      "name": "id",
+      "type": "Symfony\\Component\\Uid\\Uuid",
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
+      "default": null
     },
     {
       "name": "slot",
@@ -117,15 +117,6 @@
         "id": false,
         "generated": false
       },
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      },
       "name": {
         "kind": "field",
         "column": "name",
@@ -135,6 +126,15 @@
         "id": false,
         "generated": false,
         "length": 255
+      },
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
       }
     },
     "associations": {

@@ -2,35 +2,6 @@
   "name": "user",
   "properties": [
     {
-      "name": "username",
-      "type": "mixed",
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "username",
-        "type": "string",
-        "nullable": false,
-        "unique": true,
-        "id": false,
-        "generated": false,
-        "length": 180
-      }
-    },
-    {
-      "name": "id",
-      "type": "mixed",
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      }
-    },
-    {
       "name": "secureId",
       "type": "string",
       "orm": {
@@ -42,67 +13,6 @@
         "id": false,
         "generated": false,
         "length": 255
-      }
-    },
-    {
-      "name": "dateCreated",
-      "type": "DateTimeInterface",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "date_created",
-        "type": "datetime",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false
-      }
-    },
-    {
-      "name": "dateLastLogin",
-      "type": "DateTimeInterface",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "date_last_login",
-        "type": "datetime",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false
-      }
-    },
-    {
-      "name": "email",
-      "type": "string",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "email",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      }
-    },
-    {
-      "name": "password",
-      "type": "string",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "password",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false
       }
     },
     {
@@ -138,6 +48,53 @@
       }
     },
     {
+      "name": "email",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "email",
+        "type": "string",
+        "nullable": false,
+        "unique": true,
+        "id": false,
+        "generated": false,
+        "length": 180
+      }
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "username",
+        "type": "string",
+        "nullable": true,
+        "unique": true,
+        "id": false,
+        "generated": false,
+        "length": 30
+      }
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "password",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
       "name": "roles",
       "type": "array",
       "default": {},
@@ -150,6 +107,184 @@
         "id": false,
         "generated": false
       }
+    },
+    {
+      "name": "enabled",
+      "type": "bool",
+      "default": false,
+      "orm": {
+        "kind": "field",
+        "column": "enabled",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "locked",
+      "type": "bool",
+      "default": false,
+      "orm": {
+        "kind": "field",
+        "column": "locked",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "dateLastLogin",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "date_time_immutable",
+      "orm": {
+        "kind": "field",
+        "column": "date_last_login",
+        "type": "datetime_immutable",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "passwordChangeRequired",
+      "type": "bool",
+      "default": false,
+      "orm": {
+        "kind": "field",
+        "column": "password_change_required",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": false
+        }
+      }
+    },
+    {
+      "name": "emailTwoFactorEnabled",
+      "type": "bool",
+      "default": true,
+      "orm": {
+        "kind": "field",
+        "column": "email_two_factor_enabled",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": true
+        }
+      }
+    },
+    {
+      "name": "trustedTokenVersion",
+      "type": "int",
+      "default": 0,
+      "orm": {
+        "kind": "field",
+        "column": "trusted_token_version",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      }
+    },
+    {
+      "name": "totpSecretEncrypted",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "totp_secret_encrypted",
+        "type": "text",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "totpSecret",
+      "type": "string",
+      "nullable": true,
+      "default": null
+    },
+    {
+      "name": "backupCodes",
+      "type": "array",
+      "default": {},
+      "orm": {
+        "kind": "field",
+        "column": "backup_codes",
+        "type": "json",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": "[]"
+        }
+      }
+    },
+    {
+      "name": "dateCreated",
+      "type": "DateTimeInterface",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "date_created",
+        "type": "datetime",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "locale",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 12
+      }
+    },
+    {
+      "name": "id",
+      "type": "Symfony\\Component\\Uid\\Uuid",
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
+      "default": null
     }
   ],
   "orm": {
@@ -159,33 +294,8 @@
       "id"
     ],
     "indexes": {},
-    "unique_constraints": {
-      "UNIQ_IDENTIFIER_EMAIL": {
-        "fields": [
-          "email"
-        ]
-      }
-    },
+    "unique_constraints": {},
     "fields": {
-      "username": {
-        "kind": "field",
-        "column": "username",
-        "type": "string",
-        "nullable": false,
-        "unique": true,
-        "id": false,
-        "generated": false,
-        "length": 180
-      },
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      },
       "secureId": {
         "kind": "field",
         "column": "secure_id",
@@ -195,43 +305,6 @@
         "id": false,
         "generated": false,
         "length": 255
-      },
-      "dateCreated": {
-        "kind": "field",
-        "column": "date_created",
-        "type": "datetime",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false
-      },
-      "dateLastLogin": {
-        "kind": "field",
-        "column": "date_last_login",
-        "type": "datetime",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false
-      },
-      "email": {
-        "kind": "field",
-        "column": "email",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      },
-      "password": {
-        "kind": "field",
-        "column": "password",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false
       },
       "firstName": {
         "kind": "field",
@@ -253,6 +326,35 @@
         "generated": false,
         "length": 100
       },
+      "email": {
+        "kind": "field",
+        "column": "email",
+        "type": "string",
+        "nullable": false,
+        "unique": true,
+        "id": false,
+        "generated": false,
+        "length": 180
+      },
+      "username": {
+        "kind": "field",
+        "column": "username",
+        "type": "string",
+        "nullable": true,
+        "unique": true,
+        "id": false,
+        "generated": false,
+        "length": 30
+      },
+      "password": {
+        "kind": "field",
+        "column": "password",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
       "roles": {
         "kind": "field",
         "column": "roles",
@@ -260,6 +362,118 @@
         "nullable": false,
         "unique": false,
         "id": false,
+        "generated": false
+      },
+      "enabled": {
+        "kind": "field",
+        "column": "enabled",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "locked": {
+        "kind": "field",
+        "column": "locked",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "dateLastLogin": {
+        "kind": "field",
+        "column": "date_last_login",
+        "type": "datetime_immutable",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "passwordChangeRequired": {
+        "kind": "field",
+        "column": "password_change_required",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": false
+        }
+      },
+      "emailTwoFactorEnabled": {
+        "kind": "field",
+        "column": "email_two_factor_enabled",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": true
+        }
+      },
+      "trustedTokenVersion": {
+        "kind": "field",
+        "column": "trusted_token_version",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      },
+      "totpSecretEncrypted": {
+        "kind": "field",
+        "column": "totp_secret_encrypted",
+        "type": "text",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "backupCodes": {
+        "kind": "field",
+        "column": "backup_codes",
+        "type": "json",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": "[]"
+        }
+      },
+      "dateCreated": {
+        "kind": "field",
+        "column": "date_created",
+        "type": "datetime",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "locale": {
+        "kind": "field",
+        "column": "locale",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 12
+      },
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
         "generated": false
       }
     },

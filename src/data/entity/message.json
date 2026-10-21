@@ -2,20 +2,6 @@
   "name": "message",
   "properties": [
     {
-      "name": "id",
-      "type": "mixed",
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      }
-    },
-    {
       "name": "content",
       "type": "string",
       "nullable": true,
@@ -75,6 +61,22 @@
         "id": false,
         "generated": false,
         "length": 120
+      }
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "name",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
       }
     },
     {
@@ -184,20 +186,18 @@
       }
     },
     {
-      "name": "name",
-      "type": "string",
-      "nullable": true,
-      "default": null,
+      "name": "id",
+      "type": "Symfony\\Component\\Uid\\Uuid",
       "orm": {
         "kind": "field",
-        "column": "name",
-        "type": "string",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      }
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
+      "default": null
     },
     {
       "name": "request",
@@ -366,25 +366,6 @@
     "indexes": {},
     "unique_constraints": {},
     "fields": {
-      "name": {
-        "kind": "field",
-        "column": "name",
-        "type": "string",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      },
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": true,
-        "generated": false
-      },
       "content": {
         "kind": "field",
         "column": "content",
@@ -475,6 +456,25 @@
         "unique": false,
         "id": false,
         "generated": false
+      },
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
+      "name": {
+        "kind": "field",
+        "column": "name",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
       }
     },
     "associations": {
