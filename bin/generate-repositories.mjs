@@ -59,6 +59,8 @@ for (const fileName of files) {
   console.log(`Created ${targetPath}`);
 }
 
+pruneUnexported(repositoryDir, files, (fileName) => `${toPascalCase(path.basename(fileName, '.json'))}Repository.ts`);
+
 const repositoryClasses = fs
   .readdirSync(repositoryDir)
   .filter((name) => name.endsWith('Repository.ts'))
@@ -93,4 +95,16 @@ const generatedRepositories = [${exportsArray}];
 
 export default generatedRepositories;
 `;
+}
+
+// A schema that left the export (moved to the public client, or dropped)
+// would otherwise leave a file importing a json that no longer exists.
+function pruneUnexported(dir, keptNames, toFileName) {
+  const kept = new Set(keptNames.map(toFileName));
+  for (const name of fs.readdirSync(dir)) {
+    if (!kept.has(name)) {
+      fs.rmSync(path.join(dir, name));
+      console.log(`Removed ${path.join(dir, name)}`);
+    }
+  }
 }

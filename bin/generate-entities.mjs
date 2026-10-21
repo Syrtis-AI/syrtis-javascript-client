@@ -62,6 +62,8 @@ for (const fileName of files) {
   skipped += 1;
 }
 
+pruneUnexported(entityDir, files, (fileName) => `${toPascalCase(path.basename(fileName, '.json'))}.ts`);
+
 const schemaManifestPath = path.join(commonDir, 'generatedEntitySchemas.ts');
 const schemaManifest = buildEntitySchemasManifest(files);
 fs.writeFileSync(schemaManifestPath, schemaManifest, 'utf8');
@@ -109,4 +111,16 @@ ${schemaEntries}
   };
 }
 `;
+}
+
+// A schema that left the export (moved to the public client, or dropped)
+// would otherwise leave a file importing a json that no longer exists.
+function pruneUnexported(dir, keptNames, toFileName) {
+  const kept = new Set(keptNames.map(toFileName));
+  for (const name of fs.readdirSync(dir)) {
+    if (!kept.has(name)) {
+      fs.rmSync(path.join(dir, name));
+      console.log(`Removed ${path.join(dir, name)}`);
+    }
+  }
 }

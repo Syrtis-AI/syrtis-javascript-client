@@ -93,3 +93,18 @@ function toPascalCase(value) {
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join('');
 }
+
+pruneUnexported(mixinDir, files, (fileName) => `${toPascalCase(path.basename(fileName, '.json'))}EntityManipulatorVueMixin.ts`);
+pruneUnexported(entityMixinDir, files, (fileName) => `${path.basename(fileName, '.json')}.vue`);
+
+// A schema that left the export (moved to the public client, or dropped)
+// would otherwise leave a file importing a json that no longer exists.
+function pruneUnexported(dir, keptNames, toFileName) {
+  const kept = new Set(keptNames.map(toFileName));
+  for (const name of fs.readdirSync(dir)) {
+    if (!kept.has(name)) {
+      fs.rmSync(path.join(dir, name));
+      console.log(`Removed ${path.join(dir, name)}`);
+    }
+  }
+}
