@@ -2,25 +2,33 @@
 # yarn lockfile v1
 
 
-"@wexample/js-api@^7.0.0":
-  "integrity" "sha512-t8DDUXxTtSJS0v5au9tPJ453aQOUS1hJyTaa1cVRDLYH48r2HjGNepp/QcrJ6raBkA0EypQaJmYCeHST9vrbdA=="
-  "resolved" "https://registry.npmjs.org/@wexample/js-api/-/js-api-7.0.1.tgz"
-  "version" "7.0.1"
+"@wexample/js-api-entity@^1.0.0":
+  version "1.0.9"
+  resolved "https://registry.npmjs.org/@wexample/js-api-entity/-/js-api-entity-1.0.9.tgz"
+  integrity sha512-dklvWo6LSukftdtN5dGtlubEWhPXWFOgCVV4rawgtSp9Zz5/fM83CoSnElvlJLNsq6+SQ8S55s3MSUfaZQglgA==
   dependencies:
-    "@wexample/js-helpers" ">=2.0.0"
-    "ky" "^1.4.0"
+    "@wexample/js-api" ">=8.0.0"
+    "@wexample/js-helpers" ">=3.0.0"
 
-"@wexample/js-helpers@>=2.0.0":
-  "integrity" "sha512-n7z9eH4YCifvC7MePdiZK/61If5IzGQfANnykDzFoNNmLggZJDbPXBClvZ6OOBVAc1fNx6Bp0rXgJbDV9CkvXQ=="
-  "resolved" "https://registry.npmjs.org/@wexample/js-helpers/-/js-helpers-2.0.0.tgz"
-  "version" "2.0.0"
+"@wexample/js-api@^8.0.0", "@wexample/js-api@>=8.0.0":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@wexample/js-api/-/js-api-8.0.10.tgz"
+  integrity sha512-OvTlSonXaJx/x1bWT47EHHAliY6h62tstC/qWhqqruyrl8OJMHByCPpnAOgPDEnEmfSXcHlhE8dpIN5EX8FIbg==
+  dependencies:
+    "@wexample/js-helpers" ">=5.0.5"
+    ky "^1.4.0"
 
-"ky@^1.4.0":
-  "integrity" "sha512-q3RBbsO5A5zrPhB6CaCS8ZUv+NWCXv6JJT4Em0i264G9W0fdPB8YRfnnEi7Dm7X7omAkBIPojzYJ2D1oHTHqug=="
-  "resolved" "https://registry.npmjs.org/ky/-/ky-1.14.2.tgz"
-  "version" "1.14.2"
+"@wexample/js-helpers@>=3.0.0", "@wexample/js-helpers@>=5.0.5":
+  version "5.0.6"
+  resolved "https://registry.npmjs.org/@wexample/js-helpers/-/js-helpers-5.0.6.tgz"
+  integrity sha512-SanKruBNiWX7r4ZUq/QA9ajmYsJ10pXP361fLl21xcWjC+ofz47DbVmQ2F+6jji9/cn3duDKn/2srYH2EiNEeA==
 
-"typescript@^5.9.3":
-  "integrity" "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="
-  "resolved" "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz"
-  "version" "5.9.3"
+ky@^1.4.0:
+  version "1.14.2"
+  resolved "https://registry.npmjs.org/ky/-/ky-1.14.2.tgz"
+  integrity sha512-q3RBbsO5A5zrPhB6CaCS8ZUv+NWCXv6JJT4Em0i264G9W0fdPB8YRfnnEi7Dm7X7omAkBIPojzYJ2D1oHTHqug==
+
+typescript@^5.9.3:
+  version "5.9.3"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz"
+  integrity sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==
