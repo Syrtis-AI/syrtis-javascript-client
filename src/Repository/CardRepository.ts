@@ -6,4 +6,3 @@ export default class CardRepository extends AbstractApiRepository<Card> {
     return Card;
   }
 }
-

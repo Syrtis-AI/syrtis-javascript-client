@@ -6,4 +6,3 @@ export default class NodeRepository extends AbstractApiRepository<Node> {
     return Node;
   }
 }
-

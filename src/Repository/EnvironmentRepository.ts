@@ -6,4 +6,3 @@ export default class EnvironmentRepository extends AbstractApiRepository<Environ
     return Environment;
   }
 }
-

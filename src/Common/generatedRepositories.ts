@@ -20,6 +20,28 @@ import TemplateRepository from '../Repository/TemplateRepository.js';
 import TimezoneRepository from '../Repository/TimezoneRepository.js';
 import UserRepository from '../Repository/UserRepository.js';
 
-const generatedRepositories = [CardMessageRepository, CardRelationRepository, CardRepository, ChunkRepository, DocumentRepository, EnvironmentRepository, JobRepository, MessageRepository, MessageStampRepository, NodeRepository, RequestRepository, ScenarioRepository, SessionRepository, SlotConfigRepository, SlotMessageRepository, SlotMessageStampRepository, SlotRelationRepository, SlotRepository, TemplateRepository, TimezoneRepository, UserRepository];
+const generatedRepositories = [
+  CardMessageRepository,
+  CardRelationRepository,
+  CardRepository,
+  ChunkRepository,
+  DocumentRepository,
+  EnvironmentRepository,
+  JobRepository,
+  MessageRepository,
+  MessageStampRepository,
+  NodeRepository,
+  RequestRepository,
+  ScenarioRepository,
+  SessionRepository,
+  SlotConfigRepository,
+  SlotMessageRepository,
+  SlotMessageStampRepository,
+  SlotRelationRepository,
+  SlotRepository,
+  TemplateRepository,
+  TimezoneRepository,
+  UserRepository,
+];
 
 export default generatedRepositories;

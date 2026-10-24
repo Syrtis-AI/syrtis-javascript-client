@@ -6,4 +6,3 @@ export default class CardMessageRepository extends AbstractApiRepository<CardMes
     return CardMessage;
   }
 }
-

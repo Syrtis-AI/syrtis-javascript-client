@@ -6,4 +6,3 @@ export default class SlotConfigRepository extends AbstractApiRepository<SlotConf
     return SlotConfig;
   }
 }
-

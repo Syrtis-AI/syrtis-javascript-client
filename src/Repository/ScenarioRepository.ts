@@ -6,4 +6,3 @@ export default class ScenarioRepository extends AbstractApiRepository<Scenario> 
     return Scenario;
   }
 }
-

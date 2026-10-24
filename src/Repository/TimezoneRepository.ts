@@ -6,4 +6,3 @@ export default class TimezoneRepository extends AbstractApiRepository<Timezone> 
     return Timezone;
   }
 }
-

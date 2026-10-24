@@ -6,4 +6,3 @@ export default class JobRepository extends AbstractApiRepository<Job> {
     return Job;
   }
 }
-

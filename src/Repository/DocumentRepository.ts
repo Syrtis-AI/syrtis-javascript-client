@@ -6,4 +6,3 @@ export default class DocumentRepository extends AbstractApiRepository<Document> 
     return Document;
   }
 }
-

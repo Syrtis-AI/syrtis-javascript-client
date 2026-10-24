@@ -6,4 +6,3 @@ export default class SlotRepository extends AbstractApiRepository<Slot> {
     return Slot;
   }
 }
-

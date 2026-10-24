@@ -6,4 +6,3 @@ export default class SlotMessageStampRepository extends AbstractApiRepository<Sl
     return SlotMessageStamp;
   }
 }
-

@@ -6,4 +6,3 @@ export default class ChunkRepository extends AbstractApiRepository<Chunk> {
     return Chunk;
   }
 }
-

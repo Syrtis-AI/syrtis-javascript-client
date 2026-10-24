@@ -6,4 +6,3 @@ export default class SlotRelationRepository extends AbstractApiRepository<SlotRe
     return SlotRelation;
   }
 }
-

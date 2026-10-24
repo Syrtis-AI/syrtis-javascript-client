@@ -6,4 +6,3 @@ export default class TemplateRepository extends AbstractApiRepository<Template> 
     return Template;
   }
 }
-
