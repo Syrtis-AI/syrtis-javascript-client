@@ -48,7 +48,7 @@ export default class SyrtisClient extends AbstractApiEntitiesClient {
   }
 
   // Version segment of every API path — also prefixes Mercure topics
-  // (2026-1/entity/session/event/{secureId}).
+  // (2026-1/entity/session/event/{id}).
   getApiVersion(): string {
     return this.apiVersion;
   }
