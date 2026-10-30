@@ -40,6 +40,7 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_SESSION_STATUS = 'session_status';
   static readonly CONTENT_TYPE_SUCCESS = 'success';
   static readonly CONTENT_TYPE_THOUGHT = 'thought';
+  static readonly CONTENT_TYPE_TOOL_CALL = 'tool_call';
   static readonly CONTENT_TYPE_UPLOAD = 'upload';
   static readonly CONTENT_TYPE_URL = 'url';
   static readonly CONTENT_TYPE_VIDEO = 'video';
