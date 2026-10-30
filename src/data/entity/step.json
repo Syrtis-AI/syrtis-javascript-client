@@ -1,5 +1,6 @@
 {
-  "name": "card",
+  "name": "step",
+  "description": "A step of a scenario: the job a request runs while the session stands on\nit, and the messages it puts at its nodes' disposal. A session starts on\nthe scenario's entry step and moves to another by naming it — a navigate\nnode —, never by a relation drawn between them.",
   "properties": [
     {
       "name": "title",
@@ -71,8 +72,7 @@
             "on_delete": null
           }
         ]
-      },
-      "target": "user"
+      }
     },
     {
       "name": "scenario",
@@ -103,36 +103,6 @@
       }
     },
     {
-      "name": "positionX",
-      "type": "int",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "position_x",
-        "type": "integer",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false
-      }
-    },
-    {
-      "name": "positionY",
-      "type": "int",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "position_y",
-        "type": "integer",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false
-      }
-    },
-    {
       "name": "id",
       "type": "Symfony\\Component\\Uid\\Uuid",
       "orm": {
@@ -143,8 +113,7 @@
         "unique": true,
         "id": true,
         "generated": false
-      },
-      "default": null
+      }
     },
     {
       "name": "job",
@@ -175,56 +144,16 @@
       }
     },
     {
-      "name": "cardRelationsSources",
+      "name": "stepMessages",
       "type": "collection",
-      "description": "CardRelation>",
-      "target": "card_relation",
+      "description": "StepMessage>",
+      "target": "step_message",
       "orm": {
         "kind": "association",
         "association_type": "one_to_many",
-        "target_entity": "App\\Entity\\CardRelation",
-        "target": "card_relation",
-        "mapped_by": "cardSource",
-        "inversed_by": null,
-        "is_owning_side": false,
-        "orphan_removal": true,
-        "cascade": [
-          "remove"
-        ],
-        "fetch": 2
-      }
-    },
-    {
-      "name": "cardRelationsTarget",
-      "type": "collection",
-      "description": "CardRelation>",
-      "target": "card_relation",
-      "orm": {
-        "kind": "association",
-        "association_type": "one_to_many",
-        "target_entity": "App\\Entity\\CardRelation",
-        "target": "card_relation",
-        "mapped_by": "cardTarget",
-        "inversed_by": null,
-        "is_owning_side": false,
-        "orphan_removal": true,
-        "cascade": [
-          "remove"
-        ],
-        "fetch": 2
-      }
-    },
-    {
-      "name": "cardMessages",
-      "type": "collection",
-      "description": "CardRelation>",
-      "target": "card_relation",
-      "orm": {
-        "kind": "association",
-        "association_type": "one_to_many",
-        "target_entity": "App\\Entity\\CardMessage",
-        "target": "card_message",
-        "mapped_by": "card",
+        "target_entity": "App\\Entity\\StepMessage",
+        "target": "step_message",
+        "mapped_by": "step",
         "inversed_by": null,
         "is_owning_side": false,
         "orphan_removal": true,
@@ -251,42 +180,25 @@
         "cascade": {},
         "fetch": 2
       }
-    },
-    {
-      "name": "scope",
-      "type": "string",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "scope",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 30
-      }
     }
   ],
   "orm": {
-    "class": "App\\Entity\\Card",
-    "table": "card",
+    "class": "App\\Entity\\Step",
+    "table": "step",
     "identifier": [
       "id"
     ],
     "indexes": {},
     "unique_constraints": {},
     "fields": {
-      "scope": {
+      "id": {
         "kind": "field",
-        "column": "scope",
-        "type": "string",
+        "column": "id",
+        "type": "uuid",
         "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 30
+        "unique": true,
+        "id": true,
+        "generated": false
       },
       "title": {
         "kind": "field",
@@ -316,33 +228,6 @@
         "id": false,
         "generated": false,
         "length": 255
-      },
-      "positionX": {
-        "kind": "field",
-        "column": "position_x",
-        "type": "integer",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false
-      },
-      "positionY": {
-        "kind": "field",
-        "column": "position_y",
-        "type": "integer",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false
-      },
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "uuid",
-        "nullable": false,
-        "unique": true,
-        "id": true,
-        "generated": false
       }
     },
     "associations": {
@@ -367,40 +252,12 @@
           }
         ]
       },
-      "cardRelationsSources": {
+      "stepMessages": {
         "kind": "association",
         "association_type": "one_to_many",
-        "target_entity": "App\\Entity\\CardRelation",
-        "target": "card_relation",
-        "mapped_by": "cardSource",
-        "inversed_by": null,
-        "is_owning_side": false,
-        "orphan_removal": true,
-        "cascade": [
-          "remove"
-        ],
-        "fetch": 2
-      },
-      "cardRelationsTarget": {
-        "kind": "association",
-        "association_type": "one_to_many",
-        "target_entity": "App\\Entity\\CardRelation",
-        "target": "card_relation",
-        "mapped_by": "cardTarget",
-        "inversed_by": null,
-        "is_owning_side": false,
-        "orphan_removal": true,
-        "cascade": [
-          "remove"
-        ],
-        "fetch": 2
-      },
-      "cardMessages": {
-        "kind": "association",
-        "association_type": "one_to_many",
-        "target_entity": "App\\Entity\\CardMessage",
-        "target": "card_message",
-        "mapped_by": "card",
+        "target_entity": "App\\Entity\\StepMessage",
+        "target": "step_message",
+        "mapped_by": "step",
         "inversed_by": null,
         "is_owning_side": false,
         "orphan_removal": true,

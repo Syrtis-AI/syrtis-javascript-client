@@ -1,20 +1,6 @@
 {
-  "name": "card_relation",
+  "name": "step_message",
   "properties": [
-    {
-      "name": "secureId",
-      "type": "string",
-      "orm": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      }
-    },
     {
       "name": "id",
       "type": "Symfony\\Component\\Uid\\Uuid",
@@ -26,85 +12,74 @@
         "unique": true,
         "id": true,
         "generated": false
-      },
-      "default": null
+      }
     },
     {
-      "name": "cardSource",
+      "name": "step",
       "type": "relation",
       "nullable": true,
       "default": null,
-      "target": "card",
+      "target": "step",
       "orm": {
         "kind": "association",
         "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
+        "target_entity": "App\\Entity\\Step",
+        "target": "step",
         "mapped_by": null,
-        "inversed_by": "cardRelationsSources",
+        "inversed_by": null,
         "is_owning_side": true,
         "orphan_removal": false,
         "cascade": {},
         "fetch": 2,
         "join_columns": [
           {
-            "name": "card_source_id",
+            "name": "step_id",
             "referenced_column_name": "id",
             "nullable": false,
             "unique": false,
-            "on_delete": null
+            "on_delete": "CASCADE"
           }
         ]
       }
     },
     {
-      "name": "cardTarget",
+      "name": "message",
       "type": "relation",
       "nullable": true,
       "default": null,
-      "target": "card",
+      "target": "message",
       "orm": {
         "kind": "association",
         "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
+        "target_entity": "App\\Entity\\Message",
+        "target": "message",
         "mapped_by": null,
-        "inversed_by": "cardRelationsTarget",
+        "inversed_by": null,
         "is_owning_side": true,
         "orphan_removal": false,
         "cascade": {},
         "fetch": 2,
         "join_columns": [
           {
-            "name": "card_target_id",
+            "name": "message_id",
             "referenced_column_name": "id",
             "nullable": false,
             "unique": false,
-            "on_delete": null
+            "on_delete": "CASCADE"
           }
         ]
       }
     }
   ],
   "orm": {
-    "class": "App\\Entity\\CardRelation",
-    "table": "card_relation",
+    "class": "App\\Entity\\StepMessage",
+    "table": "step_message",
     "identifier": [
       "id"
     ],
     "indexes": {},
     "unique_constraints": {},
     "fields": {
-      "secureId": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      },
       "id": {
         "kind": "field",
         "column": "id",
@@ -116,45 +91,45 @@
       }
     },
     "associations": {
-      "cardSource": {
+      "step": {
         "kind": "association",
         "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
+        "target_entity": "App\\Entity\\Step",
+        "target": "step",
         "mapped_by": null,
-        "inversed_by": "cardRelationsSources",
+        "inversed_by": null,
         "is_owning_side": true,
         "orphan_removal": false,
         "cascade": {},
         "fetch": 2,
         "join_columns": [
           {
-            "name": "card_source_id",
+            "name": "step_id",
             "referenced_column_name": "id",
             "nullable": false,
             "unique": false,
-            "on_delete": null
+            "on_delete": "CASCADE"
           }
         ]
       },
-      "cardTarget": {
+      "message": {
         "kind": "association",
         "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
+        "target_entity": "App\\Entity\\Message",
+        "target": "message",
         "mapped_by": null,
-        "inversed_by": "cardRelationsTarget",
+        "inversed_by": null,
         "is_owning_side": true,
         "orphan_removal": false,
         "cascade": {},
         "fetch": 2,
         "join_columns": [
           {
-            "name": "card_target_id",
+            "name": "message_id",
             "referenced_column_name": "id",
             "nullable": false,
             "unique": false,
-            "on_delete": null
+            "on_delete": "CASCADE"
           }
         ]
       }

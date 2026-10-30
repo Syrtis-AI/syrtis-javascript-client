@@ -321,6 +321,15 @@
     "indexes": {},
     "unique_constraints": {},
     "fields": {
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
       "direction": {
         "kind": "field",
         "column": "direction",
@@ -406,15 +415,6 @@
         "nullable": true,
         "unique": false,
         "id": false,
-        "generated": false
-      },
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "uuid",
-        "nullable": false,
-        "unique": true,
-        "id": true,
         "generated": false
       },
       "name": {

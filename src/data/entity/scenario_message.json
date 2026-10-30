@@ -1,5 +1,5 @@
 {
-  "name": "card_message",
+  "name": "scenario_message",
   "properties": [
     {
       "name": "id",
@@ -12,20 +12,19 @@
         "unique": true,
         "id": true,
         "generated": false
-      },
-      "default": null
+      }
     },
     {
-      "name": "card",
+      "name": "scenario",
       "type": "relation",
       "nullable": true,
       "default": null,
-      "target": "card",
+      "target": "scenario",
       "orm": {
         "kind": "association",
         "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
+        "target_entity": "App\\Entity\\Scenario",
+        "target": "scenario",
         "mapped_by": null,
         "inversed_by": null,
         "is_owning_side": true,
@@ -34,7 +33,7 @@
         "fetch": 2,
         "join_columns": [
           {
-            "name": "card_id",
+            "name": "scenario_id",
             "referenced_column_name": "id",
             "nullable": false,
             "unique": false,
@@ -73,8 +72,8 @@
     }
   ],
   "orm": {
-    "class": "App\\Entity\\CardMessage",
-    "table": "card_message",
+    "class": "App\\Entity\\ScenarioMessage",
+    "table": "scenario_message",
     "identifier": [
       "id"
     ],
@@ -92,11 +91,11 @@
       }
     },
     "associations": {
-      "card": {
+      "scenario": {
         "kind": "association",
         "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
+        "target_entity": "App\\Entity\\Scenario",
+        "target": "scenario",
         "mapped_by": null,
         "inversed_by": null,
         "is_owning_side": true,
@@ -105,7 +104,7 @@
         "fetch": 2,
         "join_columns": [
           {
-            "name": "card_id",
+            "name": "scenario_id",
             "referenced_column_name": "id",
             "nullable": false,
             "unique": false,

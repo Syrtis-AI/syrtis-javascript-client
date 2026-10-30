@@ -189,6 +189,40 @@
       }
     },
     {
+      "name": "versionMajor",
+      "type": "int",
+      "default": 0,
+      "orm": {
+        "kind": "field",
+        "column": "version_major",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      }
+    },
+    {
+      "name": "versionMinor",
+      "type": "int",
+      "default": 0,
+      "orm": {
+        "kind": "field",
+        "column": "version_minor",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      }
+    },
+    {
       "name": "id",
       "type": "Symfony\\Component\\Uid\\Uuid",
       "orm": {
@@ -203,18 +237,95 @@
       "default": null
     },
     {
-      "name": "cards",
+      "name": "lineage",
+      "type": "relation",
+      "target": "uuid",
+      "orm": {
+        "kind": "field",
+        "column": "lineage",
+        "type": "uuid",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "previousVersion",
+      "type": "self",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Scenario",
+        "target": "scenario",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "previous_version_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      }
+    },
+    {
+      "name": "datePublished",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "date_time_immutable",
+      "orm": {
+        "kind": "field",
+        "column": "date_published",
+        "type": "datetime_immutable",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "steps",
       "type": "Collection",
       "orm": {
         "kind": "association",
         "association_type": "one_to_many",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
+        "target_entity": "App\\Entity\\Step",
+        "target": "step",
         "mapped_by": "scenario",
         "inversed_by": null,
         "is_owning_side": false,
         "orphan_removal": false,
         "cascade": {},
+        "fetch": 2
+      }
+    },
+    {
+      "name": "scenarioMessages",
+      "type": "collection",
+      "description": "ScenarioMessage>",
+      "target": "scenario_message",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\ScenarioMessage",
+        "target": "scenario_message",
+        "mapped_by": "scenario",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove"
+        ],
         "fetch": 2
       }
     },
@@ -239,12 +350,12 @@
       "type": "relation",
       "nullable": true,
       "default": null,
-      "target": "card",
+      "target": "step",
       "orm": {
         "kind": "association",
         "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
+        "target_entity": "App\\Entity\\Step",
+        "target": "step",
         "mapped_by": null,
         "inversed_by": "defaultEntrypointForScenarios",
         "is_owning_side": true,
@@ -269,9 +380,42 @@
     "identifier": [
       "id"
     ],
-    "indexes": {},
+    "indexes": {
+      "scenario_lineage": {
+        "columns": [
+          "lineage"
+        ]
+      }
+    },
     "unique_constraints": {},
     "fields": {
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
+      "lineage": {
+        "kind": "field",
+        "column": "lineage",
+        "type": "uuid",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "datePublished": {
+        "kind": "field",
+        "column": "date_published",
+        "type": "datetime_immutable",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
       "dateCreated": {
         "kind": "field",
         "column": "date_created",
@@ -337,27 +481,77 @@
         "id": false,
         "generated": false
       },
-      "id": {
+      "versionMajor": {
         "kind": "field",
-        "column": "id",
-        "type": "uuid",
+        "column": "version_major",
+        "type": "integer",
         "nullable": false,
-        "unique": true,
-        "id": true,
-        "generated": false
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      },
+      "versionMinor": {
+        "kind": "field",
+        "column": "version_minor",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
       }
     },
     "associations": {
-      "cards": {
+      "previousVersion": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Scenario",
+        "target": "scenario",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "previous_version_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      },
+      "steps": {
         "kind": "association",
         "association_type": "one_to_many",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
+        "target_entity": "App\\Entity\\Step",
+        "target": "step",
         "mapped_by": "scenario",
         "inversed_by": null,
         "is_owning_side": false,
         "orphan_removal": false,
         "cascade": {},
+        "fetch": 2
+      },
+      "scenarioMessages": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\ScenarioMessage",
+        "target": "scenario_message",
+        "mapped_by": "scenario",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove"
+        ],
         "fetch": 2
       },
       "jobs": {
@@ -375,8 +569,8 @@
       "defaultEntrypoint": {
         "kind": "association",
         "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Card",
-        "target": "card",
+        "target_entity": "App\\Entity\\Step",
+        "target": "step",
         "mapped_by": null,
         "inversed_by": "defaultEntrypointForScenarios",
         "is_owning_side": true,

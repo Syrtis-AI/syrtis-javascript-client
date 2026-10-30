@@ -1,9 +1,10 @@
-import Card from '../../../Entity/Card.js';
+import Step from '../../../Entity/Step.js';
 
 export default {
   methods: {
     getEntityClass() {
-      return Card;
+      return Step;
     },
   },
 };
+

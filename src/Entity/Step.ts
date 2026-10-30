@@ -1,8 +1,8 @@
 import AbstractApiEntity from '@wexample/js-api-entity/Common/AbstractApiEntity';
-import schema from '../data/entity/card.json';
+import schema from '../data/entity/step.json';
 
-export default class Card extends AbstractApiEntity {
-  static readonly entityName = 'card';
+export default class Step extends AbstractApiEntity {
+  static readonly entityName = 'step';
 
   static retrieveEntitySchema() {
     return schema;

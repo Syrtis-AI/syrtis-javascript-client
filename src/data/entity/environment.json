@@ -55,6 +55,15 @@
     "indexes": {},
     "unique_constraints": {},
     "fields": {
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
       "name": {
         "kind": "field",
         "column": "name",
@@ -74,15 +83,6 @@
         "id": false,
         "generated": false,
         "length": 255
-      },
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "uuid",
-        "nullable": false,
-        "unique": true,
-        "id": true,
-        "generated": false
       }
     },
     "associations": {}

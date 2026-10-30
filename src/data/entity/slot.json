@@ -241,6 +241,15 @@
     "indexes": {},
     "unique_constraints": {},
     "fields": {
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
       "positionX": {
         "kind": "field",
         "column": "position_x",
@@ -288,15 +297,6 @@
         "id": false,
         "generated": false,
         "length": 255
-      },
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "uuid",
-        "nullable": false,
-        "unique": true,
-        "id": true,
-        "generated": false
       }
     },
     "associations": {

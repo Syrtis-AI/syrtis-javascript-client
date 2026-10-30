@@ -1,10 +1,10 @@
 <script>
 import AbstractEntitySingleMixin from "@wexample/js-api-entity/Vue/AbstractEntitySingleMixin";
-import CardMessageEntityManipulatorVueMixin from '../EntityManipulator/CardMessageEntityManipulatorVueMixin';
+import ScenarioMessageEntityManipulatorVueMixin from '../EntityManipulator/ScenarioMessageEntityManipulatorVueMixin';
 import Entity from '@wexample/symfony-design-system/components/_abstract/entity/entity.vue';
 
 export default {
   extends: Entity,
-  mixins: [AbstractEntitySingleMixin, CardMessageEntityManipulatorVueMixin],
+  mixins: [AbstractEntitySingleMixin, ScenarioMessageEntityManipulatorVueMixin],
 };
 </script>

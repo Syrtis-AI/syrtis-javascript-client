@@ -285,6 +285,24 @@
         "generated": false
       },
       "default": null
+    },
+    {
+      "name": "memberships",
+      "type": "collection",
+      "description": "ProjectMembership>",
+      "target": "project_membership",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\ProjectMembership",
+        "target": "project_membership",
+        "mapped_by": "user",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2
+      }
     }
   ],
   "orm": {
@@ -296,6 +314,15 @@
     "indexes": {},
     "unique_constraints": {},
     "fields": {
+      "id": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
       "secureId": {
         "kind": "field",
         "column": "secure_id",
@@ -466,17 +493,21 @@
         "id": false,
         "generated": false,
         "length": 12
-      },
-      "id": {
-        "kind": "field",
-        "column": "id",
-        "type": "uuid",
-        "nullable": false,
-        "unique": true,
-        "id": true,
-        "generated": false
       }
     },
-    "associations": {}
+    "associations": {
+      "memberships": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\ProjectMembership",
+        "target": "project_membership",
+        "mapped_by": "user",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2
+      }
+    }
   }
 }
