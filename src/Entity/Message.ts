@@ -23,7 +23,6 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_ANALYSIS = 'core/analysis';
   static readonly CONTENT_TYPE_CONVERSATION = 'core/conversation';
   static readonly CONTENT_TYPE_DEBUG = 'core/debug';
-  static readonly CONTENT_TYPE_DEFAULT = 'core/default';
   static readonly CONTENT_TYPE_DOWNLOAD = 'core/download';
   static readonly CONTENT_TYPE_ERROR = 'core/error';
   static readonly CONTENT_TYPE_FORM = 'core/form';
@@ -35,7 +34,6 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_NAVIGATED = 'core/navigated';
   static readonly CONTENT_TYPE_PROGRESS = 'core/progress';
   static readonly CONTENT_TYPE_REFERENCE = 'core/reference';
-  static readonly CONTENT_TYPE_SESSION = 'core/session';
   static readonly CONTENT_TYPE_SESSION_EXPIRE = 'core/session_expire';
   static readonly CONTENT_TYPE_SESSION_STATUS = 'core/session_status';
   static readonly CONTENT_TYPE_SUCCESS = 'core/success';
@@ -45,6 +43,12 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_URL = 'core/url';
   static readonly CONTENT_TYPE_VIDEO = 'core/video';
   static readonly CONTENT_TYPE_WARNING = 'core/warning';
+  // The types of a message's shape alone, one by format.
+  static readonly CONTENT_TYPE_TEXT = 'core/text';
+  static readonly CONTENT_TYPE_MARKDOWN = 'core/markdown';
+  static readonly CONTENT_TYPE_HTML = 'core/html';
+  static readonly CONTENT_TYPE_YAML = 'core/yaml';
+  static readonly CONTENT_TYPE_JSON = 'core/json';
 
   static readonly FORMAT_BOOLEAN = 'boolean';
   static readonly FORMAT_FLOAT = 'float';
