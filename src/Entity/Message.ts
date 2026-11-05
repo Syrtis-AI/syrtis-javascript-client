@@ -8,7 +8,6 @@ export default class Message extends AbstractApiEntity {
   declare readonly content?: string | null;
   declare readonly contentType?: string | null;
   declare readonly dateCreated?: Date | null;
-  declare readonly format?: string | null;
   declare readonly name?: string | null;
   declare readonly origin?: string | null;
   declare readonly versionMajor?: number | null;
@@ -43,22 +42,13 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_URL = 'core/url';
   static readonly CONTENT_TYPE_VIDEO = 'core/video';
   static readonly CONTENT_TYPE_WARNING = 'core/warning';
-  // The types of a message's shape alone, one by format.
+  // The types of a message's shape alone: a text, a value as JSON.
   static readonly CONTENT_TYPE_TEXT = 'core/text';
   static readonly CONTENT_TYPE_MARKDOWN = 'core/markdown';
   static readonly CONTENT_TYPE_HTML = 'core/html';
   static readonly CONTENT_TYPE_YAML = 'core/yaml';
   static readonly CONTENT_TYPE_JSON = 'core/json';
 
-  static readonly FORMAT_BOOLEAN = 'boolean';
-  static readonly FORMAT_FLOAT = 'float';
-  static readonly FORMAT_HTML = 'html';
-  static readonly FORMAT_INTEGER = 'integer';
-  static readonly FORMAT_JSON = 'json';
-  static readonly FORMAT_MARKDOWN = 'markdown';
-  static readonly FORMAT_NULL = 'null';
-  static readonly FORMAT_TEXT = 'text';
-  static readonly FORMAT_YAML = 'yaml';
 
   static retrieveEntitySchema() {
     return schema;
@@ -79,31 +69,24 @@ export default class Message extends AbstractApiEntity {
     return message.contentType === Message.CONTENT_TYPE_CONVERSATION;
   }
 
-  // For JSON messages, the server already parses the content into
-  // metadata.formattedContent; fall back to parsing the raw content.
-  // Note: schema fields are read through getDataValue() because the
-  // entity Proxy binds methods to the raw target, where `this.format`
-  // and friends are not resolved.
+  // The content as its type reads it: the server read it already
+  // (`formattedContent`, a value for a type holding one); without it, the
+  // content as written. Note: schema fields are read through getDataValue()
+  // because the entity Proxy binds methods to the raw target.
   getParsedContent(): unknown {
-    const format = this.getDataValue('format');
-    const content = this.getDataValue('content');
-
-    if (format !== Message.FORMAT_JSON) {
-      return content;
+    const formatted = this.getDataValue('formattedContent');
+    if (formatted !== undefined) {
+      return formatted;
     }
 
     const metadata = this.metadata;
     if (metadata && !Array.isArray(metadata)) {
-      const formatted = (metadata as Record<string, unknown>).formattedContent;
-      if (formatted !== undefined && formatted !== null) {
-        return formatted;
+      const inMetadata = (metadata as Record<string, unknown>).formattedContent;
+      if (inMetadata !== undefined && inMetadata !== null) {
+        return inMetadata;
       }
     }
 
-    if (typeof content === 'string' && content.trim() !== '') {
-      return JSON.parse(content);
-    }
-
-    return null;
+    return this.getDataValue('content');
   }
 }
