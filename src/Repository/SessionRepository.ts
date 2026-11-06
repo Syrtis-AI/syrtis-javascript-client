@@ -178,7 +178,7 @@ export default class SessionRepository extends AbstractApiRepository<Session> {
   protected buildMessagePayload(message: SessionMessagePayload) {
     return {
       content: message.content,
-      contentType: message.contentType ?? Message.CONTENT_TYPE_CONVERSATION,
+      contentType: message.contentType ?? Message.CONTENT_TYPE_CONVERSATION_MESSAGE,
       stamps: message.stamps ?? [],
       metadata: message.metadata ?? null,
       name: message.name ?? null,

@@ -18,9 +18,9 @@ export default class Message extends AbstractApiEntity {
   static readonly ORIGIN_NODE = 'node';
   static readonly ORIGIN_USER = 'user';
 
-  static readonly CONTENT_TYPE_ACTIONS = 'core/actions';
+  static readonly CONTENT_TYPE_ACTIONS = 'conversation/actions';
   static readonly CONTENT_TYPE_ANALYSIS = 'core/analysis';
-  static readonly CONTENT_TYPE_CONVERSATION = 'core/conversation';
+  static readonly CONTENT_TYPE_CONVERSATION_MESSAGE = 'conversation/message';
   static readonly CONTENT_TYPE_DEBUG = 'core/debug';
   static readonly CONTENT_TYPE_DOWNLOAD = 'core/download';
   static readonly CONTENT_TYPE_ERROR = 'core/error';
@@ -36,18 +36,18 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_SESSION_EXPIRE = 'core/session_expire';
   static readonly CONTENT_TYPE_SESSION_STATUS = 'core/session_status';
   static readonly CONTENT_TYPE_SUCCESS = 'web/success';
-  static readonly CONTENT_TYPE_THOUGHT = 'core/thought';
+  static readonly CONTENT_TYPE_THOUGHT = 'conversation/thought';
   static readonly CONTENT_TYPE_TOOL_CALL = 'core/tool_call';
   static readonly CONTENT_TYPE_UPLOAD = 'core/upload';
   static readonly CONTENT_TYPE_URL = 'core/url';
   static readonly CONTENT_TYPE_VIDEO = 'core/video';
   static readonly CONTENT_TYPE_WARNING = 'core/warning';
   // The types of a message's shape alone: a text, a value as JSON.
-  static readonly CONTENT_TYPE_TEXT = 'core/text';
-  static readonly CONTENT_TYPE_MARKDOWN = 'core/markdown';
-  static readonly CONTENT_TYPE_HTML = 'core/html';
-  static readonly CONTENT_TYPE_YAML = 'core/yaml';
-  static readonly CONTENT_TYPE_JSON = 'core/json';
+  static readonly CONTENT_TYPE_TEXT = 'content/text';
+  static readonly CONTENT_TYPE_MARKDOWN = 'content/markdown';
+  static readonly CONTENT_TYPE_HTML = 'content/html';
+  static readonly CONTENT_TYPE_YAML = 'content/yaml';
+  static readonly CONTENT_TYPE_JSON = 'content/json';
 
 
   static retrieveEntitySchema() {
@@ -59,14 +59,14 @@ export default class Message extends AbstractApiEntity {
   static isReply(message: Message): boolean {
     return (
       message.origin === Message.ORIGIN_NODE &&
-      message.contentType === Message.CONTENT_TYPE_CONVERSATION
+      message.contentType === Message.CONTENT_TYPE_CONVERSATION_MESSAGE
     );
   }
 
   // A conversational message from any origin (user input included) —
   // what a chat history typically displays.
   static isConversation(message: Message): boolean {
-    return message.contentType === Message.CONTENT_TYPE_CONVERSATION;
+    return message.contentType === Message.CONTENT_TYPE_CONVERSATION_MESSAGE;
   }
 
   // The content as its type reads it: the server read it already
