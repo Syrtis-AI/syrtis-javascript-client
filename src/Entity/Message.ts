@@ -19,7 +19,6 @@ export default class Message extends AbstractApiEntity {
   static readonly ORIGIN_USER = 'user';
 
   static readonly CONTENT_TYPE_ACTIONS = 'conversation/actions';
-  static readonly CONTENT_TYPE_ANALYSIS = 'core/analysis';
   static readonly CONTENT_TYPE_CONVERSATION_MESSAGE = 'conversation/message';
   static readonly CONTENT_TYPE_DEBUG = 'core/debug';
   static readonly CONTENT_TYPE_DOWNLOAD = 'core/download';
@@ -48,6 +47,7 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_HTML = 'content/html';
   static readonly CONTENT_TYPE_YAML = 'content/yaml';
   static readonly CONTENT_TYPE_JSON = 'content/json';
+  static readonly CONTENT_TYPE_OBJECT = 'content/object';
 
 
   static retrieveEntitySchema() {
