@@ -29,7 +29,7 @@
         "unique": false,
         "id": false,
         "generated": false,
-        "length": 30
+        "length": 100
       }
     },
     {
@@ -45,22 +45,6 @@
         "unique": false,
         "id": false,
         "generated": false
-      }
-    },
-    {
-      "name": "format",
-      "type": "string",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "format",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 120
       }
     },
     {
@@ -384,16 +368,6 @@
         "id": false,
         "generated": false
       },
-      "contentType": {
-        "kind": "field",
-        "column": "content_type",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 30
-      },
       "dateCreated": {
         "kind": "field",
         "column": "date_created",
@@ -402,16 +376,6 @@
         "unique": false,
         "id": false,
         "generated": false
-      },
-      "format": {
-        "kind": "field",
-        "column": "format",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 120
       },
       "origin": {
         "kind": "field",
@@ -475,6 +439,16 @@
         "id": false,
         "generated": false,
         "length": 255
+      },
+      "contentType": {
+        "kind": "field",
+        "column": "content_type",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 100
       }
     },
     "associations": {

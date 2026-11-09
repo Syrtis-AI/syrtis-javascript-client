@@ -122,22 +122,6 @@
       }
     },
     {
-      "name": "format",
-      "type": "string",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "format",
-        "type": "string",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 120
-      }
-    },
-    {
       "name": "contentType",
       "type": "string",
       "nullable": true,
@@ -150,7 +134,7 @@
         "unique": false,
         "id": false,
         "generated": false,
-        "length": 30
+        "length": 100
       }
     },
     {
@@ -435,17 +419,7 @@
         "unique": false,
         "id": false,
         "generated": false,
-        "length": 30
-      },
-      "format": {
-        "kind": "field",
-        "column": "format",
-        "type": "string",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 120
+        "length": 100
       }
     },
     "associations": {

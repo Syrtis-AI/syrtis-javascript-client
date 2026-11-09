@@ -259,7 +259,7 @@
             "referenced_column_name": "id",
             "nullable": true,
             "unique": false,
-            "on_delete": null
+            "on_delete": "SET NULL"
           }
         ]
       }
@@ -432,7 +432,7 @@
             "referenced_column_name": "id",
             "nullable": true,
             "unique": false,
-            "on_delete": null
+            "on_delete": "SET NULL"
           }
         ]
       },

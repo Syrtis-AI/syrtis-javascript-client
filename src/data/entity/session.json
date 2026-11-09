@@ -32,6 +32,22 @@
       }
     },
     {
+      "name": "origin",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "origin",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 30
+      }
+    },
+    {
       "name": "secureId",
       "type": "string",
       "orm": {
@@ -124,7 +140,7 @@
         "kind": "field",
         "column": "title",
         "type": "string",
-        "nullable": false,
+        "nullable": true,
         "unique": false,
         "id": false,
         "generated": false,
@@ -202,6 +218,110 @@
           }
         ]
       }
+    },
+    {
+      "name": "token",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "token",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Token",
+        "target": "token",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "token_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ip",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "ip",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 45
+      }
+    },
+    {
+      "name": "userAgent",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "user_agent",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 512
+      }
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "locale",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 35
+      }
+    },
+    {
+      "name": "country",
+      "type": "relation",
+      "nullable": true,
+      "default": null,
+      "target": "country",
+      "orm": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "Wexample\\SymfonyGeo\\Entity\\Country",
+        "target": "country",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "country_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      }
     }
   ],
   "orm": {
@@ -222,6 +342,36 @@
         "id": true,
         "generated": false
       },
+      "ip": {
+        "kind": "field",
+        "column": "ip",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 45
+      },
+      "userAgent": {
+        "kind": "field",
+        "column": "user_agent",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 512
+      },
+      "locale": {
+        "kind": "field",
+        "column": "locale",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 35
+      },
       "dateCreated": {
         "kind": "field",
         "column": "date_created",
@@ -230,6 +380,16 @@
         "unique": false,
         "id": false,
         "generated": false
+      },
+      "origin": {
+        "kind": "field",
+        "column": "origin",
+        "type": "string",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 30
       },
       "secureId": {
         "kind": "field",
@@ -251,16 +411,6 @@
         "generated": false,
         "length": 30
       },
-      "title": {
-        "kind": "field",
-        "column": "title",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      },
       "dateLastAccess": {
         "kind": "field",
         "column": "date_last_access",
@@ -269,6 +419,16 @@
         "unique": false,
         "id": false,
         "generated": false
+      },
+      "title": {
+        "kind": "field",
+        "column": "title",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 255
       }
     },
     "associations": {
@@ -314,6 +474,48 @@
             "nullable": false,
             "unique": false,
             "on_delete": "SET DEFAULT"
+          }
+        ]
+      },
+      "token": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Token",
+        "target": "token",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "token_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
+          }
+        ]
+      },
+      "country": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "Wexample\\SymfonyGeo\\Entity\\Country",
+        "target": "country",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "country_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
           }
         ]
       },

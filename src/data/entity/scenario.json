@@ -87,34 +87,6 @@
       }
     },
     {
-      "name": "environment",
-      "type": "relation",
-      "nullable": true,
-      "default": null,
-      "target": "environment",
-      "orm": {
-        "kind": "association",
-        "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Environment",
-        "target": "environment",
-        "mapped_by": null,
-        "inversed_by": null,
-        "is_owning_side": true,
-        "orphan_removal": false,
-        "cascade": {},
-        "fetch": 2,
-        "join_columns": [
-          {
-            "name": "environment_id",
-            "referenced_column_name": "id",
-            "nullable": false,
-            "unique": false,
-            "on_delete": null
-          }
-        ]
-      }
-    },
-    {
       "name": "description",
       "type": "string",
       "nullable": true,
@@ -294,6 +266,23 @@
       }
     },
     {
+      "name": "archived",
+      "type": "bool",
+      "default": false,
+      "orm": {
+        "kind": "field",
+        "column": "archived",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": false
+        }
+      }
+    },
+    {
       "name": "steps",
       "type": "Collection",
       "orm": {
@@ -415,6 +404,18 @@
         "unique": false,
         "id": false,
         "generated": false
+      },
+      "archived": {
+        "kind": "field",
+        "column": "archived",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": false
+        }
       },
       "dateCreated": {
         "kind": "field",
@@ -601,27 +602,6 @@
         "join_columns": [
           {
             "name": "project_id",
-            "referenced_column_name": "id",
-            "nullable": false,
-            "unique": false,
-            "on_delete": null
-          }
-        ]
-      },
-      "environment": {
-        "kind": "association",
-        "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Environment",
-        "target": "environment",
-        "mapped_by": null,
-        "inversed_by": null,
-        "is_owning_side": true,
-        "orphan_removal": false,
-        "cascade": {},
-        "fetch": 2,
-        "join_columns": [
-          {
-            "name": "environment_id",
             "referenced_column_name": "id",
             "nullable": false,
             "unique": false,

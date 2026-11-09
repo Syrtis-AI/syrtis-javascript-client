@@ -34,6 +34,21 @@
       }
     },
     {
+      "name": "description",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "description",
+        "type": "text",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
       "name": "secureId",
       "type": "string",
       "orm": {
@@ -148,6 +163,22 @@
       }
     },
     {
+      "name": "color",
+      "type": "string",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "color",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 7
+      }
+    },
+    {
       "name": "slotRelationsSources",
       "type": "collection",
       "description": "SlotRelation>",
@@ -230,6 +261,69 @@
         ],
         "fetch": 2
       }
+    },
+    {
+      "name": "slotMarkings",
+      "type": "collection",
+      "description": "SlotMarking>",
+      "target": "slot_marking",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotMarking",
+        "target": "slot_marking",
+        "mapped_by": "slot",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      }
+    },
+    {
+      "name": "slotInputs",
+      "type": "collection",
+      "description": "SlotInput>",
+      "target": "slot_input",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotInput",
+        "target": "slot_input",
+        "mapped_by": "slot",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      }
+    },
+    {
+      "name": "slotOutputMessages",
+      "type": "collection",
+      "description": "SlotOutputMessage>",
+      "target": "slot_output_message",
+      "orm": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotOutputMessage",
+        "target": "slot_output_message",
+        "mapped_by": "slot",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      }
     }
   ],
   "orm": {
@@ -268,6 +362,16 @@
         "id": false,
         "generated": false
       },
+      "color": {
+        "kind": "field",
+        "column": "color",
+        "type": "string",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "length": 7
+      },
       "type": {
         "kind": "field",
         "column": "type",
@@ -287,6 +391,15 @@
         "id": false,
         "generated": false,
         "length": 255
+      },
+      "description": {
+        "kind": "field",
+        "column": "description",
+        "type": "text",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
       },
       "secureId": {
         "kind": "field",
@@ -392,6 +505,51 @@
         "association_type": "one_to_many",
         "target_entity": "App\\Entity\\SlotMessage",
         "target": "slot_message",
+        "mapped_by": "slot",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      },
+      "slotMarkings": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotMarking",
+        "target": "slot_marking",
+        "mapped_by": "slot",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      },
+      "slotInputs": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotInput",
+        "target": "slot_input",
+        "mapped_by": "slot",
+        "inversed_by": null,
+        "is_owning_side": false,
+        "orphan_removal": true,
+        "cascade": [
+          "remove",
+          "persist"
+        ],
+        "fetch": 2
+      },
+      "slotOutputMessages": {
+        "kind": "association",
+        "association_type": "one_to_many",
+        "target_entity": "App\\Entity\\SlotOutputMessage",
+        "target": "slot_output_message",
         "mapped_by": "slot",
         "inversed_by": null,
         "is_owning_side": false,
