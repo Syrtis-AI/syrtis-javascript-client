@@ -49,7 +49,6 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_JSON = 'content/json';
   static readonly CONTENT_TYPE_OBJECT = 'content/object';
 
-
   static retrieveEntitySchema() {
     return schema;
   }

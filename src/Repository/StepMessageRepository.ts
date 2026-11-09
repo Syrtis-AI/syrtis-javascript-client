@@ -6,4 +6,3 @@ export default class StepMessageRepository extends AbstractApiRepository<StepMes
     return StepMessage;
   }
 }
-

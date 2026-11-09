@@ -6,4 +6,3 @@ export default class StepRepository extends AbstractApiRepository<Step> {
     return Step;
   }
 }
-

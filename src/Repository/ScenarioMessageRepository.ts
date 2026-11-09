@@ -6,4 +6,3 @@ export default class ScenarioMessageRepository extends AbstractApiRepository<Sce
     return ScenarioMessage;
   }
 }
-
