@@ -281,8 +281,14 @@ export default class MessageCollection {
     return typeof value === 'number' ? value : null;
   }
 
+  // What a message is known by: its uuid, the one id the api gives since
+  // secure ids left it; a legacy payload's `secureId` otherwise.
   private static getSecureId(message: Message): string | null {
-    const value = MessageCollection.getRecord(message)?.secureId;
+    const record = MessageCollection.getRecord(message);
+    return MessageCollection.readString(record?.id) ?? MessageCollection.readString(record?.secureId);
+  }
+
+  private static readString(value: unknown): string | null {
     return typeof value === 'string' && value.length > 0 ? value : null;
   }
 
@@ -292,26 +298,29 @@ export default class MessageCollection {
       return null;
     }
 
-    const directValue = messageRecord.requestSecureId;
-    if (typeof directValue === 'string' && directValue.length > 0) {
-      return directValue;
-    }
+    // The request's uuid, however the payload carries it: the 2025 fields, the
+    // 2026 relation (an id, or a record of one).
+    const requestRelation = messageRecord.request;
+    const relationRecord = MessageCollection.getRecord(requestRelation);
 
-    const requestRelation = MessageCollection.getRecord(messageRecord.request);
-    const relationSecureId = requestRelation?.secureId;
-    return typeof relationSecureId === 'string' && relationSecureId.length > 0
-      ? relationSecureId
-      : null;
+    return MessageCollection.readString(messageRecord.requestSecureId)
+      ?? MessageCollection.readString(messageRecord.requestId)
+      ?? MessageCollection.readString(requestRelation)
+      ?? MessageCollection.readString(relationRecord?.id)
+      ?? MessageCollection.readString(relationRecord?.secureId);
   }
 
   private static getPreviousRequestSecureId(message: Message): string | null {
-    const value = MessageCollection.getRecord(message)?._previousRequestSecureId;
-    return typeof value === 'string' && value.length > 0 ? value : null;
+    const record = MessageCollection.getRecord(message);
+    const metadata = MessageCollection.getRecord(record?.metadata);
+
+    return MessageCollection.readString(record?._previousRequestSecureId)
+      ?? MessageCollection.readString(metadata?.previousRequestSecureId);
   }
 
   private static getNextRequestSecureIds(message: Message): string[] {
     const record = MessageCollection.getRecord(message);
-    const rawValue = record?._nextRequests;
+    const rawValue = record?._nextRequests ?? MessageCollection.getRecord(record?.metadata)?.nextRequests;
     if (Array.isArray(rawValue)) {
       if (rawValue.every((item) => typeof item === 'string' && item.length > 0)) {
         return rawValue as string[];
