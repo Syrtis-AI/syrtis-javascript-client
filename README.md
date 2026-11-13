@@ -1,6 +1,6 @@
 # @syrtis-ai/syrtis-javascript-client
 
-Version: 10.0.0
+Version: 11.0.0
 
 ## Table of Contents
 
