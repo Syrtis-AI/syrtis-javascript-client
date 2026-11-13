@@ -285,7 +285,9 @@ export default class MessageCollection {
   // secure ids left it; a legacy payload's `secureId` otherwise.
   private static getSecureId(message: Message): string | null {
     const record = MessageCollection.getRecord(message);
-    return MessageCollection.readString(record?.id) ?? MessageCollection.readString(record?.secureId);
+    return (
+      MessageCollection.readString(record?.id) ?? MessageCollection.readString(record?.secureId)
+    );
   }
 
   private static readString(value: unknown): string | null {
@@ -303,24 +305,29 @@ export default class MessageCollection {
     const requestRelation = messageRecord.request;
     const relationRecord = MessageCollection.getRecord(requestRelation);
 
-    return MessageCollection.readString(messageRecord.requestSecureId)
-      ?? MessageCollection.readString(messageRecord.requestId)
-      ?? MessageCollection.readString(requestRelation)
-      ?? MessageCollection.readString(relationRecord?.id)
-      ?? MessageCollection.readString(relationRecord?.secureId);
+    return (
+      MessageCollection.readString(messageRecord.requestSecureId) ??
+      MessageCollection.readString(messageRecord.requestId) ??
+      MessageCollection.readString(requestRelation) ??
+      MessageCollection.readString(relationRecord?.id) ??
+      MessageCollection.readString(relationRecord?.secureId)
+    );
   }
 
   private static getPreviousRequestSecureId(message: Message): string | null {
     const record = MessageCollection.getRecord(message);
     const metadata = MessageCollection.getRecord(record?.metadata);
 
-    return MessageCollection.readString(record?._previousRequestSecureId)
-      ?? MessageCollection.readString(metadata?.previousRequestSecureId);
+    return (
+      MessageCollection.readString(record?._previousRequestSecureId) ??
+      MessageCollection.readString(metadata?.previousRequestSecureId)
+    );
   }
 
   private static getNextRequestSecureIds(message: Message): string[] {
     const record = MessageCollection.getRecord(message);
-    const rawValue = record?._nextRequests ?? MessageCollection.getRecord(record?.metadata)?.nextRequests;
+    const rawValue =
+      record?._nextRequests ?? MessageCollection.getRecord(record?.metadata)?.nextRequests;
     if (Array.isArray(rawValue)) {
       if (rawValue.every((item) => typeof item === 'string' && item.length > 0)) {
         return rawValue as string[];
