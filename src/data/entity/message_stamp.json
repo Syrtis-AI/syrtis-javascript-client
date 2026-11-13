@@ -18,20 +18,6 @@
       }
     },
     {
-      "name": "secureId",
-      "type": "string",
-      "orm": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      }
-    },
-    {
       "name": "id",
       "type": "Symfony\\Component\\Uid\\Uuid",
       "orm": {
@@ -95,16 +81,6 @@
       "name": {
         "kind": "field",
         "column": "name",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      },
-      "secureId": {
-        "kind": "field",
-        "column": "secure_id",
         "type": "string",
         "nullable": false,
         "unique": false,

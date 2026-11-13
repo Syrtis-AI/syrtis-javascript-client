@@ -102,20 +102,6 @@
       }
     },
     {
-      "name": "secureId",
-      "type": "string",
-      "orm": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      }
-    },
-    {
       "name": "positionX",
       "type": "int",
       "nullable": true,
@@ -161,57 +147,8 @@
       }
     },
     {
-      "name": "versionMajor",
-      "type": "int",
-      "default": 0,
-      "orm": {
-        "kind": "field",
-        "column": "version_major",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "options": {
-          "default": 0
-        }
-      }
-    },
-    {
-      "name": "versionMinor",
-      "type": "int",
-      "default": 0,
-      "orm": {
-        "kind": "field",
-        "column": "version_minor",
-        "type": "integer",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "options": {
-          "default": 0
-        }
-      }
-    },
-    {
-      "name": "id",
-      "type": "Symfony\\Component\\Uid\\Uuid",
-      "orm": {
-        "kind": "field",
-        "column": "id",
-        "type": "uuid",
-        "nullable": false,
-        "unique": true,
-        "id": true,
-        "generated": false
-      },
-      "default": null
-    },
-    {
       "name": "lineage",
-      "type": "relation",
-      "target": "uuid",
+      "type": "Symfony\\Component\\Uid\\Uuid",
       "orm": {
         "kind": "field",
         "column": "lineage",
@@ -220,7 +157,8 @@
         "unique": false,
         "id": false,
         "generated": false
-      }
+      },
+      "target": "uuid"
     },
     {
       "name": "previousVersion",
@@ -281,6 +219,54 @@
           "default": false
         }
       }
+    },
+    {
+      "name": "versionMajor",
+      "type": "int",
+      "default": 0,
+      "orm": {
+        "kind": "field",
+        "column": "version_major",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      }
+    },
+    {
+      "name": "versionMinor",
+      "type": "int",
+      "default": 0,
+      "orm": {
+        "kind": "field",
+        "column": "version_minor",
+        "type": "integer",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": 0
+        }
+      }
+    },
+    {
+      "name": "id",
+      "type": "Symfony\\Component\\Uid\\Uuid",
+      "orm": {
+        "kind": "field",
+        "column": "id",
+        "type": "uuid",
+        "nullable": false,
+        "unique": true,
+        "id": true,
+        "generated": false
+      },
+      "default": null
     },
     {
       "name": "steps",
@@ -361,6 +347,23 @@
           }
         ]
       }
+    },
+    {
+      "name": "evaluator",
+      "type": "bool",
+      "default": false,
+      "orm": {
+        "kind": "field",
+        "column": "evaluator",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": false
+        }
+      }
     }
   ],
   "orm": {
@@ -387,27 +390,9 @@
         "id": true,
         "generated": false
       },
-      "lineage": {
+      "evaluator": {
         "kind": "field",
-        "column": "lineage",
-        "type": "uuid",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false
-      },
-      "datePublished": {
-        "kind": "field",
-        "column": "date_published",
-        "type": "datetime_immutable",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false
-      },
-      "archived": {
-        "kind": "field",
-        "column": "archived",
+        "column": "evaluator",
         "type": "boolean",
         "nullable": false,
         "unique": false,
@@ -445,16 +430,6 @@
         "id": false,
         "generated": false
       },
-      "secureId": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      },
       "positionX": {
         "kind": "field",
         "column": "position_x",
@@ -482,6 +457,36 @@
         "id": false,
         "generated": false
       },
+      "lineage": {
+        "kind": "field",
+        "column": "lineage",
+        "type": "uuid",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "datePublished": {
+        "kind": "field",
+        "column": "date_published",
+        "type": "datetime_immutable",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "archived": {
+        "kind": "field",
+        "column": "archived",
+        "type": "boolean",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false,
+        "options": {
+          "default": false
+        }
+      },
       "versionMajor": {
         "kind": "field",
         "column": "version_major",
@@ -508,27 +513,6 @@
       }
     },
     "associations": {
-      "previousVersion": {
-        "kind": "association",
-        "association_type": "many_to_one",
-        "target_entity": "App\\Entity\\Scenario",
-        "target": "scenario",
-        "mapped_by": null,
-        "inversed_by": null,
-        "is_owning_side": true,
-        "orphan_removal": false,
-        "cascade": {},
-        "fetch": 2,
-        "join_columns": [
-          {
-            "name": "previous_version_id",
-            "referenced_column_name": "id",
-            "nullable": true,
-            "unique": false,
-            "on_delete": "SET NULL"
-          }
-        ]
-      },
       "steps": {
         "kind": "association",
         "association_type": "one_to_many",
@@ -606,6 +590,27 @@
             "nullable": false,
             "unique": false,
             "on_delete": null
+          }
+        ]
+      },
+      "previousVersion": {
+        "kind": "association",
+        "association_type": "many_to_one",
+        "target_entity": "App\\Entity\\Scenario",
+        "target": "scenario",
+        "mapped_by": null,
+        "inversed_by": null,
+        "is_owning_side": true,
+        "orphan_removal": false,
+        "cascade": {},
+        "fetch": 2,
+        "join_columns": [
+          {
+            "name": "previous_version_id",
+            "referenced_column_name": "id",
+            "nullable": true,
+            "unique": false,
+            "on_delete": "SET NULL"
           }
         ]
       },

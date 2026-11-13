@@ -34,20 +34,6 @@
       }
     },
     {
-      "name": "secureId",
-      "type": "string",
-      "orm": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      }
-    },
-    {
       "name": "user",
       "type": "Wexample\\SymfonyHelpers\\Entity\\Interfaces\\UserEntityInterface",
       "nullable": true,
@@ -218,16 +204,6 @@
         "unique": false,
         "id": false,
         "generated": false
-      },
-      "secureId": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
       }
     },
     "associations": {

@@ -48,20 +48,6 @@
       }
     },
     {
-      "name": "secureId",
-      "type": "string",
-      "orm": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      }
-    },
-    {
       "name": "status",
       "type": "string",
       "orm": {
@@ -390,16 +376,6 @@
         "id": false,
         "generated": false,
         "length": 30
-      },
-      "secureId": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
       },
       "status": {
         "kind": "field",

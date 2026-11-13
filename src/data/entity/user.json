@@ -2,20 +2,6 @@
   "name": "user",
   "properties": [
     {
-      "name": "secureId",
-      "type": "string",
-      "orm": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
-      }
-    },
-    {
       "name": "firstName",
       "type": "string",
       "nullable": true,
@@ -322,16 +308,6 @@
         "unique": true,
         "id": true,
         "generated": false
-      },
-      "secureId": {
-        "kind": "field",
-        "column": "secure_id",
-        "type": "string",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false,
-        "length": 255
       },
       "firstName": {
         "kind": "field",
