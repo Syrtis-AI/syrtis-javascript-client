@@ -19,10 +19,12 @@ export default class Message extends AbstractApiEntity {
   static readonly ORIGIN_USER = 'user';
 
   static readonly CONTENT_TYPE_ACTIONS = 'conversation/actions';
+  static readonly CONTENT_TYPE_ARTIFACT = 'core/artifact';
   static readonly CONTENT_TYPE_CONVERSATION_MESSAGE = 'conversation/message';
   static readonly CONTENT_TYPE_DEBUG = 'core/debug';
   static readonly CONTENT_TYPE_DOWNLOAD = 'core/download';
   static readonly CONTENT_TYPE_ERROR = 'core/error';
+  static readonly CONTENT_TYPE_FILE = 'core/file';
   static readonly CONTENT_TYPE_FORM = 'core/form';
   static readonly CONTENT_TYPE_HTTP_RESPONSE = 'core/http_response';
   static readonly CONTENT_TYPE_IMAGE = 'core/image';
@@ -37,7 +39,6 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_SUCCESS = 'web/success';
   static readonly CONTENT_TYPE_THOUGHT = 'conversation/thought';
   static readonly CONTENT_TYPE_TOOL_CALL = 'core/tool_call';
-  static readonly CONTENT_TYPE_UPLOAD = 'core/upload';
   static readonly CONTENT_TYPE_URL = 'core/url';
   static readonly CONTENT_TYPE_VIDEO = 'core/video';
   static readonly CONTENT_TYPE_WARNING = 'core/warning';
