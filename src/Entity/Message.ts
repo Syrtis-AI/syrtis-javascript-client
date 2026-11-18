@@ -22,14 +22,14 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_ARTIFACT = 'core/artifact';
   static readonly CONTENT_TYPE_CONVERSATION_MESSAGE = 'conversation/message';
   static readonly CONTENT_TYPE_DEBUG = 'core/debug';
-  static readonly CONTENT_TYPE_DOWNLOAD = 'core/download';
+  static readonly CONTENT_TYPE_DOWNLOAD = 'web/link';
   static readonly CONTENT_TYPE_ERROR = 'process/error';
   static readonly CONTENT_TYPE_FILE = 'content/file';
-  static readonly CONTENT_TYPE_FORM = 'core/form';
+  static readonly CONTENT_TYPE_FORM = 'web/form';
   static readonly CONTENT_TYPE_HTTP_RESPONSE = 'http/response';
-  static readonly CONTENT_TYPE_IMAGE = 'core/image';
+  static readonly CONTENT_TYPE_IMAGE = 'web/image';
   static readonly CONTENT_TYPE_INFO = 'web/info';
-  static readonly CONTENT_TYPE_LIST = 'core/list';
+  static readonly CONTENT_TYPE_LIST = 'web/item_list';
   static readonly CONTENT_TYPE_NAVIGATE = 'core/navigate';
   static readonly CONTENT_TYPE_NAVIGATED = 'core/navigated';
   static readonly CONTENT_TYPE_PROGRESS = 'web/progress';
@@ -39,8 +39,8 @@ export default class Message extends AbstractApiEntity {
   static readonly CONTENT_TYPE_SUCCESS = 'web/success';
   static readonly CONTENT_TYPE_THOUGHT = 'conversation/thought';
   static readonly CONTENT_TYPE_TOOL_CALL = 'ai/tool_call';
-  static readonly CONTENT_TYPE_URL = 'core/url';
-  static readonly CONTENT_TYPE_VIDEO = 'core/video';
+  static readonly CONTENT_TYPE_URL = 'web/link';
+  static readonly CONTENT_TYPE_VIDEO = 'web/video';
   static readonly CONTENT_TYPE_WARNING = 'process/warning';
   // The types of a message's shape alone: a text, a value as JSON.
   static readonly CONTENT_TYPE_TEXT = 'content/text';
