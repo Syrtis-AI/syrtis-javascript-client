@@ -308,6 +308,21 @@
           }
         ]
       }
+    },
+    {
+      "name": "testValues",
+      "type": "array",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "test_values",
+        "type": "json",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
     }
   ],
   "orm": {
@@ -357,6 +372,15 @@
         "id": false,
         "generated": false,
         "length": 35
+      },
+      "testValues": {
+        "kind": "field",
+        "column": "test_values",
+        "type": "json",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
       },
       "dateCreated": {
         "kind": "field",

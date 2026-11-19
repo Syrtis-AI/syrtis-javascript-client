@@ -102,6 +102,20 @@
       }
     },
     {
+      "name": "lineage",
+      "type": "relation",
+      "target": "uuid",
+      "orm": {
+        "kind": "field",
+        "column": "lineage",
+        "type": "uuid",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
       "name": "job",
       "type": "relation",
       "nullable": true,
@@ -174,7 +188,13 @@
     "identifier": [
       "id"
     ],
-    "indexes": {},
+    "indexes": {
+      "step_lineage": {
+        "columns": [
+          "lineage"
+        ]
+      }
+    },
     "unique_constraints": {},
     "fields": {
       "id": {
@@ -184,6 +204,15 @@
         "nullable": false,
         "unique": true,
         "id": true,
+        "generated": false
+      },
+      "lineage": {
+        "kind": "field",
+        "column": "lineage",
+        "type": "uuid",
+        "nullable": false,
+        "unique": false,
+        "id": false,
         "generated": false
       },
       "title": {
