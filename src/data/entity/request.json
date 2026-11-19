@@ -16,21 +16,6 @@
       }
     },
     {
-      "name": "dateCreated",
-      "type": "DateTimeInterface",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "date_created",
-        "type": "datetime",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false
-      }
-    },
-    {
       "name": "parent",
       "type": "self",
       "nullable": true,
@@ -90,21 +75,6 @@
       }
     },
     {
-      "name": "dateCompleted",
-      "type": "DateTimeInterface",
-      "nullable": true,
-      "default": null,
-      "orm": {
-        "kind": "field",
-        "column": "date_completed",
-        "type": "datetime",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false
-      }
-    },
-    {
       "name": "timezone",
       "type": "relation",
       "nullable": true,
@@ -145,6 +115,36 @@
         "generated": false
       },
       "default": null
+    },
+    {
+      "name": "dateCreated",
+      "type": "DateTimeInterface",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "date_created",
+        "type": "datetime_micro",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
+    },
+    {
+      "name": "dateCompleted",
+      "type": "DateTimeInterface",
+      "nullable": true,
+      "default": null,
+      "orm": {
+        "kind": "field",
+        "column": "date_completed",
+        "type": "datetime_micro",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      }
     },
     {
       "name": "messages",
@@ -257,6 +257,24 @@
         "id": true,
         "generated": false
       },
+      "dateCreated": {
+        "kind": "field",
+        "column": "date_created",
+        "type": "datetime_micro",
+        "nullable": false,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
+      "dateCompleted": {
+        "kind": "field",
+        "column": "date_completed",
+        "type": "datetime_micro",
+        "nullable": true,
+        "unique": false,
+        "id": false,
+        "generated": false
+      },
       "lastEvent": {
         "kind": "field",
         "column": "last_event",
@@ -277,15 +295,6 @@
         "generated": false,
         "length": 30
       },
-      "dateCreated": {
-        "kind": "field",
-        "column": "date_created",
-        "type": "datetime",
-        "nullable": false,
-        "unique": false,
-        "id": false,
-        "generated": false
-      },
       "type": {
         "kind": "field",
         "column": "type",
@@ -295,15 +304,6 @@
         "id": false,
         "generated": false,
         "length": 120
-      },
-      "dateCompleted": {
-        "kind": "field",
-        "column": "date_completed",
-        "type": "datetime",
-        "nullable": true,
-        "unique": false,
-        "id": false,
-        "generated": false
       }
     },
     "associations": {
